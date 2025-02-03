@@ -1,6 +1,7 @@
 module dam.parkingcontrol {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens dam.parkingcontrol to javafx.fxml;
