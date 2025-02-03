@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class parkingRegister {
 
-    // Basic variables to use vehicles into the parking
+    // Variables básicas para usar los el registro del parking
     private int record_id, vehicle_id;
     private LocalDate entry_time, exit_time;
 
-    // Empty and Filled constructor to create vehicle objects
+    // Constructor con Atributos y vacío de la clase parkingRegister.java
     public parkingRegister(int record_id, int vehicle_id, LocalDate entry_time, LocalDate exit_time) {
         this.record_id = record_id;
         this.vehicle_id = vehicle_id;

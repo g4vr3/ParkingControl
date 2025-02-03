@@ -4,20 +4,20 @@ import java.time.LocalDate;
 
 public class vehicle {
 
-    // Basic variables to use vehicles into the parking
+    // Variables básicas para usar los coches en el parking
     private int vehicle_id;
-    private String license_Plate, model, brand, colour;
-    private Boolean isParked;
+    private String license_plate, model, brand, colour;
+    private Boolean is_parked;
     private LocalDate registration_date;
 
-    // Empty and Filled constructor to create vehicle objects
-    public vehicle(int vehicle_id, String license_Plate, String model, String brand, String colour, Boolean isParked, LocalDate register_date) {
+    // Constructor con Atributos y vacío de la clase vehicle.java
+    public vehicle(int vehicle_id, String license_plate, String model, String brand, String colour, Boolean is_parked, LocalDate register_date) {
         this.vehicle_id = vehicle_id;
-        this.license_Plate = license_Plate;
+        this.license_plate = license_plate;
         this.model = model;
         this.brand = brand;
         this.colour = colour;
-        this.isParked = isParked;
+        this.is_parked = is_parked;
         this.registration_date = register_date;
     }
     public vehicle() {}
@@ -26,15 +26,15 @@ public class vehicle {
     public int getId_vehicle() {
         return vehicle_id;
     }
-    public void setId_vehicle(int id_vehicle) {
-        this.vehicle_id = id_vehicle;
+    public void setId_vehicle(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
     }
 
     public String getLicensePlate() {
-        return license_Plate;
+        return license_plate;
     }
-    public void setLicensePlate(String license_Plate) {
-        this.license_Plate = license_Plate;
+    public void setLicensePlate(String license_plate) {
+        this.license_plate = license_plate;
     }
 
     public String getModel() {
@@ -59,10 +59,10 @@ public class vehicle {
     }
 
     public Boolean getStatus() {
-        return isParked;
+        return is_parked;
     }
-    public void setStatus(Boolean status) {
-        this.isParked = status;
+    public void setStatus(Boolean is_parked) {
+        this.is_parked = is_parked;
     }
 
     public LocalDate getRegistration_date() {
