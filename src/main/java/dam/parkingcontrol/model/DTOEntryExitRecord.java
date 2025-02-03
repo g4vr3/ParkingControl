@@ -2,21 +2,21 @@ package dam.parkingcontrol.model;
 
 import java.time.LocalDate;
 
-public class parkingRegister {
+public class DTOEntryExitRecord {
 
     // Variables básicas para usar los el registro del parking
     private int record_id, vehicle_id;
     private LocalDate entry_time, exit_time;
 
-    // Constructor con Atributos y vacío de la clase parkingRegister.java
-    public parkingRegister(int record_id, int vehicle_id, LocalDate entry_time, LocalDate exit_time) {
+    // Constructor con Atributos y vacío de la clase EntryExitRecord.java
+    public DTOEntryExitRecord(int record_id, int vehicle_id, LocalDate entry_time, LocalDate exit_time) {
         this.record_id = record_id;
         this.vehicle_id = vehicle_id;
         this.entry_time = entry_time;
         this.exit_time = exit_time;
     }
 
-    public parkingRegister() {
+    public DTOEntryExitRecord() {
     }
 
     //Getters & Setters

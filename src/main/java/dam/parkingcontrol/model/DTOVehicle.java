@@ -2,7 +2,7 @@ package dam.parkingcontrol.model;
 
 import java.time.LocalDate;
 
-public class vehicle {
+public class DTOVehicle {
 
     // Variables básicas para usar los coches en el parking
     private int vehicle_id;
@@ -11,7 +11,7 @@ public class vehicle {
     private LocalDate registration_date;
 
     // Constructor con Atributos y vacío de la clase vehicle.java
-    public vehicle(int vehicle_id, String license_plate, String model, String brand, String colour, Boolean is_parked, LocalDate register_date) {
+    public DTOVehicle(int vehicle_id, String license_plate, String model, String brand, String colour, Boolean is_parked, LocalDate register_date) {
         this.vehicle_id = vehicle_id;
         this.license_plate = license_plate;
         this.model = model;
@@ -20,7 +20,7 @@ public class vehicle {
         this.is_parked = is_parked;
         this.registration_date = register_date;
     }
-    public vehicle() {}
+    public DTOVehicle() {}
 
     // Getters & Setters
     public int getId_vehicle() {
