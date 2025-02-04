@@ -20,9 +20,8 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
-
         // Inicializar la base de datos
         DatabaseInitializer.createTables();
+        launch(args);
     }
 }
