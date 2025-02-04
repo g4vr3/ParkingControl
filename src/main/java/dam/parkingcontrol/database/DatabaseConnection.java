@@ -37,6 +37,9 @@ public class DatabaseConnection {
         if (!dbDir.exists() && dbDir.mkdirs()) {
             System.out.println("Directorio creado: " + dbDir.getAbsolutePath());
         }
+
+        // Log de la ruta de la base de datos
+        System.out.println("Ruta de la base de datos: " + dbPath);
     }
 
     /**

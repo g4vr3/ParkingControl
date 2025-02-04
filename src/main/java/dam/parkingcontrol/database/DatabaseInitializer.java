@@ -41,9 +41,9 @@ public class DatabaseInitializer {
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
             stmt.execute(CREATE_VEHICLES_TABLE_SQL);
-            System.out.println("Tabla 'Vehicles' creada o ya existe.");
+            System.out.println("Tabla Vehicles OK");
             stmt.execute(CREATE_ENTRY_EXIT_RECORDS_TABLE_SQL);
-            System.out.println("Tabla 'Entry_Exit_Records' creada o ya existe.");
+            System.out.println("Tabla Entry_Exit_Records OK");
         } catch (SQLException e) {
             System.out.println("Error al crear las tablas: " + e.getMessage());
         }
