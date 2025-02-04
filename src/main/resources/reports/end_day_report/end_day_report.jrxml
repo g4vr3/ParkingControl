@@ -1,7 +1,6 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
-<jasperReport name="ParkingControl" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<jasperReport name="end_day_report" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="template.engine" value="tabular_template"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ParkingControl"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50.0" bold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18.0" bold="false" pdfFontName="Times-Roman"/>
@@ -30,12 +29,12 @@
 		<query language="sql"><![CDATA[]]></query>
 	</dataset>
 	<parameter name="Date" class="java.sql.Date"/>
-	<query language="sql"><![CDATA[SELECT 
-    v.license_plate, 
-    v.model, 
-    v.brand, 
-    v.color, 
-    e.entry_time, 
+	<query language="sql"><![CDATA[SELECT
+    v.license_plate,
+    v.model,
+    v.brand,
+    v.color,
+    e.entry_time,
     e.exit_time
 FROM Vehicles v
 JOIN Entry_Exit_Records e ON v.vehicle_id = e.vehicle_id
@@ -100,7 +99,7 @@ ORDER BY e.entry_time ASC
 			<expression><![CDATA[new java.util.Date()]]></expression>
 		</element>
 		<element kind="image" uuid="94883631-a913-43e2-b182-ab8d77d0181e" x="0" y="18" width="65" height="45" hImageAlign="Center">
-			<expression><![CDATA["LogoParking.png"]]></expression>
+			<expression><![CDATA["parkingLogo.png"]]></expression>
 		</element>
 		<element kind="staticText" uuid="e622555d-198b-4ccd-a4a1-c59c53304058" x="95" y="0" width="210" height="25" fontSize="19.0" bold="true">
 			<text><![CDATA[ArrulloPark]]></text>
@@ -111,7 +110,7 @@ ORDER BY e.entry_time ASC
 			<text><![CDATA[91 874 25 10, ArrulloPark.com]]></text>
 		</element>
 		<element kind="staticText" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde" x="95" y="25" width="205" height="15">
-			<text><![CDATA[Calle Palomino Nº23]]></text>
+			<text><![CDATA[Calle Palomino NÂº23]]></text>
 		</element>
 		<element kind="staticText" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e" x="95" y="40" width="205" height="15">
 			<text><![CDATA[Getafe, 28901]]></text>
@@ -175,7 +174,7 @@ ORDER BY e.entry_time ASC
 	</detail>
 	<pageFooter height="30">
 		<element kind="textField" uuid="8e9a7c77-f90b-4f66-84f0-d786d97d7624" x="227" y="0" width="100" height="30" evaluationTime="Page" linkType="None" linkTarget="Self">
-			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></expression>
+			<expression><![CDATA["PÃ¡gina " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></expression>
 		</element>
 	</pageFooter>
 </jasperReport>
