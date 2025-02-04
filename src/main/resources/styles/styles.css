@@ -1,9 +1,8 @@
-.parkinglot > * {
-    border: 1px solid #ffffff; /* Borde blanco para las plazas de parking*/
-}
 .shadowed-vbox {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 0, 2, 0, 0);
-    -fx-background-color: #60605b; /* Fondo oscuro */
-    -fx-border-color: black;
-    border: 3px solid #00000;
+    -fx-background-color: #60605b;
+    -fx-border-color: #2e2e2e;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0.5, 0, 5);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
 }
