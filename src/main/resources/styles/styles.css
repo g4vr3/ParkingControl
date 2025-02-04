@@ -6,3 +6,14 @@
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
 }
+.rectangleDown {
+    -fx-stroke: white;
+    -fx-stroke-width: 3;
+    -fx-stroke-dash-array: 230 150 10 58 11;
+}
+.rectangleUp {
+    -fx-stroke: white;
+    -fx-stroke-width: 3;
+    -fx-stroke-dash-array: 150 0 10 60 10 150 80;
+    -fx-fill: #AAAAAA;
+}
