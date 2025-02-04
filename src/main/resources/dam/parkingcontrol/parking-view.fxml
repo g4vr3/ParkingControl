@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
-   <children>
-      <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="843.0" spacing="20.0" styleClass="shadowed-vbox">
-          <!-- Primer Grid con las plazas -->
-          <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="800.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-              <children>
-                  <!-- Primera fila de plazas -->
-                  <Rectangle fx:id="spot0" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot1" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot2" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot3" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot4" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot5" fill="TOMATO" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot6" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot7" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="7" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot8" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="8" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot9" fill="60605b" height="150" styleClass="rectangleUp" width="80" GridPane.columnIndex="9" GridPane.rowIndex="0" />
-              </children>
-          </GridPane>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
+             <children>
+                <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="816.0" spacing="20.0" styleClass="shadowed-vbox">
+                    <!-- Primer Grid con las plazas -->
+                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="800.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                            <!-- Primera fila de plazas -->
+                            <Button fx:id="spot0" styleClass="sp0" text="Spot 0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Button fx:id="spot1" styleClass="parkingButtonUpsideRow" text="Spot 1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Button fx:id="spot2" styleClass="parkingButtonUpsideRow" text="Spot 2" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Button fx:id="spot3" styleClass="parkingButtonUpsideRow" text="Spot 3" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Button fx:id="spot4" styleClass="parkingButtonUpsideRow" text="Spot 4" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Button fx:id="spot5" styleClass="parkingButtonUpsideRow" text="Spot 5" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                            <Button fx:id="spot6" styleClass="parkingButtonUpsideRow" text="Spot 6" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                            <Button fx:id="spot7" styleClass="parkingButtonUpsideRow" text="Spot 7" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+                            <Button fx:id="spot8" styleClass="parkingButtonUpsideRow" text="Spot 8" GridPane.columnIndex="8" GridPane.rowIndex="0" />
+                            <Button fx:id="spot9" styleClass="sp9" text="Spot 9" GridPane.columnIndex="9" GridPane.rowIndex="0" />
+                        </children>
+                    </GridPane>
 
-          <!-- Segunda fila con la imagen sin columnas ni plazas -->
-          <ImageView fitHeight="100.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
-              <Image url="@../../images/parkingFloor.png" />
-          </ImageView>
+                    <!-- Segunda fila con la imagen sin columnas ni plazas -->
+                    <ImageView fitHeight="100.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../images/parkingFloor.png" />
+                    </ImageView>
 
-          <!-- Tercer Grid con las plazas -->
-          <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="800.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-              <children>
-                  <!-- Segunda fila de plazas -->
-                  <Rectangle fx:id="spot10" fill="60605b" height="150" styleClass="rectangleDown"  width="80" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot11" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot12" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot13" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot14" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot15" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot16" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot17" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="7" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot18" fill="60605b" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="8" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="spot19" fill="FF6347" height="150" styleClass="rectangleDown" width="80" GridPane.columnIndex="9" GridPane.rowIndex="0" />
-              </children>
-          </GridPane>
-      </VBox>
-   </children>
-</VBox>
+                    <!-- Tercer Grid con las plazas -->
+                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="800.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                            <ColumnConstraints hgrow="SOMETIMES"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                            <!-- Segunda fila de plazas -->
+                            <Button fx:id="spot10" styleClass="sp10" text="Spot 10" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Button fx:id="spot11" styleClass="parkingButtonDownRow" text="Spot 11" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Button fx:id="spot12" styleClass="parkingButtonDownRow" text="Spot 12" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Button fx:id="spot13" styleClass="parkingButtonDownRow" text="Spot 13" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Button fx:id="spot14" styleClass="parkingButtonDownRow" text="Spot 14" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Button fx:id="spot15" styleClass="parkingButtonDownRow" text="Spot 15" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                            <Button fx:id="spot16" styleClass="parkingButtonDownRow" text="Spot 16" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                            <Button fx:id="spot17" styleClass="parkingButtonDownRow" text="Spot 17" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+                            <Button fx:id="spot18" styleClass="parkingButtonDownRow" text="Spot 18" GridPane.columnIndex="8" GridPane.rowIndex="0" />
+                            <Button fx:id="spot19" styleClass="sp19" text="Spot 19" GridPane.columnIndex="9" GridPane.rowIndex="0" />
+                        </children>
+                    </GridPane>
+                </VBox>
+             </children>
+          </VBox>

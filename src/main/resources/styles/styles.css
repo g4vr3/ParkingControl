@@ -8,12 +8,76 @@
 }
 .rectangleDown {
     -fx-stroke: white;
-    -fx-stroke-width: 3;
+    -fx-stroke-width: 2;
     -fx-stroke-dash-array: 230 150 10 58 11;
+
 }
 .rectangleUp {
     -fx-stroke: white;
-    -fx-stroke-width: 3;
+    -fx-stroke-width: 2;
     -fx-stroke-dash-array: 150 0 10 60 10 150 80;
-    -fx-fill: #AAAAAA;
+    -fx-padding-left: 3px;
+}
+/*Estilos personalizados para fila arriba */
+.parkingButtonUpsideRow {
+    -fx-background-color: #60605b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 145px;
+    -fx-border-color: white;
+    -fx-border-width: 2px 1px 0px 2px; /* top right bottom left */
+    -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+}
+/*Estilos personalizados para fila abajo*/
+.parkingButtonDownRow {
+    -fx-background-color: #60605b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 145px;
+    -fx-border-color: white;
+    -fx-border-width: 0px 1px 2px 2px; /* top right bottom left */
+}
+
+/*Estilos personalizados para plazas de las esquinas*/
+.sp19 {
+    -fx-background-color: #60605b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 145px;
+    -fx-border-color: white;
+    -fx-border-width: 0px 3px 2px 2px;
+    -fx-border-style: solid solid solid solid;
+}
+.sp10 {
+    -fx-background-color: #60605b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 145px;
+    -fx-border-color: white;
+    -fx-border-width: 0px 1px 2px 3px;
+    -fx-border-style: solid solid solid solid;
+}
+.sp9 {
+    -fx-background-color: #60605b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 145px;
+    -fx-border-color: white;
+    -fx-border-width: 2px 3px 0px 2px;
+    -fx-border-style: solid solid none solid;
+}
+.sp0 {
+    -fx-background-color: #60605b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 145px;
+    -fx-border-color: white;
+    -fx-border-width: 2px 1px 0px 3px; /* top right bottom left */
+    -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
 }
