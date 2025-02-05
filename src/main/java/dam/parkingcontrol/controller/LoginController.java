@@ -35,7 +35,7 @@ public class LoginController {
     public void initialize() {
         setUI();
         // Acción del botón de login
-        loginButton.setOnAction(event -> handleLogin());
+        loginButton.setOnAction(_ -> handleLogin());
     }
 
     @FXML
@@ -47,18 +47,18 @@ public class LoginController {
         languageComboBox.setItems(LanguageManager.getSupportedLanguages());
 
         // Establece por defecto el idioma del sistema si lo soporta
-        languageComboBox.setValue(LanguageManager.getSystemLanguage());
+        languageComboBox.setValue(LanguageManager.getLanguageNameFromCode(LanguageManager.getSystemLanguage()));
 
         // Listener para cambios en el idioma (selección de idioma en ComboBox)
         languageComboBox.valueProperty().addListener((_, _, newValue) -> {
             // Carga el bundle con el nuevo idioma
-            LanguageManager.loadLanguage(newValue);
+            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
             // Actualiza el idioma de la UI
-            updateUIlanguage();
+            updateUILanguage();
         });
     }
 
-    private void updateUIlanguage() {
+    private void updateUILanguage() {
         // Obtiene el bundle actual, gestionado por el LanguageManager
         bundle = LanguageManager.getBundle();
 
