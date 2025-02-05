@@ -82,14 +82,13 @@
 }
 
 /* Estilos personalizados para el login */
-/* Estilos personalizados para el login */
 .border-pane {
     -fx-background-color: #ffffff;
 }
 
 .vbox-center {
     -fx-background-color: #d5d5d5;
-    -fx-background-radius: 10;
+    -fx-background-radius: 5;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.5, 0, 5);
 }
 
@@ -100,6 +99,20 @@
 }
 
 .login-button {
-    -fx-background-color: #EE5593CC;
+    -fx-background-color: linear-gradient(to bottom, #EE5593, rgba(238, 85, 147, 0.8));
     -fx-font-size: 1.1em;
+}
+
+.combo-box {
+    -fx-font-size: 1.1em;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #d5d5d5;
+    -fx-text-fill: #000000;
+}
+
+.combo-box .combo-box-popup .list-cell:selected {
+    -fx-background-color: EE5593;
 }
