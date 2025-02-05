@@ -3,11 +3,14 @@ package dam.parkingcontrol.controller;
 import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ViewManager;
 import dam.parkingcontrol.utils.Notifier;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -26,6 +29,9 @@ public class LoginController {
     @FXML
     private ComboBox<String> languageComboBox;
 
+    @FXML
+    private VBox vboxCenter;
+
     private ResourceBundle bundle;
 
     @FXML
@@ -33,6 +39,15 @@ public class LoginController {
         setUI();
         // Acción del botón de login
         loginButton.setOnAction(_ -> handleLogin());
+        applyFloatingEffect();
+    }
+
+    private void applyFloatingEffect() {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(2), vboxCenter);
+        transition.setByY(-10);
+        transition.setAutoReverse(true);
+        transition.setCycleCount(TranslateTransition.INDEFINITE);
+        transition.play();
     }
 
     @FXML
@@ -71,7 +86,7 @@ public class LoginController {
 
         if (validateCredentials(username, password)) {
             try {
-                ViewManager.changeView(loginButton, "/views/parking-view.fxml");
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", 900, 700);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -85,4 +100,3 @@ public class LoginController {
         return username.equals("admin") && password.equals("admin123");
     }
 }
-
