@@ -95,11 +95,14 @@
 .text-field {
     -fx-border-color: transparent;
     -fx-background-color: #ffffff;
+    -fx-pref-height: 35px;
     -fx-font-size: 1.1em;
 }
 
 .login-button {
     -fx-background-color: linear-gradient(to bottom, #EE5593, rgba(238, 85, 147, 0.8));
+    -fx-pref-height: 35px;
+    -fx-max-width: 150px;
     -fx-font-size: 1.1em;
 }
 
@@ -115,4 +118,27 @@
 
 .combo-box .combo-box-popup .list-cell:selected {
     -fx-background-color: EE5593;
+}
+
+.hyperlink {
+    -fx-text-fill: #a3a3a3;
+    -fx-font-size: 1.1em;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #EE5593;
+    -fx-underline: false;
+    -fx-font-size: 1.2em;
+}
+
+.hyperlink:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-fill: #EE5593;
+    -fx-underline: false;
+    -fx-font-size: 1.2em;
+}
+
+.hyperlink:pressed {
+    -fx-underline: true;
 }
