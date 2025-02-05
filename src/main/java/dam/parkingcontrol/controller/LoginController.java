@@ -1,16 +1,13 @@
 package dam.parkingcontrol.controller;
 
 import dam.parkingcontrol.service.LanguageManager;
+import dam.parkingcontrol.service.ViewManager;
+import dam.parkingcontrol.utils.Notifier;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -73,43 +70,19 @@ public class LoginController {
         String password = tfPass.getText();
 
         if (validateCredentials(username, password)) {
-            showAlert(AlertType.INFORMATION, "Inicio de Sesión Exitoso", "Bienvenido!");
             try {
-                changeScene("/dam/parkingcontrol/parking-view.fxml");
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         } else {
-            showAlert(AlertType.ERROR, "Error de Inicio de Sesión", "Usuario o contraseña incorrectos.");
+            Notifier.showAlert(AlertType.ERROR, "Error", "Inicio de sesión incorrecto", "Usuario o contraseña incorrectos.");
         }
     }
 
-    //Método para validar credenciales del Usuario
+    // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
         return username.equals("admin") && password.equals("admin123");
-    }
-
-    //Método para crear alertas con mensaje
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void changeScene(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        if (loader.getLocation() == null) {
-            System.err.println("Error: No se pudo cargar la vista " + fxml);
-            return;
-        }
-        Parent root = loader.load();
-
-        //Nuevo Escenario
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 }
 
