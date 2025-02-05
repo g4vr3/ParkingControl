@@ -51,7 +51,7 @@ public class LoginController {
 
         // Acción del hyperlink
         // TODO: Crear página web de ayuda y cambiar la URL
-        helpLink.setOnAction(event -> openWebPage("https://www.example.com"));
+        helpLink.setOnAction(_ -> openWebPage("https://www.example.com"));
     }
 
     @FXML
