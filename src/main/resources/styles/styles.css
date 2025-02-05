@@ -10,7 +10,6 @@
     -fx-stroke: white;
     -fx-stroke-width: 2;
     -fx-stroke-dash-array: 230 150 10 58 11;
-
 }
 .rectangleUp {
     -fx-stroke: white;
@@ -80,4 +79,27 @@
     -fx-border-color: white;
     -fx-border-width: 2px 1px 0px 3px; /* top right bottom left */
     -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+}
+
+/* Estilos personalizados para el login */
+/* Estilos personalizados para el login */
+.border-pane {
+    -fx-background-color: #ffffff;
+}
+
+.vbox-center {
+    -fx-background-color: #d5d5d5;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.5, 0, 5);
+}
+
+.text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: #ffffff;
+    -fx-font-size: 1.1em;
+}
+
+.login-button {
+    -fx-background-color: #EE5593CC;
+    -fx-font-size: 1.1em;
 }
