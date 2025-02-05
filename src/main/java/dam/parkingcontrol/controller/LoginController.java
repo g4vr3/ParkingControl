@@ -1,5 +1,6 @@
 package dam.parkingcontrol.controller;
 
+import dam.parkingcontrol.service.LanguageManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +13,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController {
@@ -28,72 +28,57 @@ public class LoginController {
 
     @FXML
     private ComboBox<String> languageComboBox;
-    private ResourceBundle bundle;
-    private Locale locale;
 
-    @FXML
-    protected void parking() {
-        try {
-            changeScene("src/main/resources/dam/parkingcontrol/parking-view.fxml");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+    private ResourceBundle bundle;
 
     @FXML
     public void initialize() {
-        //Cargar idioma español por defecto
-        setLanguage("es");
-
-        languageComboBox.setOnAction(event -> handleLanguageChange());
-
+        setUI();
         // Acción del botón de login
-        loginButton.setOnAction(event -> handleLogin());
-
+        loginButton.setOnAction(_ -> handleLogin());
     }
 
-    //Método para cambiar el idioma
-    private void handleLanguageChange() {
-        String selectedLanguage = languageComboBox.getSelectionModel().getSelectedItem();
-        if ("Español".equals(selectedLanguage) || "Spanish".equals(selectedLanguage) || "Espagnol".equals(selectedLanguage)) {
-            setLanguage("es");
-        } else if ("Inglés".equals(selectedLanguage) || "English".equals(selectedLanguage)|| "Anglais".equals(selectedLanguage)) {
-            setLanguage("en");
-        } else if ("Francés".equals(selectedLanguage) || "French".equals(selectedLanguage)|| "Francais".equals(selectedLanguage)) {
-            setLanguage("fr");
-        }
+    @FXML
+    private void setUI() {
+        // Obtiene el bundle gestionado por el LanguageManager
+        bundle = LanguageManager.getBundle();
+
+        // Añade a la lista de idiomas los idiomas soportados
+        languageComboBox.setItems(LanguageManager.getSupportedLanguages());
+
+        // Establece por defecto el idioma del sistema si lo soporta
+        languageComboBox.setValue(LanguageManager.getLanguageNameFromCode(LanguageManager.getSystemLanguage()));
+
+        // Listener para cambios en el idioma (selección de idioma en ComboBox)
+        languageComboBox.valueProperty().addListener((_, _, newValue) -> {
+            // Carga el bundle con el nuevo idioma
+            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
+            // Actualiza el idioma de la UI
+            updateUILanguage();
+        });
     }
 
+    private void updateUILanguage() {
+        // Obtiene el bundle actual, gestionado por el LanguageManager
+        bundle = LanguageManager.getBundle();
 
-    private void setLanguage(String lang) {
-        locale = new Locale(lang);
-        bundle = ResourceBundle.getBundle("MessagesBundle", locale);
-
-        // Actualizar textos de los elementos de la UI
-        tfUsername.setPromptText(bundle.getString("tfUsername"));
-        tfPass.setPromptText(bundle.getString("tfPass"));
-        loginButton.setText(bundle.getString("loginButton"));
-
-        // Actualizar nombres de los idiomas en el ComboBox según el idioma seleccionado
-        if (lang.equals("es")) {
-            languageComboBox.getItems().setAll("Español", "Inglés", "Francés");
-        } else if (lang.equals("en")) {
-            languageComboBox.getItems().setAll("Spanish", "English", "French");
-        } else if (lang.equals("fr")) {
-            languageComboBox.getItems().setAll("Espagnol", "Anglais", "Francais");
-        }
-
-        // Seleccionar el idioma actual en el ComboBox
-        languageComboBox.getSelectionModel().select(bundle.getString("languageSelected"));
+        // Establece los textos de la UI según el bundle
+        tfUsername.setPromptText(bundle.getString("email_username_prompt"));
+        tfPass.setPromptText(bundle.getString("password_prompt"));
+        loginButton.setText(bundle.getString("login_button_text"));
     }
 
-    private void handleLogin()  {
+    private void handleLogin() {
         String username = tfUsername.getText();
         String password = tfPass.getText();
 
         if (validateCredentials(username, password)) {
             showAlert(AlertType.INFORMATION, "Inicio de Sesión Exitoso", "Bienvenido!");
-            parking();
+            try {
+                changeScene("/dam/parkingcontrol/parking-view.fxml");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } else {
             showAlert(AlertType.ERROR, "Error de Inicio de Sesión", "Usuario o contraseña incorrectos.");
         }
@@ -115,6 +100,10 @@ public class LoginController {
 
     private void changeScene(String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        if (loader.getLocation() == null) {
+            System.err.println("Error: No se pudo cargar la vista " + fxml);
+            return;
+        }
         Parent root = loader.load();
 
         //Nuevo Escenario
