@@ -108,7 +108,7 @@ public class LoginController {
 
         if (validateCredentials(username, password)) {
             try {
-                ViewManager.changeView(loginButton, "/views/parking-view.fxml", 900, 700, true, true);
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 900, 700, true, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -119,7 +119,7 @@ public class LoginController {
 
     // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
-        return username.equals("admin") || username.equals("admin@arrullopark.com") && password.equals("admin123");
+        return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
     }
 
     private void openWebPage(String url) {
