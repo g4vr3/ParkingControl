@@ -1,18 +1,23 @@
 package dam.parkingcontrol.controller;
 
+import dam.parkingcontrol.service.LanguageManager;
+import dam.parkingcontrol.service.ViewManager;
+import dam.parkingcontrol.utils.Notifier;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
-import java.util.Locale;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 
 public class LoginController {
@@ -21,106 +26,116 @@ public class LoginController {
     private TextField tfUsername;
 
     @FXML
-    private TextField tfPass;
+    private PasswordField pfPass;
 
     @FXML
     private Button loginButton;
 
     @FXML
     private ComboBox<String> languageComboBox;
-    private ResourceBundle bundle;
-    private Locale locale;
 
     @FXML
-    protected void parking() {
-        try {
-            changeScene("src/main/resources/dam/parkingcontrol/parking-view.fxml");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+    private VBox vboxCenter;
+
+    @FXML
+    private Hyperlink helpLink;
+
+    private ResourceBundle bundle;
 
     @FXML
     public void initialize() {
-        //Cargar idioma español por defecto
-        setLanguage("es");
-
-        languageComboBox.setOnAction(event -> handleLanguageChange());
-
+        setUI();
         // Acción del botón de login
-        loginButton.setOnAction(event -> handleLogin());
+        loginButton.setOnAction(_ -> handleLogin());
+        applyFloatingEffect();
 
+        // Acción del hyperlink
+        // TODO: Crear página web de ayuda y cambiar la URL
+        helpLink.setOnAction(_ -> openWebPage("https://www.example.com"));
     }
 
-    //Método para cambiar el idioma
-    private void handleLanguageChange() {
-        String selectedLanguage = languageComboBox.getSelectionModel().getSelectedItem();
-        if ("Español".equals(selectedLanguage) || "Spanish".equals(selectedLanguage) || "Espagnol".equals(selectedLanguage)) {
-            setLanguage("es");
-        } else if ("Inglés".equals(selectedLanguage) || "English".equals(selectedLanguage)|| "Anglais".equals(selectedLanguage)) {
-            setLanguage("en");
-        } else if ("Francés".equals(selectedLanguage) || "French".equals(selectedLanguage)|| "Francais".equals(selectedLanguage)) {
-            setLanguage("fr");
-        }
+    @FXML
+    private void setUI() {
+        // Obtiene el bundle gestionado por el LanguageManager
+        bundle = LanguageManager.getBundle();
+
+        // Añade a la lista de idiomas los idiomas soportados
+        languageComboBox.setItems(LanguageManager.getSupportedLanguages());
+
+        // Establece por defecto el idioma del sistema si lo soporta
+        languageComboBox.setValue(LanguageManager.getLanguageNameFromCode(LanguageManager.getSystemLanguage()));
+
+        // Listener para cambios en el idioma (selección de idioma en ComboBox)
+        languageComboBox.valueProperty().addListener((_, _, newValue) -> {
+            // Carga el bundle con el nuevo idioma
+            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
+            // Actualiza el idioma de la UI
+            updateUILanguage();
+        });
+
+        // Desplegar el ComboBox cuando reciba el foco
+        languageComboBox.focusedProperty().addListener((_, _, newValue) -> {
+            if (newValue) {
+                languageComboBox.show();
+            }
+        });
+
+        // Focus inicial en username field
+        Platform.runLater(() -> tfUsername.requestFocus());
+
+        // Botón por defecto al pulsar Enter
+        loginButton.setDefaultButton(true);
     }
 
+    private void updateUILanguage() {
+        // Obtiene el bundle actual, gestionado por el LanguageManager
+        bundle = LanguageManager.getBundle();
 
-    private void setLanguage(String lang) {
-        locale = new Locale(lang);
-        bundle = ResourceBundle.getBundle("MessagesBundle", locale);
+        // Actualiza el título de la ventana
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.setTitle("ArrulloPark - " + bundle.getString("login_title_text"));
 
-        // Actualizar textos de los elementos de la UI
-        tfUsername.setPromptText(bundle.getString("tfUsername"));
-        tfPass.setPromptText(bundle.getString("tfPass"));
-        loginButton.setText(bundle.getString("loginButton"));
-
-        // Actualizar nombres de los idiomas en el ComboBox según el idioma seleccionado
-        if (lang.equals("es")) {
-            languageComboBox.getItems().setAll("Español", "Inglés", "Francés");
-        } else if (lang.equals("en")) {
-            languageComboBox.getItems().setAll("Spanish", "English", "French");
-        } else if (lang.equals("fr")) {
-            languageComboBox.getItems().setAll("Espagnol", "Anglais", "Francais");
-        }
-
-        // Seleccionar el idioma actual en el ComboBox
-        languageComboBox.getSelectionModel().select(bundle.getString("languageSelected"));
+        // Establece los textos de la UI según el bundle
+        tfUsername.setPromptText(bundle.getString("email_username_prompt"));
+        pfPass.setPromptText(bundle.getString("password_prompt"));
+        loginButton.setText(bundle.getString("login_button_text"));
+        helpLink.setText(bundle.getString("help_link_text"));
     }
 
-    private void handleLogin()  {
+    private void handleLogin() {
         String username = tfUsername.getText();
-        String password = tfPass.getText();
+        String password = pfPass.getText();
 
         if (validateCredentials(username, password)) {
-            showAlert(AlertType.INFORMATION, "Inicio de Sesión Exitoso", "Bienvenido!");
-            parking();
+            try {
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 900, 700, true, true);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } else {
-            showAlert(AlertType.ERROR, "Error de Inicio de Sesión", "Usuario o contraseña incorrectos.");
+            Notifier.showAlert(AlertType.ERROR, "Error", "Inicio de sesión incorrecto", "Usuario o contraseña incorrectos.");
         }
     }
 
-    //Método para validar credenciales del Usuario
+    // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
-        return username.equals("admin") && password.equals("admin123");
+        return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
     }
 
-    //Método para crear alertas con mensaje
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void openWebPage(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void changeScene(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        Parent root = loader.load();
-
-        //Nuevo Escenario
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    // Aplicar efecto flotante al box de login
+    private void applyFloatingEffect() {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(2), vboxCenter);
+        transition.setByY(-10);
+        transition.setAutoReverse(true);
+        transition.setCycleCount(TranslateTransition.INDEFINITE);
+        transition.play();
     }
 }
-

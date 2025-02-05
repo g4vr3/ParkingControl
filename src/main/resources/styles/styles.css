@@ -10,7 +10,6 @@
     -fx-stroke: white;
     -fx-stroke-width: 2;
     -fx-stroke-dash-array: 230 150 10 58 11;
-
 }
 .rectangleUp {
     -fx-stroke: white;
@@ -80,4 +79,67 @@
     -fx-border-color: white;
     -fx-border-width: 2px 1px 0px 3px; /* top right bottom left */
     -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+}
+
+/* Estilos personalizados para el login */
+.border-pane {
+    -fx-background-color: #ffffff;
+}
+
+.vbox-center {
+    -fx-background-color: #d5d5d5;
+    -fx-max-width: 300px;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.5, 0, 5);
+}
+
+.text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: #ffffff;
+    -fx-pref-height: 35px;
+    -fx-font-size: 1.1em;
+}
+
+.login-button {
+    -fx-background-color: linear-gradient(to bottom, #EE5593, rgba(238, 85, 147, 0.8));
+    -fx-pref-height: 35px;
+    -fx-max-width: 150px;
+    -fx-font-size: 1.1em;
+}
+
+.combo-box {
+    -fx-font-size: 1.1em;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #d5d5d5;
+    -fx-text-fill: #000000;
+}
+
+.combo-box .combo-box-popup .list-cell:selected {
+    -fx-background-color: EE5593;
+}
+
+.hyperlink {
+    -fx-text-fill: #a3a3a3;
+    -fx-font-size: 1.1em;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #EE5593;
+    -fx-underline: false;
+    -fx-font-size: 1.2em;
+}
+
+.hyperlink:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-fill: #EE5593;
+    -fx-underline: false;
+    -fx-font-size: 1.2em;
+}
+
+.hyperlink:pressed {
+    -fx-underline: true;
 }
