@@ -7,6 +7,7 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,7 @@ public class LoginController {
     private TextField tfUsername;
 
     @FXML
-    private TextField tfPass;
+    private PasswordField pfPass;
 
     @FXML
     private Button loginButton;
@@ -76,13 +77,13 @@ public class LoginController {
 
         // Establece los textos de la UI según el bundle
         tfUsername.setPromptText(bundle.getString("email_username_prompt"));
-        tfPass.setPromptText(bundle.getString("password_prompt"));
+        pfPass.setPromptText(bundle.getString("password_prompt"));
         loginButton.setText(bundle.getString("login_button_text"));
     }
 
     private void handleLogin() {
         String username = tfUsername.getText();
-        String password = tfPass.getText();
+        String password = pfPass.getText();
 
         if (validateCredentials(username, password)) {
             try {
@@ -97,6 +98,6 @@ public class LoginController {
 
     // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
-        return username.equals("admin") && password.equals("admin123");
+        return username.equals("admin") || username.equals("admin@arrullopark.com") && password.equals("admin123");
     }
 }
