@@ -108,7 +108,7 @@ public class LoginController {
 
         if (validateCredentials(username, password)) {
             try {
-                ViewManager.changeView(loginButton, "/views/parking-view.fxml", 900, 700);
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", 900, 700, true, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
