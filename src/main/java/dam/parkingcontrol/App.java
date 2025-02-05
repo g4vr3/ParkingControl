@@ -20,7 +20,7 @@ public class App extends Application {
         fxmlLoader.setResources(bundle);
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
-        stage.setTitle("Parking Control");
+        stage.setTitle("ArrulloPark - " + bundle.getString("login_title_text"));
         stage.setScene(scene);
         stage.show();
     }
