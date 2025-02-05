@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 public class LanguageManager {
 
     private static ResourceBundle bundle;
-    private static final String BUNDLE_PATH = "tagsBundle_";
+    private static final String BUNDLE_PATH = "resource-bundle.tagsBundle_";
 
     public static void setLanguageSupport() {
         loadLanguage(getSystemLanguage());
@@ -34,10 +34,10 @@ public class LanguageManager {
     public static void loadLanguage(String languageCode) {
         try {
             // Se carga el ResourceBundle correspondiente
-            bundle = ResourceBundle.getBundle("resource-bundle.tagsBundle_" + languageCode);
+            bundle = ResourceBundle.getBundle(BUNDLE_PATH + languageCode);
         } catch (Exception e) {
             // Carga el idioma español si no puede cargar el seleccionado
-            bundle = ResourceBundle.getBundle("resource-bundle.tagsBundle_es");
+            bundle = ResourceBundle.getBundle(BUNDLE_PATH + "es");
         }
     }
 

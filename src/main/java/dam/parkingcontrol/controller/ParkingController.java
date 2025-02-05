@@ -28,8 +28,8 @@ package dam.parkingcontrol.controller;
         @FXML private Button spot17;
         @FXML private Button spot18;
         @FXML private Button spot19;
-        private Color COLOR_DEFAULT = Color.web("#60605B");
-        private Color COLOR_RED = Color.web("#FF6347");
+        private final Color COLOR_DEFAULT = Color.web("#60605B");
+        private final Color COLOR_RED = Color.web("#FF6347");
         private boolean openedParking = false;
         private Button[] parkingSpots;
 
@@ -41,7 +41,7 @@ package dam.parkingcontrol.controller;
             };
         }
 
-        // Método para simular la entrada de un vehículo y ocupar una plaza
+        // Simular la entrada de un vehículo y ocupar una plaza
         public synchronized void registerEntry(int spotId) {
             if (spotId >= 0 && spotId < parkingSpots.length) {
                 parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_RED) + ";"); // Cambiar la plaza a ocupada
@@ -49,30 +49,30 @@ package dam.parkingcontrol.controller;
             }
         }
 
-        // Método para simular la salida de un vehículo y liberar la plaza
+        // Simular la salida de un vehículo y liberar la plaza
         public synchronized void registerExit(int spotId) {
             if (spotId >= 0 && spotId < parkingSpots.length) {
                 parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Cambiar la plaza a libre
                 // TODO: Implementar la lógica para modificar el estado del coche a parked (false) y modificar el registro en la tabla de entradas salidas
-                //  seteando el campo hora salida en bd conectando con service
+                //  estableciendo el campo hora salida en bd conectando con service
             }
         }
 
-        // Método para abrir el parking (inicia vacío)
+        // Abrir el parking (inicia vacío)
         public void openParking() {
             for (Button spot : parkingSpots) {
                 spot.setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Todas las plazas vacías
             }
         }
 
-        // Método para cerrar el parking (vacía todas las plazas)
+        // Cerrar el parking (vacía todas las plazas)
         public void closeParking() {
             for (Button spot : parkingSpots) {
                 spot.setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Vaciar todas las plazas
             }
         }
 
-        // Método para simular un coche entrando al parking
+        // Simular un coche entrando al parking
         public void simulateRandomEntry() {
             for (int i = 0; i < parkingSpots.length; i++) {
                 if (parkingSpots[i].getStyle().contains(toRgbString(COLOR_DEFAULT))) { // Si la plaza está libre
@@ -82,7 +82,7 @@ package dam.parkingcontrol.controller;
             }
         }
 
-        // Método para simular un coche saliendo del parking
+        // Simular un coche saliendo del parking
         public void simulateRandomExit() {
             Random random = new Random();
             for (int i = 0; i < parkingSpots.length; i++) {
