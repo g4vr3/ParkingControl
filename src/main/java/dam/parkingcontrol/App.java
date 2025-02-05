@@ -18,7 +18,7 @@ public class App extends Application {
         ResourceBundle bundle = LanguageManager.getBundle();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/login-view.fxml"));
         fxmlLoader.setResources(bundle);
-        Scene scene = new Scene(fxmlLoader.load(), 900, 700);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 500);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
         stage.setTitle("Parking Control");
         stage.setScene(scene);
