@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 /**
  * La clase ViewManager proporciona métodos para cambiar la vista en la aplicación.
@@ -30,9 +31,10 @@ public class ViewManager {
      * @param resizable si la ventana se puede redimensionar
      * @throws IOException si ocurre un error al cargar el archivo FXML
      */
-    public static void changeView(Node node, String fxml, double width, double height, boolean maximized, boolean resizable) throws IOException {
+    public static void changeView(Node node, String fxml, String title, double width, double height, boolean maximized, boolean resizable) throws IOException {
+        ResourceBundle bundle = LanguageManager.getBundle();
         FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(fxml));
-        loader.setResources(LanguageManager.getBundle());
+        loader.setResources(bundle);
         if (loader.getLocation() == null) {
             System.err.println("Error: No se pudo cargar la vista " + fxml);
             return;
@@ -41,6 +43,8 @@ public class ViewManager {
 
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root, width, height));
+
+        stage.setTitle("ArrulloPark - " + title);
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((screenBounds.getWidth() - width) / 2);
