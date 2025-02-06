@@ -18,11 +18,12 @@ public class App extends Application {
         ResourceBundle bundle = LanguageManager.getBundle();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/login-view.fxml"));
         fxmlLoader.setResources(bundle);
-        Scene scene = new Scene(fxmlLoader.load(), 900, 700);
+        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
-        stage.setTitle("Parking Control");
+        stage.setTitle("ArrulloPark - " + bundle.getString("login_title_text"));
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
     }
 
     public static void main(String[] args) {
