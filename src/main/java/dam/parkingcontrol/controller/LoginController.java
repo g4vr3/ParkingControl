@@ -1,6 +1,7 @@
 package dam.parkingcontrol.controller;
 
 import dam.parkingcontrol.service.LanguageManager;
+import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.service.ViewManager;
 import dam.parkingcontrol.utils.Notifier;
 import javafx.animation.TranslateTransition;
@@ -41,6 +42,9 @@ public class LoginController {
     private Hyperlink helpLink;
 
     private ResourceBundle bundle;
+
+    private int failedAttempts = 0; // Contador de intentos de inicio de sesión fallidos
+
 
     @FXML
     public void initialize() {
@@ -113,7 +117,16 @@ public class LoginController {
                 ex.printStackTrace();
             }
         } else {
-            Notifier.showAlert(AlertType.ERROR, "Error", "Inicio de sesión incorrecto", "Usuario o contraseña incorrectos.");
+            failedAttempts++;
+            if (failedAttempts >= 3) {
+                Notifier.showAlert(AlertType.ERROR, "error_text", "login_failed_text", "login_failed_too_many_attempts_message_text");
+                Platform.exit();
+
+                // Generar un reporte de auditoría de inicio de sesión
+                // TODO: Sería interesante guardar en base de datos o fichero un contador de intentos fallidos para permitir bloqueos temporales o permantentes
+                ReportManager.generateLoginAuditReport();
+            }
+            Notifier.showAlert(AlertType.ERROR, "error_text", "login_failed_text", "login_failed_message_text");
         }
     }
 
