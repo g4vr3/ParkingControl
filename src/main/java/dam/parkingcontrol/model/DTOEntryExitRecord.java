@@ -17,13 +17,11 @@ public class DTOEntryExitRecord {
     /**
      * Constructor con atributos de la clase DTOEntryExitRecord.
      *
-     * @param record_id el ID del registro
      * @param vehicle_id el ID del vehículo
      * @param entry_time la hora de entrada del vehículo
      * @param exit_time la hora de salida del vehículo
      */
-    public DTOEntryExitRecord(int record_id, int vehicle_id, LocalDate entry_time, LocalDate exit_time) {
-        this.record_id = record_id;
+    public DTOEntryExitRecord(int vehicle_id, LocalDate entry_time, LocalDate exit_time) {
         this.vehicle_id = vehicle_id;
         this.entry_time = entry_time;
         this.exit_time = exit_time;
