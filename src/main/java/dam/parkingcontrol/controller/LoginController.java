@@ -19,6 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController {
@@ -54,8 +55,13 @@ public class LoginController {
         applyFloatingEffect();
 
         // Acción del hyperlink
-        // TODO: Crear página web de ayuda y cambiar la URL
-        helpLink.setOnAction(_ -> openWebPage("https://www.example.com"));
+        helpLink.setOnAction(_ -> {
+            try {
+                openWebPage(Objects.requireNonNull(getClass().getResource("/help-web/index.html")).toURI());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -135,10 +141,10 @@ public class LoginController {
         return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
     }
 
-    private void openWebPage(String url) {
+    private void openWebPage(URI uri) {
         try {
-            Desktop.getDesktop().browse(new URI(url));
-        } catch (IOException | URISyntaxException e) {
+            Desktop.getDesktop().browse(uri);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
