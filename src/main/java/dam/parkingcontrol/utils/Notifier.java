@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 /**
  * La clase Notifier proporciona métodos para mostrar alertas y notificaciones en la aplicación.
  *
- * @author g4vr3
  * @version 1.0
  */
 public class Notifier {
