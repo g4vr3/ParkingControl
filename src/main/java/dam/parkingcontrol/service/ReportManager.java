@@ -4,95 +4,76 @@ import dam.parkingcontrol.database.DatabaseConnection;
 import dam.parkingcontrol.utils.UserInfo;
 import net.sf.jasperreports.engine.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Clase para gestionar la generación de reportes.
- * Proporciona métodos estáticos para generar reportes con parámetros específicos.
- *
- * @version 2.0
- * @author g4vr3
- */
 public class ReportManager {
+    private static final String GENERATED_REPORTS_DIR = "src/main/resources/generated-reports/";
 
-    /**
-     * Genera un reporte diario de los registros del parking.
-     */
+    static {
+        mkdir(GENERATED_REPORTS_DIR);
+    }
+
     public static void generateEndOfDayReport() {
         try {
             String reportPath = "src/main/resources/reports/end_day_report/end_day_report.jasper";
-            String outputPath = "src/main/resources/generated-reports/" + LocalDate.now() + "_end_day_report.pdf";
+            String outputPath = GENERATED_REPORTS_DIR + LocalDate.now() + "_end_day_report.pdf";
 
-            // Establecer los parámetros
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("Date", Date.valueOf(LocalDate.now()));
 
-            // Obtener la conexión a la base de datos
             try (Connection conn = DatabaseConnection.connect()) {
-                // Llenar el reporte
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
-
-                // Exportar el reporte a un archivo PDF
                 JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
-
-                // TODO: Gestionar mensajes de éxito y error en la interfaz
                 System.out.println("Reporte generado exitosamente: " + outputPath);
             }
         } catch (JRException | SQLException e) {
+            System.err.println("Error al generar el reporte de fin de día: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Error al generar el reporte: " + e.getMessage());
         }
     }
 
-    /**
-     * Genera un reporte con los parámetros de Marca, Modelo y Color.
-     */
     public static void generateBrandModelColorReport(String brand, String model, String color) {
         try {
-            //Ruta del archivo jasper
             String reportPath = "src/main/resources/reports/brand_model_color_report/brand_model_color_report.jasper";
-            //Ruta donde se generará el PDF
-            String outputPath = "src/main/resources/generated-reports/" + LocalDate.now() + "_brand_model_color_report.pdf";
+            String outputPath = GENERATED_REPORTS_DIR + LocalDate.now() + "_brand_model_color_report.pdf";
 
-            // Establecer los parámetros
             Map<String, Object> parameters = new HashMap<>();
-            parameters.put("Brand", brand);   // Parámetro Marca
-            parameters.put("Model", model);   // Parámetro Modelo
-            parameters.put("Color", color);   // Parámetro Color
+            parameters.put("Brand", brand);
+            parameters.put("Model", model);
+            parameters.put("Color", color);
 
-            // Obtener la conexión a la base de datos
             try (Connection conn = DatabaseConnection.connect()) {
-                // Llenar el reporte
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
-
-                // Exportar el reporte a un archivo PDF
                 JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
-
-                // TODO: Gestionar mensajes de éxito y error en la interfaz
                 System.out.println("Reporte generado exitosamente: " + outputPath);
             }
         } catch (JRException | SQLException e) {
+            System.err.println("Error al generar el reporte de vehículos: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Error al generar el reporte: " + e.getMessage());
         }
     }
 
-    /**
-     * Genera un reporte de auditoría de inicio de sesión con información del usuario que está intentando acceder.
-     */
     public static void generateLoginAuditReport() {
         try {
-            String reportPath = "src/main/resources/reports/login_audit_report/login_audit_report.jasper";
-            String outputPath = "src/main/resources/generated-reports/" + LocalDateTime.now() + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
+            String reportDir = "src/main/resources/reports/login_audit_report/";
+            mkdir(reportDir);
 
-            // Establecer los parámetros
+            String reportPath = reportDir + "login_audit_report.jasper";
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+            String outputPath = GENERATED_REPORTS_DIR + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
+
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("IP", UserInfo.getUserIP());
             parameters.put("OS", UserInfo.getOperatingSystem());
@@ -101,13 +82,23 @@ public class ReportManager {
             parameters.put("Location", UserInfo.getUserLocation());
             parameters.put("Timestamp", Timestamp.valueOf(LocalDateTime.now()));
 
-            // Llenar el reporte sin conexión a la base de datos
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, new JREmptyDataSource());
-
-            // Exportar el reporte a un archivo PDF
             JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+            System.out.println("Reporte de auditoría generado: " + outputPath);
         } catch (JRException e) {
+            System.err.println("Error al generar el reporte de auditoría de login: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    private static void mkdir(String dirPath) {
+        try {
+            Path path = Paths.get(dirPath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al crear el directorio: " + e.getMessage());
         }
     }
 }
