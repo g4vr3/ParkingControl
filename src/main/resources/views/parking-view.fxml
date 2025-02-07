@@ -46,7 +46,7 @@
                     </children>
                 </GridPane>
                 <HBox prefHeight="100.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
-                    <Region fx:id="floorRegion" styleClass="region-with-background" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+                    <Region styleClass="region-with-background" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
                 </HBox>
                 <!-- Tercer Grid con las plazas -->
                 <GridPane prefHeight="150.0" prefWidth="800.0" GridPane.vgrow="ALWAYS" VBox.vgrow="ALWAYS">

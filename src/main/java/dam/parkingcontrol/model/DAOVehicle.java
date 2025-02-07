@@ -5,7 +5,6 @@ import dam.parkingcontrol.database.DatabaseConnection;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * La clase DAOVehicle proporciona métodos para registrar, actualizar y eliminar registros de vehículos en la base de datos.

@@ -7,7 +7,6 @@ import dam.parkingcontrol.model.DTOVehicle;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
@@ -26,7 +25,7 @@ public class ParkingManager {
     public ParkingManager() {
         parking = new HashMap<>();
         random = new Random();
-        vehicles = new ArrayList<DTOVehicle>();
+        vehicles = new ArrayList<>();
 
         initializeParking();
     }
