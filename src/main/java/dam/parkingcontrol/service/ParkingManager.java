@@ -13,9 +13,9 @@ import java.util.*;
 import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
 
 /**
- * La clase ParkingService proporciona métodos para gestionar el parking.
+ * La clase ParkingManager proporciona métodos para gestionar el parking.
  *
- * @version 1.0
+ * @version 1.1
  */
 public class ParkingManager {
 
@@ -95,6 +95,17 @@ public class ParkingManager {
         return randomSpot;
     }
 
+    public void clearParking() {
+        for (int i = 0; i < parking.size(); i++) {
+            parking.put(i, null);
+        }
+        try {
+            DAOEntryExitRecord.updateAllExitsToCurrentDate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Busca una plaza de aparcamiento disponible.
      *
@@ -102,9 +113,6 @@ public class ParkingManager {
      * @return true si la plaza está disponible, false si está ocupada.
      */
     public boolean searchParkingSpot(int spot) {
-        if (parking.get(spot) == null) {
-            return true; // Plaza disponible
-        }
-        return false; // Plaza ocupada
+        return parking.get(spot) == null; // Plaza disponible
     }
 }
