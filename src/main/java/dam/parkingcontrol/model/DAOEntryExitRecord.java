@@ -8,7 +8,6 @@ import java.sql.*;
  * La clase DAOEntryExitRecord proporciona métodos para registrar entradas y salidas de vehículos en la base de datos.
  *
  * @version 1.0
- * @author g4vr3
  */
 public class DAOEntryExitRecord {
     // Constante para almacenar la URL de la base de datos

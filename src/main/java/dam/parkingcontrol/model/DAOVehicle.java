@@ -10,7 +10,6 @@ import java.util.Locale;
 /**
  * La clase DAOVehicle proporciona métodos para registrar, actualizar y eliminar registros de vehículos en la base de datos.
  *
- * @author g4vr3
  * @version 1.0
  */
 public class DAOVehicle {
