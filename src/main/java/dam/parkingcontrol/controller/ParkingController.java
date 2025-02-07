@@ -12,7 +12,7 @@ import java.util.Random;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.0
+ * @version 1.1
  */
 public class ParkingController {
 
@@ -135,7 +135,9 @@ public class ParkingController {
     // Simular un coche entrando al parking
     public void simulateRandomEntry() {
         int spot = parkingManager.parkVehicle();
-        registerEntry(spot);
+        if (spot != -1) {
+            registerEntry(spot);
+        }
     }
 
     /**
@@ -144,7 +146,9 @@ public class ParkingController {
     // Simular un coche saliendo del parking
     public void simulateRandomExit() {
         int spot = parkingManager.unParkVehicle();
-        registerExit(spot);
+        if (spot != -1) {
+            registerExit(spot);
+        }
 
     }
 
@@ -190,6 +194,7 @@ public class ParkingController {
     }
     public void stopSimulation() {
         openedParking = false;
+        parkingManager.clearParking();
     }
 
     /**
