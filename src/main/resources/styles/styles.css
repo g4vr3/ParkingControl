@@ -3,6 +3,7 @@
     -fx-border-color: #2e2e2e;
     -fx-border-width: 1px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0.5, 0, 5);
+
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
 }
@@ -22,21 +23,24 @@
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 2px 1px 0px 2px; /* top right bottom left */
     -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+    -fx-alignment: bottom-center;
 }
 /*Estilos personalizados para fila abajo*/
 .parkingButtonDownRow {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 0px 1px 2px 2px; /* top right bottom left */
+    -fx-alignment: top-center;
 }
 
 /*Estilos personalizados para plazas de las esquinas*/
@@ -44,41 +48,50 @@
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
     -fx-border-color: white;
     -fx-border-width: 0px 3px 2px 2px;
     -fx-border-style: solid solid solid solid;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
+    -fx-alignment: top-center;
+
 }
 .sp10 {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 0px 1px 2px 3px;
     -fx-border-style: solid solid solid solid;
+    -fx-alignment: top-center;
 }
 .sp9 {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
+
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 2px 3px 0px 2px;
     -fx-border-style: solid solid none solid;
+    -fx-alignment: bottom-center;
 }
 .sp0 {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 2px 1px 0px 3px; /* top right bottom left */
     -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+    -fx-alignment: bottom-center;
 }
 
 /* Estilos personalizados para el login */
@@ -142,4 +155,33 @@
 
 .hyperlink:pressed {
     -fx-underline: true;
+}
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 0 10px 0;
+}
+.styled-button {
+    -fx-background-color: #4CAF50; /* Color de fondo */
+    -fx-text-fill: white; /* Color del texto */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-padding: 10px 20px; /* Relleno */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-cursor: hand; /* Cambia el cursor al pasar sobre el botón */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0.0, 0, 1); /* Sombra de texto */
+}
+.styled-button:hover {
+    background-color:#eb675e;
+}
+
+.parkingPane {
+    -fx-background-color: #d5d5d5;
+    -fx-background-radius: 5;
+}
+.region-with-background {
+    -fx-background-image: url("../images/sueloParking.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }
