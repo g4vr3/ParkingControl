@@ -1,7 +1,13 @@
 package dam.parkingcontrol.service;
 
+import dam.parkingcontrol.model.DAOEntryExitRecord;
+import dam.parkingcontrol.model.DAOVehicle;
+import dam.parkingcontrol.model.DTOEntryExitRecord;
 import dam.parkingcontrol.model.DTOVehicle;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
@@ -13,9 +19,17 @@ import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
  */
 public class ParkingManager {
 
-    Map<Integer, DTOVehicle> parking = new HashMap<>();
-    Random random = new Random();
-    ArrayList<DTOVehicle> vehicles = new ArrayList<>();
+    Map<Integer, DTOVehicle> parking;
+    Random random;
+    ArrayList<DTOVehicle> vehicles;
+
+    public ParkingManager() {
+        parking = new HashMap<>();
+        random = new Random();
+        vehicles = new ArrayList<DTOVehicle>();
+
+        initializeParking();
+    }
 
     /**
      * Inicializa las plazas de aparcamiento con valores nulos (plazas vacías).
@@ -28,35 +42,57 @@ public class ParkingManager {
     }
 
     /**
-     * Encuentra una plaza de aparcamiento disponible y estaciona el vehículo.
+     * Encuentra una plaza de aparcamiento disponible y estaciona un vehículo aleatoriamente.
      *
-     * @param vehicle el vehículo a estacionar.
      */
-    public void parkVehicle(DTOVehicle vehicle) {
-        int randomSpot;
-        if (!vehicle.isParked()) {
-            do {
-                randomSpot = random.nextInt(parking.size());
-            } while (!searchParkingSpot(randomSpot));
-            parking.put(randomSpot, vehicle);
-            vehicle.setParked(true);
+    public int parkVehicle() {
+        int randomVehicleIndex;
+        int parkingSpot = -1;
+        DTOVehicle vehicle;
+        do {
+            randomVehicleIndex = random.nextInt(vehicles.size());
+            vehicle = vehicles.get(randomVehicleIndex);
+        } while (vehicle.isParked());
+
+        do {
+            parkingSpot = random.nextInt(parking.size());
+        } while (!searchParkingSpot(parkingSpot));
+
+        // Estacionar el vehículo en la plaza aleatoria disponible
+        parking.put(parkingSpot, vehicle);
+        vehicle.setParked(true);
+        try {
+            DAOEntryExitRecord.registerEntry(new DTOEntryExitRecord(vehicle.getId_vehicle(), LocalDate.now(), null));
+            DAOVehicle.updateVehicleStatus(vehicle);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return parkingSpot;
     }
 
+
     /**
-     * Saca un coche de su plaza de parking.
+     * Saca un coche aleatorio de su plaza de parking.
      *
-     * @param vehicle el vehículo a retirar.
      */
-    public void unParkVehicle(DTOVehicle vehicle) {
-        int randomSpot;
-        if (vehicle.isParked()) {
-            do {
-                randomSpot = random.nextInt(parking.size());
-            } while (searchParkingSpot(randomSpot));
-            parking.remove(randomSpot);
+    public int unParkVehicle() {
+        int randomSpot = -1;
+        do {
+            randomSpot = random.nextInt(parking.size());
+        } while (searchParkingSpot(randomSpot));
+
+        DTOVehicle vehicle = parking.get(randomSpot);
+        if (vehicle != null && vehicle.isParked()) {
             vehicle.setParked(false);
+            try {
+                DAOVehicle.updateVehicleStatus(vehicle);
+                DAOEntryExitRecord.registerExit(new DTOEntryExitRecord(vehicle.getId_vehicle(), null, LocalDate.now()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            parking.put(randomSpot, null);
         }
+        return randomSpot;
     }
 
     /**
