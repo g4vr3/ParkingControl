@@ -11,15 +11,27 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * La clase App es el punto de entrada de la aplicación y administra la interfaz gráfica.
+ *
+ * @version 1.0
+ */
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        // Configurar el soporte de idioma
         LanguageManager.setLanguageSupport();
         ResourceBundle bundle = LanguageManager.getBundle();
+
+        // Cargar la vista de inicio de sesión
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/login-view.fxml"));
         fxmlLoader.setResources(bundle);
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+
+        // Añadir la hoja de estilos
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
+
+        // Configurar el escenario (Stage)
         stage.setTitle("ArrulloPark - " + bundle.getString("login_title_text"));
         stage.setScene(scene);
         stage.show();
@@ -29,6 +41,7 @@ public class App extends Application {
     public static void main(String[] args) {
         // Inicializar la base de datos
         DatabaseInitializer.createTables();
+        // Lanzar la aplicación
         launch(args);
     }
 }
