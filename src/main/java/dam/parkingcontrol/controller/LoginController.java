@@ -140,7 +140,7 @@ public class LoginController {
 
         if (validateCredentials(username, password)) {
             try {
-                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 900, 700, true, true);
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 1000, 800, true, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
