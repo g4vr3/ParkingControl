@@ -10,7 +10,7 @@ import java.util.Locale;
 /**
  * La clase DAOVehicle proporciona métodos para registrar, actualizar y eliminar registros de vehículos en la base de datos.
  *
- * @version 1.0
+ * @version 1.1
  */
 public class DAOVehicle {
     // Constante para almacenar la URL de la base de datos
@@ -100,6 +100,11 @@ public class DAOVehicle {
             return rowsAffected > 0; // Si se eliminó al menos una fila
         }
     }
+    /**
+     * Retorna todos los vehículos registrados en la base de datos.
+     *
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
 
     public static ArrayList<DTOVehicle> getAllVehicles() {
         ArrayList<DTOVehicle> vehicles = new ArrayList<>();
