@@ -21,7 +21,7 @@ public class DAOEntryExitRecord {
      * @throws SQLException si ocurre un error al acceder a la base de datos
      */
     public static boolean registerEntry(DTOEntryExitRecord entryToRegister) throws SQLException {
-        String sql = "INSERT INTO EntryExitRecords(vehicle_id, entry_time) VALUES(?, ?)";
+        String sql = "INSERT INTO Entry_Exit_Records(vehicle_id, entry_time) VALUES(?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -55,7 +55,7 @@ public class DAOEntryExitRecord {
      * @throws SQLException si ocurre un error al acceder a la base de datos
      */
     public static boolean registerExit(DTOEntryExitRecord exitToRegister) throws SQLException {
-        String sql = "UPDATE EntryExitRecords SET exit_time = ? WHERE vehicle_id = ?";
+        String sql = "UPDATE Entry_Exit_Records SET exit_time = ? WHERE vehicle_id = ?  AND exit_time IS NULL";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
