@@ -11,7 +11,6 @@ import java.sql.SQLException;
  * Configura la ruta de la base de datos y crea el directorio si es necesario.
  *
  * @version 1.0
- * @author g4vr3
  */
 public class DatabaseConnection {
     private static final String dbPath;
@@ -52,7 +51,7 @@ public class DatabaseConnection {
     }
 
     /**
-     * Conecta a la base de datos.
+     * Establece una conexión con la base de datos SQLite.
      *
      * @return la conexión a la base de datos
      * @throws SQLException si ocurre un error al conectar
