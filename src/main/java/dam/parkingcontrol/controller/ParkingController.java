@@ -11,7 +11,6 @@ import java.util.Random;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @author g4vr3
  * @version 1.0
  */
 public class ParkingController {
