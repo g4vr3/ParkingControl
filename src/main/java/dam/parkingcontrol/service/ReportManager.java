@@ -18,13 +18,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * La clase ReportManager proporciona métodos para crear reportes sobre la aplicación.
+ *
+ * @version 1.0
+ */
 public class ReportManager {
+
     private static final String GENERATED_REPORTS_DIR = "src/main/resources/generated-reports/";
 
     static {
         mkdir(GENERATED_REPORTS_DIR);
     }
 
+    /**
+     * Genera un reporte de fin de día y lo guarda en formato PDF.
+     */
     public static void generateEndOfDayReport() {
         try {
             String reportPath = "src/main/resources/reports/end_day_report/end_day_report.jasper";
@@ -44,6 +53,13 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Genera un reporte basado en la marca, modelo y color de los vehículos y lo guarda en formato PDF.
+     *
+     * @param brand la marca del vehículo
+     * @param model el modelo del vehículo
+     * @param color el color del vehículo
+     */
     public static void generateBrandModelColorReport(String brand, String model, String color) {
         try {
             String reportPath = "src/main/resources/reports/brand_model_color_report/brand_model_color_report.jasper";
@@ -65,6 +81,9 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Genera un reporte de auditoría de login y lo guarda en formato PDF.
+     */
     public static void generateLoginAuditReport() {
         try {
             String reportDir = "src/main/resources/reports/login_audit_report/";
@@ -91,6 +110,11 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Crea un directorio si no existe.
+     *
+     * @param dirPath la ruta del directorio a crear
+     */
     private static void mkdir(String dirPath) {
         try {
             Path path = Paths.get(dirPath);

@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
  * La clase ViewManager proporciona métodos para cambiar la vista en la aplicación.
  *
  * @version 1.0
- * author g4vr3
  */
 public class ViewManager {
 
