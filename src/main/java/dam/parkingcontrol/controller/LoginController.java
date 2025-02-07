@@ -22,6 +22,14 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para el inicio de sesión.
+ * Gestiona la autenticación del usuario, la selección de idioma,
+ * la navegación a la vista principal y la ayuda.
+ *
+ * @version 1.0
+ */
+
 public class LoginController {
 
     @FXML
@@ -47,6 +55,10 @@ public class LoginController {
     private int failedAttempts = 0; // Contador de intentos de inicio de sesión fallidos
 
 
+    /**
+     * Inicialización de la interfaz y componentes.
+     * Configura los elementos de la UI y asigna eventos a los componentes.
+     */
     @FXML
     public void initialize() {
         setUI();
@@ -64,6 +76,9 @@ public class LoginController {
         });
     }
 
+    /**
+     * Configura la interfaz de usuario, incluyendo idioma manejando los distintos idiomas y acciones de los elementos gráficos.
+     */
     @FXML
     private void setUI() {
         // Obtiene el bundle gestionado por el LanguageManager
@@ -97,6 +112,9 @@ public class LoginController {
         loginButton.setDefaultButton(true);
     }
 
+    /**
+     * Actualiza los textos de la UI según el idioma seleccionado.
+     */
     private void updateUILanguage() {
         // Obtiene el bundle actual, gestionado por el LanguageManager
         bundle = LanguageManager.getBundle();
@@ -112,6 +130,10 @@ public class LoginController {
         helpLink.setText(bundle.getString("help_link_text"));
     }
 
+    /**
+     * Maneja el evento de inicio de sesión verificando las credenciales ingresadas.
+     * Si los intentos fallidos superan el límite, se genera un reporte de auditoría.
+     */
     private void handleLogin() {
         String username = tfUsername.getText();
         String password = pfPass.getText();
@@ -136,11 +158,23 @@ public class LoginController {
         }
     }
 
+    /**
+     * Verifica las credenciales ingresadas para autenticar al usuario.
+     *
+     * @param username Nombre de usuario o correo electrónico.
+     * @param password Contraseña.
+     * @return true si las credenciales son correctas, false si no lo son.
+     */
     // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
         return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
     }
 
+    /**
+     * Abre la página web en el navegador predeterminado del sistema.
+     *
+     * @param uri URI de la página web a abrir.
+     */
     private void openWebPage(URI uri) {
         try {
             Desktop.getDesktop().browse(uri);
@@ -149,6 +183,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Aplica un efecto de animación flotante al contenedor de la aplicación.
+     */
     // Aplicar efecto flotante al box de login
     private void applyFloatingEffect() {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(2), vboxCenter);
