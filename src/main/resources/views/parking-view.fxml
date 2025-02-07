@@ -1,80 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
-             <children>
-                <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="816.0" spacing="20.0" styleClass="shadowed-vbox">
-                    <!-- Primer Grid con las plazas -->
-                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="800.0">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <children>
-                            <!-- Primera fila de plazas -->
-                            <Button fx:id="spot0" styleClass="sp0" text="Spot 0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <Button fx:id="spot1" styleClass="parkingButtonUpsideRow" text="Spot 1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <Button fx:id="spot2" styleClass="parkingButtonUpsideRow" text="Spot 2" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                            <Button fx:id="spot3" styleClass="parkingButtonUpsideRow" text="Spot 3" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                            <Button fx:id="spot4" styleClass="parkingButtonUpsideRow" text="Spot 4" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                            <Button fx:id="spot5" styleClass="parkingButtonUpsideRow" text="Spot 5" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-                            <Button fx:id="spot6" styleClass="parkingButtonUpsideRow" text="Spot 6" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-                            <Button fx:id="spot7" styleClass="parkingButtonUpsideRow" text="Spot 7" GridPane.columnIndex="7" GridPane.rowIndex="0" />
-                            <Button fx:id="spot8" styleClass="parkingButtonUpsideRow" text="Spot 8" GridPane.columnIndex="8" GridPane.rowIndex="0" />
-                            <Button fx:id="spot9" styleClass="sp9" text="Spot 9" GridPane.columnIndex="9" GridPane.rowIndex="0" />
-                        </children>
-                    </GridPane>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
+    <children>
+        <ImageView fitHeight="100.0" fitWidth="300.0">
+            <image>
+                <Image url="@../images/titlearrullopark.png" />
+            </image>
+        </ImageView>
 
-                    <!-- Segunda fila con la imagen sin columnas ni plazas -->
-                    <ImageView fitHeight="100.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../images/parkingFloor.png" />
-                    </ImageView>
+        <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="515.0" spacing="20.0" styleClass="parkingPane" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" fillWidth="false" minHeight="200.0" minWidth="400.0" spacing="20.0" styleClass="shadowed-vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <!-- Primer Grid con las plazas -->
+                <GridPane prefHeight="150.0" prefWidth="800.0" GridPane.vgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="spot0" styleClass="sp0" text="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot1" styleClass="parkingButtonUpsideRow" text="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot2" styleClass="parkingButtonUpsideRow" text="2" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot3" styleClass="parkingButtonUpsideRow" text="3" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot4" styleClass="parkingButtonUpsideRow" text="4" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot5" styleClass="parkingButtonUpsideRow" text="5" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot6" styleClass="parkingButtonUpsideRow" text="6" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot7" styleClass="parkingButtonUpsideRow" text="7" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot8" styleClass="parkingButtonUpsideRow" text="8" GridPane.columnIndex="8" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot9" styleClass="sp9" text="9" GridPane.columnIndex="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                    </children>
+                </GridPane>
+                <HBox prefHeight="100.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                    <Region fx:id="floorRegion" styleClass="region-with-background" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+                </HBox>
+                <!-- Tercer Grid con las plazas -->
+                <GridPane prefHeight="150.0" prefWidth="800.0" GridPane.vgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="spot10" styleClass="sp10" text="10" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot11" styleClass="parkingButtonDownRow" text="11" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot12" styleClass="parkingButtonDownRow" text="12" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot13" styleClass="parkingButtonDownRow" text="13" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot14" styleClass="parkingButtonDownRow" text="14" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot15" styleClass="parkingButtonDownRow" text="15" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot16" styleClass="parkingButtonDownRow" text="16" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot17" styleClass="parkingButtonDownRow" text="17" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot18" styleClass="parkingButtonDownRow" text="18" GridPane.columnIndex="8" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                        <Button fx:id="spot19" styleClass="sp19" text="19" GridPane.columnIndex="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+                    </children>
+                </GridPane>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </VBox>
 
-                    <!-- Tercer Grid con las plazas -->
-                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="800.0">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                            <ColumnConstraints hgrow="SOMETIMES"/>
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <children>
-                            <!-- Segunda fila de plazas -->
-                            <Button fx:id="spot10" styleClass="sp10" text="Spot 10" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <Button fx:id="spot11" styleClass="parkingButtonDownRow" text="Spot 11" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <Button fx:id="spot12" styleClass="parkingButtonDownRow" text="Spot 12" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                            <Button fx:id="spot13" styleClass="parkingButtonDownRow" text="Spot 13" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                            <Button fx:id="spot14" styleClass="parkingButtonDownRow" text="Spot 14" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                            <Button fx:id="spot15" styleClass="parkingButtonDownRow" text="Spot 15" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-                            <Button fx:id="spot16" styleClass="parkingButtonDownRow" text="Spot 16" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-                            <Button fx:id="spot17" styleClass="parkingButtonDownRow" text="Spot 17" GridPane.columnIndex="7" GridPane.rowIndex="0" />
-                            <Button fx:id="spot18" styleClass="parkingButtonDownRow" text="Spot 18" GridPane.columnIndex="8" GridPane.rowIndex="0" />
-                            <Button fx:id="spot19" styleClass="sp19" text="Spot 19" GridPane.columnIndex="9" GridPane.rowIndex="0" />
-                        </children>
-                    </GridPane>
-                </VBox>
-             </children>
-          </VBox>
+            <!-- Panel de información -->
+            <VBox alignment="TOP_LEFT" prefWidth="320.0" spacing="10.0" HBox.hgrow="NEVER">
+                <!-- Botones estilizados -->
+                <HBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
+                    <Button fx:id="btnOpenParking" styleClass="styled-button" text="Abrir Parking" HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnCloseParking" styleClass="styled-button" text="Cerrar Parking" HBox.hgrow="ALWAYS" />
+                </HBox>
+                <Label styleClass="info-title-label" text="Información del Parking" />
+                <Label fx:id="occupiedSpotsLabel" text="Plazas ocupadas: 0" />
+                <Label text="Último coche que salió:" />
+                <TextField fx:id="lastCarExitedField" editable="false" />
+            </VBox>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </HBox>
+    </children>
+    <padding>
+        <Insets left="60.0" right="60.0" />
+    </padding>
+</VBox>
