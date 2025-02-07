@@ -112,7 +112,7 @@ public class DAOVehicle {
                 String licensePlate = rs.getString("license_plate");
                 String model = rs.getString("model");
                 String brand = rs.getString("brand");
-                String colour = rs.getString("colour");
+                String colour = rs.getString("color");
                 boolean parked = rs.getBoolean("is_parked");
                 LocalDate registration_date = rs.getDate("registration_date").toLocalDate();
                 DTOVehicle vehicle = new DTOVehicle(id,licensePlate,model,brand,colour,parked,registration_date);
