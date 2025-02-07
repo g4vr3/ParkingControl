@@ -3,12 +3,15 @@ package dam.parkingcontrol.model;
 import dam.parkingcontrol.database.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * La clase DAOVehicle proporciona métodos para registrar, actualizar y eliminar registros de vehículos en la base de datos.
  *
- * @version 1.0
  * @author g4vr3
+ * @version 1.0
  */
 public class DAOVehicle {
     // Constante para almacenar la URL de la base de datos
@@ -33,7 +36,7 @@ public class DAOVehicle {
             stmt.setString(3, vehicleToRegister.getBrand());
             stmt.setString(4, vehicleToRegister.getColour());
             stmt.setDate(5, Date.valueOf(vehicleToRegister.getRegistration_date()));
-            stmt.setBoolean(6, vehicleToRegister.getStatus());
+            stmt.setBoolean(6, vehicleToRegister.isParked());
 
             // Ejecutar la consulta y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
@@ -66,7 +69,7 @@ public class DAOVehicle {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // Establecer parámetros
-            stmt.setBoolean(1, vehicleToUpdate.getStatus());
+            stmt.setBoolean(1, vehicleToUpdate.isParked());
             stmt.setInt(2, vehicleToUpdate.getId_vehicle());
 
             // Ejecutar la consulta y obtener el número de filas afectadas
@@ -97,5 +100,29 @@ public class DAOVehicle {
 
             return rowsAffected > 0; // Si se eliminó al menos una fila
         }
+    }
+
+    public static ArrayList<DTOVehicle> getAllVehicles() {
+        ArrayList<DTOVehicle> vehicles = new ArrayList<>();
+        String sql = "SELECT * FROM Vehicles";
+        try (Connection conn = DriverManager.getConnection(DB_URL)){
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                int id = rs.getInt("vehicle_id");
+                String licensePlate = rs.getString("license_plate");
+                String model = rs.getString("model");
+                String brand = rs.getString("brand");
+                String colour = rs.getString("colour");
+                boolean parked = rs.getBoolean("is_parked");
+                LocalDate registration_date = rs.getDate("registration_date").toLocalDate();
+                DTOVehicle vehicle = new DTOVehicle(id,licensePlate,model,brand,colour,parked,registration_date);
+                vehicles.add(vehicle);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vehicles;
     }
 }
