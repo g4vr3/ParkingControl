@@ -58,10 +58,8 @@ public class DTOVehicle {
         this.colour = colour;
     }
 
-    public Boolean getStatus() {
-        return is_parked;
-    }
-    public void setStatus(Boolean is_parked) {
+    public Boolean isParked() {return is_parked;}
+    public void setParked(Boolean is_parked) {
         this.is_parked = is_parked;
     }
 
