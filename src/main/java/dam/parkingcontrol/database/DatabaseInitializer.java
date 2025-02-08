@@ -1,9 +1,7 @@
 package dam.parkingcontrol.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.Random;
 
 /**
@@ -28,7 +26,7 @@ public class DatabaseInitializer {
             + "brand TEXT, "
             + "color TEXT, "
             + "registration_date DATETIME DEFAULT CURRENT_TIMESTAMP, "
-            + "is_parked INTEGER NOT NULL DEFAULT 1 " // 1 = true, 0 = false
+            + "is_parked INTEGER NOT NULL DEFAULT 0 " // 1 = true, 0 = false
             + ");";
 
     /**
@@ -64,13 +62,14 @@ public class DatabaseInitializer {
         }
     }
 
-    private static final String INSERT_VEHICLE_SQL = "INSERT INTO Vehicles (license_plate, model, brand, color) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_VEHICLE_SQL = "INSERT INTO Vehicles (license_plate, model, brand, color, registration_date, is_parked) VALUES (?, ?, ?, ?, ?, ?)";
 
     /**
      * Inserta vehículos de muestra en la base de datos.
      * @param count el número de vehículos a insertar
      */
     public static void insertSampleVehicles(int count) {
+        String checkIfEmpty = "SELECT COUNT(*) FROM Vehicles";
         String[] models = {"Model A", "Model B", "Model C", "Model D"};
         String[] brands = {"Brand X", "Brand Y", "Brand Z"};
         String[] colors = {"Red", "Blue", "Green", "Black", "White"};
@@ -78,18 +77,34 @@ public class DatabaseInitializer {
         Random random = new Random();
 
         try (Connection conn = DatabaseConnection.connect();
+             Statement checkStmt = conn.createStatement();
              PreparedStatement stmt = conn.prepareStatement(INSERT_VEHICLE_SQL)) {
+            var resultSet = checkStmt.executeQuery(checkIfEmpty);
+            if (resultSet.next() && resultSet.getInt(1) > 0) {
+                System.out.println("La tabla Vehicles ya contiene datos. No se insertarán registros de muestra.");
+                return;
+            }
+            LocalDate startDate = LocalDate.of(2005, 1, 1);
+            LocalDate endDate = LocalDate.now(); // Fecha máxima como hoy
+            long daysBetween = startDate.until(endDate).getDays();
 
             for (int i = 0; i < count; i++) {
                 String licensePlate = "ABC" + (1000 + random.nextInt(9000));
                 String model = models[random.nextInt(models.length)];
                 String brand = brands[random.nextInt(brands.length)];
                 String color = colors[random.nextInt(colors.length)];
+                // Generar fecha aleatoria entre 2005 y hoy
+
+                LocalDate randomDate = startDate.plusDays(random.nextInt((int) daysBetween + 1));
+                Timestamp randomTimestamp = Timestamp.valueOf(randomDate.atStartOfDay());
 
                 stmt.setString(1, licensePlate);
                 stmt.setString(2, model);
                 stmt.setString(3, brand);
                 stmt.setString(4, color);
+                stmt.setTimestamp(5, randomTimestamp);
+                stmt.setInt(6,0);
+
                 stmt.addBatch();
             }
 
