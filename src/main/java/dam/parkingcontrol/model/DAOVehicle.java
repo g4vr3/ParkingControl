@@ -3,8 +3,6 @@ package dam.parkingcontrol.model;
 import dam.parkingcontrol.database.DatabaseConnection;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -102,10 +100,7 @@ public class DAOVehicle {
     }
     /**
      * Retorna todos los vehículos registrados en la base de datos.
-     *
-     * @throws SQLException si ocurre un error al acceder a la base de datos
      */
-
     public static ArrayList<DTOVehicle> getAllVehicles() {
         ArrayList<DTOVehicle> vehicles = new ArrayList<>();
         String sql = "SELECT * FROM Vehicles";

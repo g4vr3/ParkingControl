@@ -1,7 +1,6 @@
 package dam.parkingcontrol.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
  * La clase DTOVehicle inicializa los objetos de vehicle para trabajar con ellos en las demás clases.

@@ -151,7 +151,7 @@ public class LoginController {
                 Platform.exit();
 
                 // Generar un reporte de auditoría de inicio de sesión
-                // TODO: Sería interesante guardar en base de datos o fichero un contador de intentos fallidos para permitir bloqueos temporales o permantentes
+                // TODO: Sería interesante guardar en base de datos o fichero un contador de intentos fallidos para permitir bloqueos temporales o permanentes
                 ReportManager.generateLoginAuditReport();
             }
             Notifier.showAlert(AlertType.ERROR, "error_text", "login_failed_text", "login_failed_message_text");

@@ -182,7 +182,7 @@ public class ParkingController {
                 while (openedParking) { // El hilo sigue corriendo mientras openedParking sea true
                     simulateRandomEntry();
                     Random random = new Random();
-                    int delay = 10000 + entryRandom.nextInt(3000); // Tiempo entre 10 y 13segundos
+                    int delay = 10000 + entryRandom.nextInt(3000); // Tiempo entre 10 y 13 segundos
                     Thread.sleep(delay); // Esperar un tiempo aleatorio
                 }
             } catch (InterruptedException e) {
