@@ -78,7 +78,7 @@ public class DatabaseInitializer {
         Random random = new Random();
 
         try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(INSERT_VEHICLE_SQL)) {
+             PreparedStatement stmt = conn.prepareStatement(INSERT_VEHICLE_SQL)) {
 
             for (int i = 0; i < count; i++) {
                 String licensePlate = "ABC" + (1000 + random.nextInt(9000));
@@ -86,14 +86,14 @@ public class DatabaseInitializer {
                 String brand = brands[random.nextInt(brands.length)];
                 String color = colors[random.nextInt(colors.length)];
 
-                pstmt.setString(1, licensePlate);
-                pstmt.setString(2, model);
-                pstmt.setString(3, brand);
-                pstmt.setString(4, color);
-                pstmt.addBatch();
+                stmt.setString(1, licensePlate);
+                stmt.setString(2, model);
+                stmt.setString(3, brand);
+                stmt.setString(4, color);
+                stmt.addBatch();
             }
 
-            pstmt.executeBatch();
+            stmt.executeBatch();
             System.out.println(count + " vehicles inserted successfully.");
         } catch (SQLException e) {
             System.out.println("Error inserting vehicles: " + e.getMessage());
