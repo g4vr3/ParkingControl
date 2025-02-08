@@ -11,7 +11,7 @@ import java.util.Random;
  * Encargada exclusivamente de crear las tablas y otras operaciones DDL.
  * Define las consultas SQL como constantes.
  *
- * @version 1.0
+ * @version 1.1
  */
 public class DatabaseInitializer {
 
@@ -64,11 +64,12 @@ public class DatabaseInitializer {
         }
     }
 
-    /**
-     * String para insertar los datos de los vehículos en la base de datos, se rellenará en su correspondiente métod
-     */
     private static final String INSERT_VEHICLE_SQL = "INSERT INTO Vehicles (license_plate, model, brand, color) VALUES (?, ?, ?, ?)";
 
+    /**
+     * Inserta vehículos de muestra en la base de datos.
+     * @param count el número de vehículos a insertar
+     */
     public static void insertSampleVehicles(int count) {
         String[] models = {"Model A", "Model B", "Model C", "Model D"};
         String[] brands = {"Brand X", "Brand Y", "Brand Z"};
