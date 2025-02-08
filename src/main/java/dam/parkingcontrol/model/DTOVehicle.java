@@ -1,6 +1,7 @@
 package dam.parkingcontrol.model;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * La clase DTOVehicle inicializa los objetos de vehicle para trabajar con ellos en las demás clases.
@@ -13,7 +14,7 @@ public class DTOVehicle {
     private int vehicle_id;
     private String license_plate, model, brand, colour;
     private Boolean is_parked;
-    private LocalDate registration_date;
+    private Timestamp registration_date;
 
     /**
      * Constructor con atributos de la clase DTOVehicle.
@@ -26,7 +27,7 @@ public class DTOVehicle {
      * @param is_parked indica si el vehículo está aparcado
      * @param registration_date la fecha de registro del vehículo
      */
-    public DTOVehicle(int vehicle_id, String license_plate, String model, String brand, String colour, Boolean is_parked, LocalDate registration_date) {
+    public DTOVehicle(int vehicle_id, String license_plate, String model, String brand, String colour, Boolean is_parked, Timestamp registration_date) {
         this.vehicle_id = vehicle_id;
         this.license_plate = license_plate;
         this.model = model;
@@ -156,7 +157,7 @@ public class DTOVehicle {
      *
      * @return la fecha de registro del vehículo
      */
-    public LocalDate getRegistration_date() {
+    public Timestamp getRegistration_date() {
         return registration_date;
     }
 
@@ -165,7 +166,7 @@ public class DTOVehicle {
      *
      * @param registration_date la fecha de registro del vehículo
      */
-    public void setRegistration_date(LocalDate registration_date) {
+    public void setRegistration_date(Timestamp registration_date) {
         this.registration_date = registration_date;
     }
 }

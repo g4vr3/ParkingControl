@@ -4,6 +4,7 @@ import dam.parkingcontrol.database.DatabaseConnection;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +34,7 @@ public class DAOVehicle {
             stmt.setString(2, vehicleToRegister.getModel());
             stmt.setString(3, vehicleToRegister.getBrand());
             stmt.setString(4, vehicleToRegister.getColour());
-            stmt.setDate(5, Date.valueOf(vehicleToRegister.getRegistration_date()));
+            stmt.setTimestamp(5, vehicleToRegister.getRegistration_date());
             stmt.setBoolean(6, vehicleToRegister.isParked());
 
             // Ejecutar la consulta y obtener el número de filas afectadas
@@ -118,7 +119,7 @@ public class DAOVehicle {
                 String brand = rs.getString("brand");
                 String colour = rs.getString("color");
                 boolean parked = rs.getBoolean("is_parked");
-                LocalDate registration_date = rs.getDate("registration_date").toLocalDate();
+                Timestamp registration_date = rs.getTimestamp("registration_date");
                 DTOVehicle vehicle = new DTOVehicle(id,licensePlate,model,brand,colour,parked,registration_date);
                 vehicles.add(vehicle);
             }
