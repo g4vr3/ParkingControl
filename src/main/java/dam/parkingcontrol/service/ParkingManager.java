@@ -6,7 +6,9 @@ import dam.parkingcontrol.model.DTOEntryExitRecord;
 import dam.parkingcontrol.model.DTOVehicle;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
@@ -17,7 +19,8 @@ import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
  * @version 1.1
  */
 public class ParkingManager {
-
+    private int totalSpots = 20; // Número total de plazas
+    private int freeSpots = totalSpots; // Inicialmente todas las plazas están libres
     Map<Integer, DTOVehicle> parking;
     Random random;
     ArrayList<DTOVehicle> vehicles;
@@ -39,34 +42,40 @@ public class ParkingManager {
             parking.put(i, null);
         }
     }
+    public synchronized int getFreeSpotsCount() {
+        return freeSpots;
+    }
 
     /**
      * Encuentra una plaza de aparcamiento disponible y estaciona un vehículo aleatoriamente.
      *
      */
-    public int parkVehicle() {
-        int randomVehicleIndex;
-        int parkingSpot = -1;
-        DTOVehicle vehicle;
-        do {
-            randomVehicleIndex = random.nextInt(vehicles.size());
-            vehicle = vehicles.get(randomVehicleIndex);
-        } while (vehicle.isParked());
+    public synchronized int parkVehicle() {
+        if (freeSpots > 0) {
+            int randomVehicleIndex;
+            int parkingSpot;
+            DTOVehicle vehicle;
+            do {
+                randomVehicleIndex = random.nextInt(vehicles.size());
+                vehicle = vehicles.get(randomVehicleIndex);
+            } while (vehicle.isParked());
 
-        do {
-            parkingSpot = random.nextInt(parking.size());
-        } while (!searchParkingSpot(parkingSpot));
+            do {
+                parkingSpot = random.nextInt(parking.size());
+            } while (!searchParkingSpot(parkingSpot));
 
-        // Estacionar el vehículo en la plaza aleatoria disponible
-        parking.put(parkingSpot, vehicle);
-        vehicle.setParked(true);
-        try {
-            DAOEntryExitRecord.registerEntry(new DTOEntryExitRecord(vehicle.getId_vehicle(), LocalDate.now(), null));
-            DAOVehicle.updateVehicleStatus(vehicle);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            parking.put(parkingSpot, vehicle);
+            vehicle.setParked(true);
+            freeSpots--;
+            try {
+                DAOEntryExitRecord.registerEntry(new DTOEntryExitRecord(vehicle.getId_vehicle(), Timestamp.valueOf(LocalDateTime.now()), null));
+                DAOVehicle.updateVehicleStatus(vehicle);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return parkingSpot;
         }
-        return parkingSpot;
+        return -1; // No hay plazas libres
     }
 
 
@@ -74,30 +83,35 @@ public class ParkingManager {
      * Saca un coche aleatorio de su plaza de parking.
      *
      */
-    public int unParkVehicle() {
-        int randomSpot = -1;
-        do {
-            randomSpot = random.nextInt(parking.size());
-        } while (searchParkingSpot(randomSpot));
+    public synchronized int unParkVehicle() {
+        if (freeSpots < totalSpots) {
+            int randomSpot;
+            do {
+                randomSpot = random.nextInt(parking.size());
+            } while (searchParkingSpot(randomSpot));
 
-        DTOVehicle vehicle = parking.get(randomSpot);
-        if (vehicle != null && vehicle.isParked()) {
-            vehicle.setParked(false);
-            try {
-                DAOVehicle.updateVehicleStatus(vehicle);
-                DAOEntryExitRecord.registerExit(new DTOEntryExitRecord(vehicle.getId_vehicle(), null, LocalDate.now()));
-            } catch (SQLException e) {
-                e.printStackTrace();
+            DTOVehicle vehicle = parking.get(randomSpot);
+            if (vehicle != null && vehicle.isParked()) {
+                vehicle.setParked(false);
+                freeSpots++;
+                try {
+                    DAOVehicle.updateVehicleStatus(vehicle);
+                    DAOEntryExitRecord.registerExit(new DTOEntryExitRecord(vehicle.getId_vehicle(), null, Timestamp.valueOf(LocalDateTime.now())));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                parking.put(randomSpot, null);
             }
-            parking.put(randomSpot, null);
+            return randomSpot;
         }
-        return randomSpot;
+        return -1; // No hay vehículos para salir
     }
 
-    public void clearParking() {
+    public synchronized void clearParking() {
         for (int i = 0; i < parking.size(); i++) {
             parking.put(i, null);
         }
+        freeSpots = totalSpots;
         try {
             DAOEntryExitRecord.updateAllExitsToCurrentDate();
         } catch (SQLException e) {

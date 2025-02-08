@@ -3,10 +3,13 @@ package dam.parkingcontrol.controller;
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.utils.Notifier;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -66,6 +69,8 @@ public class ParkingController {
 
     @FXML
     private Label parkingStatus;
+    @FXML
+    private Label occupiedSpotsLabel;
 
     private final Color COLOR_DEFAULT = Color.web("#60605B");
     private final Color COLOR_RED = Color.web("#FF6347");
@@ -86,6 +91,17 @@ public class ParkingController {
         btnCloseParking.setOnAction(event -> closeParking());
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
+
+        startLabelUpdate(); // Iniciar la actualización del Label
+    }
+    private void updateOccupiedSpotsLabel() {
+        int freeSpots = parkingManager.getFreeSpotsCount();
+        occupiedSpotsLabel.setText("Plazas libres: " + freeSpots);
+    }
+    private void startLabelUpdate() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateOccupiedSpotsLabel()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     /**
