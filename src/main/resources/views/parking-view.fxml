@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
     <children>
         <ImageView fitHeight="67.2" fitWidth="376.0">
             <image>
@@ -106,7 +106,7 @@
             </StackPane>
                 <Label fx:id="parkingStatus" styleClass="info-title-label" text="Parking Cerrado" />
             <Separator styleClass="separator-line" />
-                <Label fx:id="occupiedSpotsLabel" text="Plazas ocupadas: 0" />
+                <Label fx:id="occupiedSpotsLabel" text="Plazas libres: 0" />
             <VBox spacing="5.0">
                <children>
                       <Label text="Último coche que salió:" />
