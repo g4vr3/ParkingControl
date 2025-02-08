@@ -3,6 +3,7 @@ package dam.parkingcontrol.model;
 import dam.parkingcontrol.database.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 /**
  * La clase DAOEntryExitRecord proporciona métodos para registrar entradas y salidas de vehículos en la base de datos.
@@ -12,7 +13,6 @@ import java.sql.*;
 public class DAOEntryExitRecord {
     // Constante para almacenar la URL de la base de datos
     private static final String DB_URL = DatabaseConnection.getDbUrl();
-
     /**
      * Registra una entrada de vehículo en la base de datos.
      *
@@ -26,27 +26,23 @@ public class DAOEntryExitRecord {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            // Establecer parámetros
             stmt.setInt(1, entryToRegister.getVehicle_id());
-            stmt.setDate(2, Date.valueOf(entryToRegister.getEntry_time()));
+            stmt.setTimestamp(2, entryToRegister.getEntry_time());
 
-            // Ejecutar la consulta y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
 
-            // Establecer al DTO el ID autogenerado si se insertaron filas
             if (rowsAffected > 0) {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1); // Obtener el ID generado
-                        entryToRegister.setRecord_id(generatedId); // Establecer el ID en el DTO
-                        return true; // La entrada se registró exitosamente
+                        int generatedId = generatedKeys.getInt(1);
+                        entryToRegister.setRecord_id(generatedId);
+                        return true;
                     }
                 }
             }
-            return false; // Si no se logró guardar o generar el id
+            return false;
         }
     }
-
     /**
      * Registra una salida de vehículo en la base de datos.
      *
@@ -55,35 +51,40 @@ public class DAOEntryExitRecord {
      * @throws SQLException si ocurre un error al acceder a la base de datos
      */
     public static boolean registerExit(DTOEntryExitRecord exitToRegister) throws SQLException {
-        String sql = "UPDATE Entry_Exit_Records SET exit_time = ? WHERE vehicle_id = ?  AND exit_time IS NULL";
+        String sql = "UPDATE Entry_Exit_Records SET exit_time = ? WHERE vehicle_id = ? AND exit_time IS NULL";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Establecer parámetros
-            stmt.setDate(1, Date.valueOf(exitToRegister.getExit_time()));
+            stmt.setTimestamp(1, exitToRegister.getExit_time());
             stmt.setInt(2, exitToRegister.getVehicle_id());
 
-            // Ejecutar la consulta y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
 
-            return rowsAffected > 0; // Si se actualizó al menos una fila
+            return rowsAffected > 0;
         }
     }
+    /**
+     * Actualiza todos los registros de salida en la tabla Entry_Exit_Records que aún no tienen una fecha de salida.
+     *
+     * <p> Busca todas las filas donde el campo {exit_time} es {NULL} y les asigna la fecha
+     * y hora actuales. Se utiliza un {@link PreparedStatement} para realizar la actualización en la base de datos.</p>
+     *
+     * @return {true} si al menos un registro fue actualizado, {@code false} si no había registros pendientes de salida.
+     * @throws SQLException si ocurre un error al ejecutar la consulta en la base de datos.
+     */
     public static boolean updateAllExitsToCurrentDate() throws SQLException {
         String sql = "UPDATE Entry_Exit_Records SET exit_time = ? WHERE exit_time IS NULL";
-        Date currentDate = new Date(System.currentTimeMillis());
+        Timestamp currentDate = Timestamp.valueOf(LocalDateTime.now());
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Establecer el parámetro de la fecha actual
-            stmt.setDate(1, currentDate);
+            stmt.setTimestamp(1, currentDate);
 
-            // Ejecutar la consulta y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
 
-            return rowsAffected > 0; // Si se actualizó al menos una fila
+            return rowsAffected > 0;
         }
     }
 }
