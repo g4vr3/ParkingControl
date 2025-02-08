@@ -1,11 +1,8 @@
 .shadowed-vbox {
     -fx-background-color: #60605b;
-    -fx-border-color: #2e2e2e;
-    -fx-border-width: 1px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0.5, 0, 5);
-
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
 .rectangleDown {
     -fx-stroke: white;
@@ -118,6 +115,8 @@
     -fx-pref-height: 35px;
     -fx-max-width: 150px;
     -fx-font-size: 1.1em;
+    -fx-cursor: hand; /* Cambia el cursor al pasar sobre el botón */
+
 }
 
 .combo-box {
@@ -162,24 +161,49 @@
     -fx-font-weight: bold;
     -fx-padding: 20px 0 10px 0;
 }
+
 .styled-button {
-    -fx-background-color: #4CAF50; /* Color de fondo */
+    -fx-background-color: linear-gradient(to bottom, #EE5593, rgba(238, 85, 147, 0.8));
     -fx-text-fill: white; /* Color del texto */
-    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-font-size: 1.1em; /* Tamaño de la fuente */
     -fx-padding: 10px 20px; /* Relleno */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px; /* Bordes redondeados */
     -fx-cursor: hand; /* Cambia el cursor al pasar sobre el botón */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0.0, 0, 1); /* Sombra de texto */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
 }
+
 .styled-button:hover {
-    background-color:#eb675e;
+    -fx-scale-x: 1.05; /* Escala en el eje X */
+    -fx-scale-y: 1.05; /* Escala en el eje Y */
+}
+
+.separator-line {
+    -fx-background-color: #60605b;
+    -fx-pref-height: 1px;
+}
+
+.label {
+    -fx-font-size: 1.1em;
+}
+
+.label.info-title-label {
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0 0 0;
+}
+
+.text-field.lastExit {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
 }
 
 .parkingPane {
     -fx-background-color: #d5d5d5;
     -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0.5, 0, 3);
+    -fx-padding: 20px;
 }
+
 .region-with-background {
     -fx-background-image: url("../images/sueloParking.png");
     -fx-background-size: cover;
