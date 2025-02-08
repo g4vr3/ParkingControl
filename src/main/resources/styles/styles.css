@@ -178,6 +178,10 @@
     -fx-scale-y: 1.05; /* Escala en el eje Y */
 }
 
+.styled-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #CC467A, rgba(204, 70, 122, 0.8));
+}
+
 .separator-line {
     -fx-background-color: #60605b;
     -fx-pref-height: 1px;
