@@ -1,9 +1,14 @@
 package dam.parkingcontrol.service;
 
 import dam.parkingcontrol.database.DatabaseConnection;
+import dam.parkingcontrol.utils.Notifier;
 import dam.parkingcontrol.utils.UserInfo;
+import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,11 +22,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * La clase ReportManager proporciona métodos para crear reportes sobre la aplicación.
  *
- * @version 1.0
+ * @version 1.1
  */
 public class ReportManager {
 
@@ -32,23 +38,38 @@ public class ReportManager {
     }
 
     /**
-     * Genera un reporte de fin de día y lo guarda en formato PDF.
+     * Genera un reporte de fin de día y lo guarda en formato PDF en la ruta elegida por el usuario.
      */
     public static void generateEndOfDayReport() {
         try {
-            String reportPath = "src/main/resources/reports/end_day_report/end_day_report.jasper";
-            String outputPath = GENERATED_REPORTS_DIR + LocalDate.now() + "_end_day_report.pdf";
+            ResourceBundle bundle = LanguageManager.getBundle();
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("Date", Date.valueOf(LocalDate.now()));
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(bundle.getString("save_report_title_text"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
 
-            try (Connection conn = DatabaseConnection.connect()) {
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
-                JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
-                System.out.println("Reporte generado exitosamente: " + outputPath);
+            // Establecer el nombre de archivo por defecto
+            String defaultFileName = "end_day_report_" + LocalDate.now() + ".pdf";
+            fileChooser.setInitialFileName(defaultFileName);
+
+            // Mostrar el diálogo de guardar archivo
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                String filePath = file.getAbsolutePath();
+                String reportPath = "src/main/resources/reports/end_day_report/end_day_report.jasper";
+
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("Date", Date.valueOf(LocalDate.now()));
+
+                try (Connection conn = DatabaseConnection.connect()) {
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
+                    Notifier.showAlert(Alert.AlertType.INFORMATION, "generated_report_success_title", "generated_report_success_header", "generated_report_success_content");
+                }
             }
         } catch (JRException | SQLException e) {
-            System.err.println("Error al generar el reporte de fin de día: " + e.getMessage());
+            Notifier.showAlert(Alert.AlertType.ERROR, "error_title", "generating_report_error_header", "generating_report_error_content");
             e.printStackTrace();
         }
     }

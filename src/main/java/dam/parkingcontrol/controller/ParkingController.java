@@ -1,6 +1,7 @@
 package dam.parkingcontrol.controller;
 
 import dam.parkingcontrol.service.ParkingManager;
+import dam.parkingcontrol.service.ReportManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -119,14 +120,15 @@ public class ParkingController {
     }
 
     /**
-     * Cierra el estacionamiento, vaciando todas las plazas.
+     * Cierra el estacionamiento, vaciando todas las plazas. Genera un informe de fin de día.
      */
-    // Cerrar el parking (vacía todas las plazas)
+    // Cerrar el parking (vacía todas las plazas) y generar reporte diario
     public void closeParking() {
         for (Button spot : parkingSpots) {
             spot.setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Vaciar todas las plazas
         }
         stopSimulation();
+        ReportManager.generateEndOfDayReport(); // Generar reporte de fin de día
     }
 
     /**
