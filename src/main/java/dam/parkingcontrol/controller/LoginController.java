@@ -19,7 +19,16 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+/**
+ * Controlador para el inicio de sesión.
+ * Gestiona la autenticación del usuario, la selección de idioma,
+ * la navegación a la vista principal y la ayuda.
+ *
+ * @version 1.0.1
+ */
 
 public class LoginController {
 
@@ -46,6 +55,10 @@ public class LoginController {
     private int failedAttempts = 0; // Contador de intentos de inicio de sesión fallidos
 
 
+    /**
+     * Inicialización de la interfaz y componentes.
+     * Configura los elementos de la UI y asigna eventos a los componentes.
+     */
     @FXML
     public void initialize() {
         setUI();
@@ -54,10 +67,18 @@ public class LoginController {
         applyFloatingEffect();
 
         // Acción del hyperlink
-        // TODO: Crear página web de ayuda y cambiar la URL
-        helpLink.setOnAction(_ -> openWebPage("https://www.example.com"));
+        helpLink.setOnAction(_ -> {
+            try {
+                openWebPage(Objects.requireNonNull(getClass().getResource("/help-web/index.html")).toURI());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
+    /**
+     * Configura la interfaz de usuario, incluyendo idioma manejando los distintos idiomas y acciones de los elementos gráficos.
+     */
     @FXML
     private void setUI() {
         // Obtiene el bundle gestionado por el LanguageManager
@@ -91,6 +112,9 @@ public class LoginController {
         loginButton.setDefaultButton(true);
     }
 
+    /**
+     * Actualiza los textos de la UI según el idioma seleccionado.
+     */
     private void updateUILanguage() {
         // Obtiene el bundle actual, gestionado por el LanguageManager
         bundle = LanguageManager.getBundle();
@@ -106,13 +130,17 @@ public class LoginController {
         helpLink.setText(bundle.getString("help_link_text"));
     }
 
+    /**
+     * Maneja el evento de inicio de sesión verificando las credenciales ingresadas.
+     * Si los intentos fallidos superan el límite, se genera un reporte de auditoría.
+     */
     private void handleLogin() {
         String username = tfUsername.getText();
         String password = pfPass.getText();
 
         if (validateCredentials(username, password)) {
             try {
-                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 900, 700, true, true);
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 1200, 800, true, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -123,26 +151,41 @@ public class LoginController {
                 Platform.exit();
 
                 // Generar un reporte de auditoría de inicio de sesión
-                // TODO: Sería interesante guardar en base de datos o fichero un contador de intentos fallidos para permitir bloqueos temporales o permantentes
+                // TODO: Sería interesante guardar en base de datos o fichero un contador de intentos fallidos para permitir bloqueos temporales o permanentes
                 ReportManager.generateLoginAuditReport();
             }
             Notifier.showAlert(AlertType.ERROR, "error_text", "login_failed_text", "login_failed_message_text");
         }
     }
 
+    /**
+     * Verifica las credenciales ingresadas para autenticar al usuario.
+     *
+     * @param username Nombre de usuario o correo electrónico.
+     * @param password Contraseña.
+     * @return true si las credenciales son correctas, false si no lo son.
+     */
     // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
         return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
     }
 
-    private void openWebPage(String url) {
+    /**
+     * Abre la página web en el navegador predeterminado del sistema.
+     *
+     * @param uri URI de la página web a abrir.
+     */
+    private void openWebPage(URI uri) {
         try {
-            Desktop.getDesktop().browse(new URI(url));
-        } catch (IOException | URISyntaxException e) {
+            Desktop.getDesktop().browse(uri);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Aplica un efecto de animación flotante al contenedor de la aplicación.
+     */
     // Aplicar efecto flotante al box de login
     private void applyFloatingEffect() {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(2), vboxCenter);

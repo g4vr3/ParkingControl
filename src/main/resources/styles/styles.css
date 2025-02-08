@@ -1,10 +1,8 @@
 .shadowed-vbox {
     -fx-background-color: #60605b;
-    -fx-border-color: #2e2e2e;
-    -fx-border-width: 1px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0.5, 0, 5);
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
 .rectangleDown {
     -fx-stroke: white;
@@ -22,21 +20,24 @@
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 2px 1px 0px 2px; /* top right bottom left */
     -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+    -fx-alignment: bottom-center;
 }
 /*Estilos personalizados para fila abajo*/
 .parkingButtonDownRow {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 0px 1px 2px 2px; /* top right bottom left */
+    -fx-alignment: top-center;
 }
 
 /*Estilos personalizados para plazas de las esquinas*/
@@ -44,41 +45,50 @@
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
     -fx-border-color: white;
     -fx-border-width: 0px 3px 2px 2px;
     -fx-border-style: solid solid solid solid;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
+    -fx-alignment: top-center;
+
 }
 .sp10 {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 0px 1px 2px 3px;
     -fx-border-style: solid solid solid solid;
+    -fx-alignment: top-center;
 }
 .sp9 {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
+
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 2px 3px 0px 2px;
     -fx-border-style: solid solid none solid;
+    -fx-alignment: bottom-center;
 }
 .sp0 {
     -fx-background-color: #60605b;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-width: 80px;
-    -fx-pref-height: 145px;
+
+    -fx-max-width: Infinity; /* Permitir crecimiento en ancho */
+    -fx-max-height: Infinity; /* Permitir crecimiento en alto */
     -fx-border-color: white;
     -fx-border-width: 2px 1px 0px 3px; /* top right bottom left */
     -fx-border-style: solid solid none solid; /* Apply border only to top, bottom, and left */
+    -fx-alignment: bottom-center;
 }
 
 /* Estilos personalizados para el login */
@@ -105,6 +115,8 @@
     -fx-pref-height: 35px;
     -fx-max-width: 150px;
     -fx-font-size: 1.1em;
+    -fx-cursor: hand; /* Cambia el cursor al pasar sobre el botón */
+
 }
 
 .combo-box {
@@ -142,4 +154,62 @@
 
 .hyperlink:pressed {
     -fx-underline: true;
+}
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 0 10px 0;
+}
+
+.styled-button {
+    -fx-background-color: linear-gradient(to bottom, #EE5593, rgba(238, 85, 147, 0.8));
+    -fx-text-fill: white; /* Color del texto */
+    -fx-font-size: 1.1em; /* Tamaño de la fuente */
+    -fx-padding: 10px 20px; /* Relleno */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-cursor: hand; /* Cambia el cursor al pasar sobre el botón */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
+}
+
+.styled-button:hover {
+    -fx-scale-x: 1.05; /* Escala en el eje X */
+    -fx-scale-y: 1.05; /* Escala en el eje Y */
+}
+
+.styled-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #CC467A, rgba(204, 70, 122, 0.8));
+}
+
+.separator-line {
+    -fx-background-color: #60605b;
+    -fx-pref-height: 1px;
+}
+
+.label {
+    -fx-font-size: 1.1em;
+}
+
+.label.info-title-label {
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0 0 0;
+}
+
+.text-field.lastExit {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
+}
+
+.parkingPane {
+    -fx-background-color: #d5d5d5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0.5, 0, 3);
+    -fx-padding: 20px;
+}
+
+.region-with-background {
+    -fx-background-image: url("../images/sueloParking.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }

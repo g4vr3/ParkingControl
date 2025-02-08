@@ -7,8 +7,7 @@ import java.sql.*;
 /**
  * La clase DAOEntryExitRecord proporciona métodos para registrar entradas y salidas de vehículos en la base de datos.
  *
- * @version 1.0
- * @author g4vr3
+ * @version 1.1
  */
 public class DAOEntryExitRecord {
     // Constante para almacenar la URL de la base de datos
@@ -22,7 +21,7 @@ public class DAOEntryExitRecord {
      * @throws SQLException si ocurre un error al acceder a la base de datos
      */
     public static boolean registerEntry(DTOEntryExitRecord entryToRegister) throws SQLException {
-        String sql = "INSERT INTO EntryExitRecords(vehicle_id, entry_time) VALUES(?, ?)";
+        String sql = "INSERT INTO Entry_Exit_Records(vehicle_id, entry_time) VALUES(?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -56,7 +55,7 @@ public class DAOEntryExitRecord {
      * @throws SQLException si ocurre un error al acceder a la base de datos
      */
     public static boolean registerExit(DTOEntryExitRecord exitToRegister) throws SQLException {
-        String sql = "UPDATE EntryExitRecords SET exit_time = ? WHERE vehicle_id = ?";
+        String sql = "UPDATE Entry_Exit_Records SET exit_time = ? WHERE vehicle_id = ?  AND exit_time IS NULL";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -64,6 +63,22 @@ public class DAOEntryExitRecord {
             // Establecer parámetros
             stmt.setDate(1, Date.valueOf(exitToRegister.getExit_time()));
             stmt.setInt(2, exitToRegister.getVehicle_id());
+
+            // Ejecutar la consulta y obtener el número de filas afectadas
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0; // Si se actualizó al menos una fila
+        }
+    }
+    public static boolean updateAllExitsToCurrentDate() throws SQLException {
+        String sql = "UPDATE Entry_Exit_Records SET exit_time = ? WHERE exit_time IS NULL";
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Establecer el parámetro de la fecha actual
+            stmt.setDate(1, currentDate);
 
             // Ejecutar la consulta y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
