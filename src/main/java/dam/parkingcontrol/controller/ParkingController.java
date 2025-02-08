@@ -5,6 +5,7 @@ import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.utils.Notifier;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.util.Random;
@@ -14,7 +15,7 @@ import java.util.Random;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.1
+ * @version 1.2
  */
 public class ParkingController {
 
@@ -62,6 +63,10 @@ public class ParkingController {
     private Button btnOpenParking;
     @FXML
     private Button btnCloseParking;
+
+    @FXML
+    private Label parkingStatus;
+
     private final Color COLOR_DEFAULT = Color.web("#60605B");
     private final Color COLOR_RED = Color.web("#FF6347");
     private boolean openedParking = false;
@@ -79,6 +84,8 @@ public class ParkingController {
         };
         btnOpenParking.setOnAction(event -> openParking());
         btnCloseParking.setOnAction(event -> closeParking());
+        btnOpenParking.setVisible(true);
+        btnCloseParking.setVisible(false);
     }
 
     /**
@@ -119,6 +126,9 @@ public class ParkingController {
         }
         startSimulation();
         Notifier.showTooltip(btnOpenParking, "parking_opened_tooltip");
+        btnOpenParking.setVisible(false);
+        btnCloseParking.setVisible(true);
+        parkingStatus.setText("Parking Abierto");
     }
 
     /**
@@ -131,6 +141,9 @@ public class ParkingController {
         }
         stopSimulation();
         ReportManager.generateEndOfDayReport(); // Generar reporte de fin de día
+        btnOpenParking.setVisible(true);
+        btnCloseParking.setVisible(false);
+        parkingStatus.setText("Parking Cerrado");
     }
 
     /**
