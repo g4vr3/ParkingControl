@@ -2,6 +2,7 @@ package dam.parkingcontrol.controller;
 
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
+import dam.parkingcontrol.utils.Notifier;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -117,6 +118,7 @@ public class ParkingController {
             spot.setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Todas las plazas vacías
         }
         startSimulation();
+        Notifier.showTooltip(btnOpenParking, "parking_opened_tooltip");
     }
 
     /**
