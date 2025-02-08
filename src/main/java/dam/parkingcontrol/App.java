@@ -27,7 +27,7 @@ public class App extends Application {
         // Cargar la vista de inicio de sesión
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/login-view.fxml"));
         fxmlLoader.setResources(bundle);
-        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 700, 500);
 
         // Añadir la hoja de estilos
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
