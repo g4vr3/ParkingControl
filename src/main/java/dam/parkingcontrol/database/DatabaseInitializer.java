@@ -1,8 +1,10 @@
 package dam.parkingcontrol.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 /**
  * Clase para inicializar la base de datos.
@@ -55,8 +57,45 @@ public class DatabaseInitializer {
             System.out.println("Tabla Vehicles OK");
             stmt.execute(CREATE_ENTRY_EXIT_RECORDS_TABLE_SQL);
             System.out.println("Tabla Entry_Exit_Records OK");
+            //insertSampleVehicles(20);
+            System.out.println("Vehicles OK");
         } catch (SQLException e) {
             System.out.println("Error al crear las tablas: " + e.getMessage());
+        }
+    }
+
+    /**
+     * String para insertar los datos de los vehículos en la base de datos, se rellenará en su correspondiente métod
+     */
+    private static final String INSERT_VEHICLE_SQL = "INSERT INTO Vehicles (license_plate, model, brand, color) VALUES (?, ?, ?, ?)";
+
+    public static void insertSampleVehicles(int count) {
+        String[] models = {"Model A", "Model B", "Model C", "Model D"};
+        String[] brands = {"Brand X", "Brand Y", "Brand Z"};
+        String[] colors = {"Red", "Blue", "Green", "Black", "White"};
+
+        Random random = new Random();
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(INSERT_VEHICLE_SQL)) {
+
+            for (int i = 0; i < count; i++) {
+                String licensePlate = "ABC" + (1000 + random.nextInt(9000));
+                String model = models[random.nextInt(models.length)];
+                String brand = brands[random.nextInt(brands.length)];
+                String color = colors[random.nextInt(colors.length)];
+
+                pstmt.setString(1, licensePlate);
+                pstmt.setString(2, model);
+                pstmt.setString(3, brand);
+                pstmt.setString(4, color);
+                pstmt.addBatch();
+            }
+
+            pstmt.executeBatch();
+            System.out.println(count + " vehicles inserted successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error inserting vehicles: " + e.getMessage());
         }
     }
 }
