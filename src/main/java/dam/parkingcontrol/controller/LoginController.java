@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * Gestiona la autenticación del usuario, la selección de idioma,
  * la navegación a la vista principal y la ayuda.
  *
- * @version 1.0
+ * @version 1.0.1
  */
 
 public class LoginController {
@@ -140,7 +140,7 @@ public class LoginController {
 
         if (validateCredentials(username, password)) {
             try {
-                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 1000, 800, true, true);
+                ViewManager.changeView(loginButton, "/views/parking-view.fxml", bundle.getString("parking_view_title"), 1200, 800, true, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
