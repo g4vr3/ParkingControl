@@ -1,5 +1,6 @@
 package dam.parkingcontrol.controller;
 
+import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.utils.Notifier;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.Random;
+import java.util.ResourceBundle;
 
 /**
  * Controlador para la gestión del estacionamiento.
@@ -66,11 +68,12 @@ public class ParkingController {
     private Button btnOpenParking;
     @FXML
     private Button btnCloseParking;
-
     @FXML
     private Label parkingStatus;
     @FXML
     private Label occupiedSpotsLabel;
+
+    ResourceBundle bundle;
 
     private final Color COLOR_DEFAULT = Color.web("#60605B");
     private final Color COLOR_RED = Color.web("#FF6347");
@@ -92,11 +95,15 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
+        updateOccupiedSpotsLabel(); // Actualizar el Label de plazas ocupadas
         startLabelUpdate(); // Iniciar la actualización del Label
     }
     private void updateOccupiedSpotsLabel() {
+        // Cargar el bundle actual
+        bundle = LanguageManager.getBundle();
+
         int freeSpots = parkingManager.getFreeSpotsCount();
-        occupiedSpotsLabel.setText("Plazas libres: " + freeSpots);
+        occupiedSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + freeSpots);
     }
     private void startLabelUpdate() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateOccupiedSpotsLabel()));
@@ -144,7 +151,7 @@ public class ParkingController {
         Notifier.showTooltip(btnOpenParking, "parking_opened_tooltip");
         btnOpenParking.setVisible(false);
         btnCloseParking.setVisible(true);
-        parkingStatus.setText("Parking Abierto");
+        parkingStatus.setText(bundle.getString("parking_opened_text"));
     }
 
     /**
@@ -159,7 +166,7 @@ public class ParkingController {
         ReportManager.generateEndOfDayReport(); // Generar reporte de fin de día
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
-        parkingStatus.setText("Parking Cerrado");
+        parkingStatus.setText(bundle.getString("parking_closed_text"));
     }
 
     /**

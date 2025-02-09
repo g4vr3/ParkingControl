@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
     <children>
         <ImageView fitHeight="67.2" fitWidth="376.0">
             <image>
@@ -100,16 +100,16 @@
             <VBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0" HBox.hgrow="NEVER">
             <StackPane>
                <children>
-                       <Button fx:id="btnOpenParking" prefWidth="200.0" styleClass="styled-button" text="Abrir Parking" />
-                       <Button fx:id="btnCloseParking" prefWidth="200.0" styleClass="styled-button" text="Cerrar Parking" />
+                       <Button fx:id="btnOpenParking" prefWidth="200.0" styleClass="styled-button" text="%open_parking_button_text" />
+                       <Button fx:id="btnCloseParking" prefWidth="200.0" styleClass="styled-button" text="%close_parking_button_text" />
                </children>
             </StackPane>
-                <Label fx:id="parkingStatus" styleClass="info-title-label" text="Parking Cerrado" />
+                <Label fx:id="parkingStatus" styleClass="info-title-label" text="%parking_closed_text" />
             <Separator styleClass="separator-line" />
-                <Label fx:id="occupiedSpotsLabel" text="Plazas libres: 0" />
+                <Label fx:id="occupiedSpotsLabel" text="%free_spots_label_text" />
             <VBox spacing="5.0">
                <children>
-                      <Label text="Último coche que salió:" />
+                      <Label text="%last_entry_exit_record_text" />
                       <TextField fx:id="lastCarExitedField" editable="false" styleClass="lastExit" />
                </children>
             </VBox>
