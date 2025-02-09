@@ -4,13 +4,11 @@ import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.utils.Notifier;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -20,7 +18,7 @@ import java.util.ResourceBundle;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.2
+ * @version 1.2.1
  */
 public class ParkingController {
 
@@ -71,7 +69,7 @@ public class ParkingController {
     @FXML
     private Label parkingStatus;
     @FXML
-    private Label occupiedSpotsLabel;
+    private Label freeSpotsLabel;
 
     ResourceBundle bundle;
 
@@ -95,30 +93,28 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
-        updateOccupiedSpotsLabel(); // Actualizar el Label de plazas ocupadas
-        startLabelUpdate(); // Iniciar la actualización del Label
+        updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
     }
-    private void updateOccupiedSpotsLabel() {
+
+    private void updateFreeSpotsLabel() {
         // Cargar el bundle actual
         bundle = LanguageManager.getBundle();
 
         int freeSpots = parkingManager.getFreeSpotsCount();
-        occupiedSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + freeSpots);
-    }
-    private void startLabelUpdate() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateOccupiedSpotsLabel()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        Platform.runLater(() -> freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + freeSpots));
     }
 
     /**
      * Registra la entrada de un vehículo en una plaza de aparcamiento en concreto.
+     *
      * @param spotId Número de la plaza.
      */
     // Simular la entrada de un vehículo y ocupar una plaza
     public synchronized void registerEntry(int spotId) {
         if (spotId >= 0 && spotId < parkingSpots.length) {
             System.out.println("Registrando entrada en la plaza: " + spotId); // Debug
+            updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
+
             parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_RED) + ";");
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
@@ -127,12 +123,15 @@ public class ParkingController {
 
     /**
      * Registra la salida de un vehículo y libera la plaza de aparcamiento que usaba.
+     *
      * @param spotId Número de la plaza a liberar.
      */
     // Simular la salida de un vehículo y liberar la plaza
     public synchronized void registerExit(int spotId) {
         if (spotId >= 0 && spotId < parkingSpots.length) {
             System.out.println("Registrando salida en la plaza: " + spotId); // Debug
+            updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
+
             parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";");
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
@@ -232,6 +231,7 @@ public class ParkingController {
         entryThread.start();
         exitThread.start();
     }
+
     public void stopSimulation() {
         openedParking = false;
         parkingManager.clearParking();
@@ -239,6 +239,7 @@ public class ParkingController {
 
     /**
      * Convierte un color en formato {@link Color} a su representación en RGB.
+     *
      * @param color Color a convertir.
      * @return Representación RGB en formato de cadena.
      */

@@ -106,7 +106,7 @@
             </StackPane>
                 <Label fx:id="parkingStatus" styleClass="info-title-label" text="%parking_closed_text" />
             <Separator styleClass="separator-line" />
-                <Label fx:id="occupiedSpotsLabel" text="%free_spots_label_text" />
+                <Label fx:id="freeSpotsLabel" text="%free_spots_label_text" />
             <VBox spacing="5.0">
                <children>
                       <Label text="%last_entry_exit_record_text" />
