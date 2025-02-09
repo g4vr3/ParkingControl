@@ -166,6 +166,8 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
         parkingStatus.setText(bundle.getString("parking_closed_text"));
+
+        updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
     }
 
     /**
@@ -190,7 +192,6 @@ public class ParkingController {
         }
 
     }
-
 
     /**
      * Inicia la simulación automática de entradas y salidas de vehículos.
