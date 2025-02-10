@@ -89,7 +89,8 @@ public class ParkingController {
 
     private final Color COLOR_DEFAULT = Color.web("#60605B");
     private final Color COLOR_PRIMARY = Color.web("#EE5593");
-    private boolean openedParking = false;
+    private ScheduledExecutorService scheduler;
+    private boolean openedParking;
     private Button[] parkingSpots;
     ParkingManager parkingManager = new ParkingManager();
 
@@ -268,44 +269,30 @@ public class ParkingController {
      */
     public void startSimulation() {
         openedParking = true;
-        Random entryRandom = new Random();
-        Random exitRandom = new Random();
-        Thread entryThread = new Thread(() -> {
-            try {
-                while (openedParking) { // El hilo sigue corriendo mientras openedParking sea true
-                    simulateRandomEntry();
-                    Random random = new Random();
-                    int delay = 1000 + entryRandom.nextInt(3000); // Tiempo entre 10 y 13 segundos
-                    Thread.sleep(delay); // Esperar un tiempo aleatorio
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        scheduler = Executors.newScheduledThreadPool(2);
 
-        Thread exitThread = new Thread(() -> {
-            try {
-                Thread.sleep(20000); // Esperar 5 segundos antes de iniciar las salidas
-                while (openedParking) {
-                    // El hilo sigue corriendo mientras openedParking sea true
-                    simulateRandomExit();
-                    Random random = new Random();
-                    int delay = 1000 + exitRandom.nextInt(8000); // Tiempo entre 10 y 20 segundos
-                    Thread.sleep(delay); // Esperar un tiempo aleatorio
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Runnable entryTask = () -> {
+            if (openedParking) {
+                simulateRandomEntry();
             }
-        });
+        };
 
-        // Iniciar los hilos
-        entryThread.start();
-        exitThread.start();
+        Runnable exitTask = () -> {
+            if (openedParking) {
+                simulateRandomExit();
+            }
+        };
+
+        scheduler.scheduleAtFixedRate(entryTask, 0, 10 + new Random().nextInt(4), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(exitTask, 20, 10 + new Random().nextInt(11), TimeUnit.SECONDS);
     }
 
     public void stopSimulation() {
         openedParking = false;
-        parkingManager.clearParking();
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+        }
+        parkingManager.clearParking(); // Vaciar todas las plazas
     }
 
     /**
