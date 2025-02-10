@@ -147,7 +147,7 @@ public class LoginController {
         if (validateCredentials(username, password)) {
             try {
                 // Cambiar a la vista de la pantalla de presentación
-                ViewManager.changeView(loginButton, "/views/splash_screen-view.fxml", "Splash Screen", 600, 400, false, false);
+                ViewManager.changeView(loginButton, "/views/splash_screen-view.fxml", "loading_text", 700, 500, false, false, false);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

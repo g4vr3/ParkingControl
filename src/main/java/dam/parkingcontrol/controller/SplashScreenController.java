@@ -26,7 +26,7 @@ public class SplashScreenController {
         // Configura la duración de la pantalla de presentación
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(5), new KeyValue(progressBar.progressProperty(), 1))
+                new KeyFrame(Duration.seconds(4), new KeyValue(progressBar.progressProperty(), 1))
         );
         timeline.setCycleCount(1);
 
@@ -38,7 +38,7 @@ public class SplashScreenController {
             // Muestra la vista principal
             Platform.runLater(() -> {
                 try {
-                    ViewManager.changeView(gifView, "/views/parking-view.fxml", "Parking View", 1200, 800, true, true);
+                    ViewManager.changeView(gifView, "/views/parking-view.fxml", "parking_view_title", 1200, 800, true, true, true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

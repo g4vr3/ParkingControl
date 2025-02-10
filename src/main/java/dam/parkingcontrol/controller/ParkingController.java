@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.3
+ * @version 1.3.1
  */
 public class ParkingController {
 
@@ -81,6 +81,8 @@ public class ParkingController {
     @FXML
     private TextField lastRecordField;
     @FXML
+    private Label parkingToolsLabel;
+    @FXML
     private ComboBox<String> languageComboBox;
 
     ResourceBundle bundle;
@@ -106,7 +108,7 @@ public class ParkingController {
         btnCloseParking.setOnAction(event -> closeParking());
         btnOpenBrandModelColorReportGeneration.setOnAction(event -> {
             try {
-                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", bundle.getString("report_view_title"), 1200, 800, true, true );
+                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", "report_view_title", 800, 600, true, true, true );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -160,6 +162,7 @@ public class ParkingController {
         lastRecordLabel.setText(bundle.getString("last_entry_exit_record_text"));
         freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
         btnOpenBrandModelColorReportGeneration.setText(bundle.getString("generate_filters_report"));
+        parkingToolsLabel.setText(bundle.getString("parking_tools_text"));
         updateFreeSpotsLabel();
     }
 

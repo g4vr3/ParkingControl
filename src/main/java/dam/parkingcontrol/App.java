@@ -6,7 +6,9 @@ import dam.parkingcontrol.service.LanguageManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * La clase App es el punto de entrada de la aplicación y administra la interfaz gráfica.
  *
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class App extends Application {
     @Override
@@ -36,7 +38,9 @@ public class App extends Application {
         // Configurar el escenario (Stage)
         stage.setTitle("ArrulloPark - " + bundle.getString("login_title_text"));
         stage.setScene(scene);
-        stage.setResizable(false);
+
+        stage.setMinWidth(500);
+        stage.setMinHeight(500);
 
         // Añadir handler de eventos para la solicitud de cierre de la ventana
         stage.setOnCloseRequest(event -> {
@@ -45,6 +49,11 @@ public class App extends Application {
         });
 
         stage.show();
+
+        // Centrar la ventana en la pantalla
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
     public static void main(String[] args) {

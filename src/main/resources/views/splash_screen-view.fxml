@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.SplashScreenController">
-   <VBox>
-      <children>
-          <ImageView fx:id="gifView" fitWidth="600" preserveRatio="true">
-            <image>
-               <Image url="@../video/Parking.gif" />
-            </image>
-          </ImageView>
-          <ProgressBar fx:id="progressBar" prefWidth="600" progress="0" />
-      </children>
-   </VBox>
-</StackPane>
+<BorderPane stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.SplashScreenController">
+   <center>
+      <StackPane>
+         <VBox alignment="CENTER" spacing="20.0">
+            <children>
+                <ImageView fx:id="gifView" fitWidth="410.0" preserveRatio="true">
+                  <image>
+                     <Image url="@../video/loading.gif" />
+                  </image>
+                </ImageView>
+                <ProgressBar fx:id="progressBar" progress="0" styleClass="loading-bar" />
+            </children>
+            <StackPane.margin>
+               <Insets />
+            </StackPane.margin>
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </VBox>
+      </StackPane>
+   </center>
+</BorderPane>

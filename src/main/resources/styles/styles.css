@@ -227,3 +227,21 @@
     -fx-background-size: cover;
     -fx-background-position: center;
 }
+
+/* Estilo básico para el ProgressBar de splash screen */
+.loading-bar {
+    -fx-background-color: transparent; /* Fondo transparente por defecto */
+    -fx-pref-height: 12px;  /* Altura del ProgressBar */
+    -fx-pref-width: 350px;  /* Ancho del ProgressBar */
+}
+
+/* Estilo del track */
+.loading-bar .track {
+    -fx-background-color: transparent; /* Fondo transparente por defecto */
+    -fx-border-color: transparent;  /* Eliminar bordes del track */
+    -fx-background-radius: 10px;  /* Bordes redondeados */
+}
+
+.loading-bar .bar {
+    -fx-background-color: #EE5593;
+}
