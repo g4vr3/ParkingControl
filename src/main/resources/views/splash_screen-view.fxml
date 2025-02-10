@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.SplashScreenController">
+   <VBox>
+      <children>
+          <ImageView fx:id="gifView" fitWidth="600" preserveRatio="true">
+            <image>
+               <Image url="@../video/Parking.gif" />
+            </image>
+          </ImageView>
+          <ProgressBar fx:id="progressBar" prefWidth="600" progress="0" />
+      </children>
+   </VBox>
+</StackPane>
