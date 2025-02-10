@@ -80,21 +80,36 @@ public class ReportManager {
      */
     public static void generateBrandModelColorReport(String brand, String model, String color) {
         try {
-            String reportPath = "src/main/resources/reports/brand_model_color_report/brand_model_color_report.jasper";
-            String outputPath = GENERATED_REPORTS_DIR + LocalDate.now() + "_brand_model_color_report.pdf";
+            ResourceBundle bundle = LanguageManager.getBundle();
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("Brand", brand);
-            parameters.put("Model", model);
-            parameters.put("Color", color);
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(bundle.getString("save_report_title_text"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
 
-            try (Connection conn = DatabaseConnection.connect()) {
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
-                JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
-                System.out.println("Reporte generado exitosamente: " + outputPath);
+            // Establecer el nombre de archivo por defecto
+            String defaultFileName = "brand_model_color_report_" + LocalDate.now() + ".pdf";
+            fileChooser.setInitialFileName(defaultFileName);
+
+            // Mostrar el diálogo de guardar archivo
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                String filePath = file.getAbsolutePath();
+                String reportPath = "src/main/resources/reports/brand_model_color_report/brand_model_color_report.jasper";
+
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("Brand", brand);
+                parameters.put("Model", model);
+                parameters.put("Color", color);
+
+                try (Connection conn = DatabaseConnection.connect()) {
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
+                    Notifier.showAlert(Alert.AlertType.INFORMATION, "generated_report_success_title", "generated_report_success_header", "generated_report_success_content");
+                }
             }
         } catch (JRException | SQLException e) {
-            System.err.println("Error al generar el reporte de vehículos: " + e.getMessage());
+            Notifier.showAlert(Alert.AlertType.ERROR, "error_title", "generating_report_error_header", "generating_report_error_content");
             e.printStackTrace();
         }
     }
