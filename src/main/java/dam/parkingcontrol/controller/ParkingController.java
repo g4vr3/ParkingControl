@@ -82,7 +82,7 @@ public class ParkingController {
     ResourceBundle bundle;
 
     private final Color COLOR_DEFAULT = Color.web("#60605B");
-    private final Color COLOR_RED = Color.web("#FF6347");
+    private final Color COLOR_PRIMARY = Color.web("#EE5593");
     private boolean openedParking = false;
     private Button[] parkingSpots;
     ParkingManager parkingManager = new ParkingManager();
@@ -171,7 +171,7 @@ public class ParkingController {
             System.out.println("Registrando entrada en la plaza: " + spotId); // Debug
             updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
 
-            parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_RED) + ";");
+            parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_PRIMARY) + ";");
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
         }
