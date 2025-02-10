@@ -105,7 +105,6 @@ public class ReportManager {
                 try (Connection conn = DatabaseConnection.connect()) {
                     JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
                     JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
-                    Notifier.showAlert(Alert.AlertType.INFORMATION, "generated_report_success_title", "generated_report_success_header", "generated_report_success_content");
                 }
             }
         } catch (JRException | SQLException e) {
