@@ -16,7 +16,7 @@ import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
 /**
  * La clase ParkingManager proporciona métodos para gestionar el parking.
  *
- * @version 1.1
+ * @version 1.2
  */
 public class ParkingManager {
     private int totalSpots = 20; // Número total de plazas
@@ -90,13 +90,13 @@ public class ParkingManager {
                 randomSpot = random.nextInt(parking.size());
             } while (searchParkingSpot(randomSpot));
 
-            DTOVehicle vehicle = parking.get(randomSpot);
-            if (vehicle != null && vehicle.isParked()) {
-                vehicle.setParked(false);
+            DTOVehicle vehicleToUnPark = parking.get(randomSpot);
+            if (vehicleToUnPark != null && vehicleToUnPark.isParked()) {
+                vehicleToUnPark.setParked(false);
                 freeSpots++;
                 try {
-                    DAOVehicle.updateVehicleStatus(vehicle);
-                    DAOEntryExitRecord.registerExit(new DTOEntryExitRecord(vehicle.getId_vehicle(), null, Timestamp.valueOf(LocalDateTime.now())));
+                    DAOVehicle.updateVehicleStatus(vehicleToUnPark);
+                    DAOEntryExitRecord.registerExit(new DTOEntryExitRecord(vehicleToUnPark.getId_vehicle(), null, Timestamp.valueOf(LocalDateTime.now())));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -109,6 +109,15 @@ public class ParkingManager {
 
     public synchronized void clearParking() {
         for (int i = 0; i < parking.size(); i++) {
+            DTOVehicle vehicle = parking.get(i);
+            if (vehicle != null) {
+                vehicle.setParked(false); // Lo marcamos en memoria como no estacionado
+                try {
+                    DAOVehicle.updateVehicleStatus(vehicle); // Lo actualizamos en la BD
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             parking.put(i, null);
         }
         freeSpots = totalSpots;

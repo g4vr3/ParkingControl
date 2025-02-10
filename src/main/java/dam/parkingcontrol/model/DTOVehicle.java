@@ -12,7 +12,7 @@ public class DTOVehicle {
     // Variables básicas para usar los coches en el parking
     private int vehicle_id;
     private String license_plate, model, brand, colour;
-    private Boolean is_parked;
+    private boolean is_parked;
     private Timestamp registration_date;
 
     /**
@@ -26,7 +26,7 @@ public class DTOVehicle {
      * @param is_parked indica si el vehículo está aparcado
      * @param registration_date la fecha de registro del vehículo
      */
-    public DTOVehicle(int vehicle_id, String license_plate, String model, String brand, String colour, Boolean is_parked, Timestamp registration_date) {
+    public DTOVehicle(int vehicle_id, String license_plate, String model, String brand, String colour, boolean is_parked, Timestamp registration_date) {
         this.vehicle_id = vehicle_id;
         this.license_plate = license_plate;
         this.model = model;
@@ -138,7 +138,7 @@ public class DTOVehicle {
      *
      * @return true si el vehículo está aparcado, false en caso contrario
      */
-    public Boolean isParked() {
+    public boolean isParked() {
         return is_parked;
     }
 
@@ -147,7 +147,7 @@ public class DTOVehicle {
      *
      * @param is_parked true si el vehículo está aparcado, false en caso contrario
      */
-    public void setParked(Boolean is_parked) {
+    public void setParked(boolean is_parked) {
         this.is_parked = is_parked;
     }
 

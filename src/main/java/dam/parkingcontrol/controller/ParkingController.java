@@ -82,7 +82,7 @@ public class ParkingController {
     ResourceBundle bundle;
 
     private final Color COLOR_DEFAULT = Color.web("#60605B");
-    private final Color COLOR_RED = Color.web("#FF6347");
+    private final Color COLOR_PRIMARY = Color.web("#EE5593");
     private boolean openedParking = false;
     private Button[] parkingSpots;
     ParkingManager parkingManager = new ParkingManager();
@@ -171,7 +171,7 @@ public class ParkingController {
             System.out.println("Registrando entrada en la plaza: " + spotId); // Debug
             updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
 
-            parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_RED) + ";");
+            parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_PRIMARY) + ";");
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
         }
@@ -261,7 +261,7 @@ public class ParkingController {
                 while (openedParking) { // El hilo sigue corriendo mientras openedParking sea true
                     simulateRandomEntry();
                     Random random = new Random();
-                    int delay = 10000 + entryRandom.nextInt(3000); // Tiempo entre 10 y 13 segundos
+                    int delay = 1000 + entryRandom.nextInt(3000); // Tiempo entre 10 y 13 segundos
                     Thread.sleep(delay); // Esperar un tiempo aleatorio
                 }
             } catch (InterruptedException e) {
@@ -271,12 +271,12 @@ public class ParkingController {
 
         Thread exitThread = new Thread(() -> {
             try {
-                Thread.sleep(30000); // Esperar 5 segundos antes de iniciar las salidas
+                Thread.sleep(20000); // Esperar 5 segundos antes de iniciar las salidas
                 while (openedParking) {
                     // El hilo sigue corriendo mientras openedParking sea true
                     simulateRandomExit();
                     Random random = new Random();
-                    int delay = 10000 + exitRandom.nextInt(10000); // Tiempo entre 10 y 20 segundos
+                    int delay = 1000 + exitRandom.nextInt(8000); // Tiempo entre 10 y 20 segundos
                     Thread.sleep(delay); // Esperar un tiempo aleatorio
                 }
             } catch (InterruptedException e) {
