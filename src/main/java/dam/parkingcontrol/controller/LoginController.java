@@ -173,7 +173,7 @@ public class LoginController {
      */
     // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
-        return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
+        return (("a".equals(username) || "admin@arrullopark.com".equals(username)) && "".equals(password));
     }
 
     /**
