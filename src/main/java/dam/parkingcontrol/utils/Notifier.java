@@ -28,13 +28,11 @@ public class Notifier {
      */
     public static void showAlert(Alert.AlertType alertType, String title, String headerText, String contentText) {
         ResourceBundle bundle = LanguageManager.getBundle();
-        Platform.runLater(() -> {
-            Alert alert = new Alert(alertType);
-            alert.setTitle(bundle.getString(title));
-            alert.setHeaderText(bundle.getString(headerText));
-            alert.setContentText(bundle.getString(contentText));
-            alert.show();
-        });
+        Alert alert = new Alert(alertType);
+        alert.setTitle(bundle.getString(title));
+        alert.setHeaderText(bundle.getString(headerText));
+        alert.setContentText(bundle.getString(contentText));
+        alert.showAndWait();
     }
 
     /**
