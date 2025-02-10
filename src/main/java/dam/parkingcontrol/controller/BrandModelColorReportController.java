@@ -77,6 +77,9 @@ public class BrandModelColorReportController {
 
         // Botón por defecto al pulsar Enter
         saveButton.setDefaultButton(true);
+
+        // Focus inicial en el campo marca del coche (evitando el focus en el ComboBox)
+        Platform.runLater(() -> tfBrand.requestFocus());
     }
 
     /**
