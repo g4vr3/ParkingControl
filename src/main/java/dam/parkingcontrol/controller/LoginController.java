@@ -128,6 +128,12 @@ public class LoginController {
         pfPass.setPromptText(bundle.getString("password_prompt"));
         loginButton.setText(bundle.getString("login_button_text"));
         helpLink.setText(bundle.getString("help_link_text"));
+
+        tfUsername.setTooltip(new Tooltip(bundle.getString("email_username_tooltip")));
+        pfPass.setTooltip(new Tooltip(bundle.getString("password_tooltip")));
+        loginButton.setTooltip(new Tooltip(bundle.getString("login_button_tooltip")));
+        helpLink.setTooltip(new Tooltip(bundle.getString("help_link_tooltip")));
+        languageComboBox.setTooltip(new Tooltip(bundle.getString("language_tooltip")));
     }
 
     /**
