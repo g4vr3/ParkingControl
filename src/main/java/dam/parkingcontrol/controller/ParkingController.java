@@ -71,7 +71,7 @@ public class ParkingController {
     @FXML
     private Button btnCloseParking;
     @FXML
-    private Button btnOpenReport;
+    private Button btnOpenBrandModelColorReportGeneration;
     @FXML
     private Label parkingStatus;
     @FXML
@@ -104,9 +104,9 @@ public class ParkingController {
         };
         btnOpenParking.setOnAction(event -> openParking());
         btnCloseParking.setOnAction(event -> closeParking());
-        btnOpenReport.setOnAction(event -> {
+        btnOpenBrandModelColorReportGeneration.setOnAction(event -> {
             try {
-                ViewManager.changeView(btnOpenReport, "/views/brand_model_color_report-view.fxml", bundle.getString("report_view_title"), 1200, 800, true, true );
+                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", bundle.getString("report_view_title"), 1200, 800, true, true );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -159,7 +159,7 @@ public class ParkingController {
         parkingStatus.setText(bundle.getString("parking_closed_text"));
         lastRecordLabel.setText(bundle.getString("last_entry_exit_record_text"));
         freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
-
+        btnOpenBrandModelColorReportGeneration.setText(bundle.getString("brand_model_color_report_button_text"));
         updateFreeSpotsLabel();
     }
 
