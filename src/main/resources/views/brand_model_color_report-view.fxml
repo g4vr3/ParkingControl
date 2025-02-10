@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane stylesheets="@../styles/styles.css" styleClass="border-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.BrandModelColorReportController">
+<BorderPane styleClass="border-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.BrandModelColorReportController">
     <top>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -20,7 +20,7 @@
                 </ImageView>
                 <ComboBox fx:id="languageComboBox">
                     <tooltip>
-                        <Tooltip text="%language_combobox_tooltip"/>
+                        <Tooltip text="%language_combobox_tooltip" />
                     </tooltip>
                 </ComboBox>
             </children>
@@ -29,25 +29,25 @@
     <center>
         <VBox fx:id="vboxCenter" alignment="CENTER" maxHeight="300.0" maxWidth="400.0" spacing="15.0" styleClass="vbox-center" BorderPane.alignment="CENTER">
             <children>
+                <TextField fx:id="tfBrand" promptText="%brand_prompt" styleClass="text-field">
+                    <tooltip>
+                        <Tooltip text="%brand_tooltip" />
+                    </tooltip>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </TextField>
                 <TextField fx:id="tfModel" promptText="%model_prompt" styleClass="text-field">
                     <font>
                         <Font size="13.0" />
                     </font>
                     <tooltip>
-                        <Tooltip text="%model_tooltip"/>
+                        <Tooltip text="%model_tooltip" />
                     </tooltip>
-                </TextField>
-                <TextField fx:id="tfBrand" promptText="%brand_prompt" styleClass="text-field">
-                    <tooltip>
-                        <Tooltip text="%brand_tooltip"/>
-                    </tooltip>
-                    <font>
-                        <Font size="13.0" />
-                    </font>
                 </TextField>
                 <TextField fx:id="tfColour" promptText="%colour_prompt" styleClass="text-field">
                     <tooltip>
-                        <Tooltip text="%colour_tooltip"/>
+                        <Tooltip text="%colour_tooltip" />
                     </tooltip>
                     <font>
                         <Font size="13.0" />
@@ -63,12 +63,12 @@
                               <Font name="Arial" size="13.0" />
                           </font>
                           <tooltip>
-                              <Tooltip text="%save_button_tooltip"/>
+                              <Tooltip text="%save_button_tooltip" />
                           </tooltip>
                       </Button>
                    <Button fx:id="closeButton" mnemonicParsing="false" styleClass="close-button" text="%close_button_text">
                        <tooltip>
-                           <Tooltip text="%close_button_tooltip"/>
+                           <Tooltip text="%close_button_tooltip" />
                        </tooltip>
                    </Button>
                </children>
