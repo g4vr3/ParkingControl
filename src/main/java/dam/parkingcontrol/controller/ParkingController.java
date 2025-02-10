@@ -159,7 +159,7 @@ public class ParkingController {
         parkingStatus.setText(bundle.getString("parking_closed_text"));
         lastRecordLabel.setText(bundle.getString("last_entry_exit_record_text"));
         freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
-        btnOpenBrandModelColorReportGeneration.setText(bundle.getString("brand_model_color_report_button_text"));
+        btnOpenBrandModelColorReportGeneration.setText(bundle.getString("generate_filters_report"));
         updateFreeSpotsLabel();
     }
 

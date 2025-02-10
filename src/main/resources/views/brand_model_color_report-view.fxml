@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="border-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.BrandModelColorReportController">
+<BorderPane maxWidth="600.0" styleClass="border-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.BrandModelColorReportController">
     <top>
-        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" maxWidth="600.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                <Insets />
             </BorderPane.margin>
             <children>
                 <ImageView fitHeight="15.0" fitWidth="15.0" opacity="0.65" pickOnBounds="true" preserveRatio="true">
@@ -19,67 +27,94 @@
                     </image>
                 </ImageView>
                 <ComboBox fx:id="languageComboBox">
-                    <tooltip>
-                        <Tooltip text="%language_combobox_tooltip" />
-                    </tooltip>
-                </ComboBox>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></ComboBox>
             </children>
         </HBox>
     </top>
-    <center>
-        <VBox fx:id="vboxCenter" alignment="CENTER" maxHeight="300.0" maxWidth="400.0" spacing="15.0" styleClass="vbox-center" BorderPane.alignment="CENTER">
-            <children>
-                <TextField fx:id="tfBrand" promptText="%brand_prompt" styleClass="text-field">
-                    <tooltip>
-                        <Tooltip text="%brand_tooltip" />
-                    </tooltip>
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </TextField>
-                <TextField fx:id="tfModel" promptText="%model_prompt" styleClass="text-field">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                    <tooltip>
-                        <Tooltip text="%model_tooltip" />
-                    </tooltip>
-                </TextField>
-                <TextField fx:id="tfColour" promptText="%colour_prompt" styleClass="text-field">
-                    <tooltip>
-                        <Tooltip text="%colour_tooltip" />
-                    </tooltip>
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </TextField>
-            <HBox alignment="CENTER" spacing="20.0">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-               <children>
-                      <Button fx:id="saveButton" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" mnemonicParsing="false" styleClass="save-button" text="%save_button_text" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-                          <font>
-                              <Font name="Arial" size="13.0" />
-                          </font>
-                          <tooltip>
-                              <Tooltip text="%save_button_tooltip" />
-                          </tooltip>
-                      </Button>
-                   <Button fx:id="closeButton" mnemonicParsing="false" styleClass="close-button" text="%close_button_text">
-                       <tooltip>
-                           <Tooltip text="%close_button_tooltip" />
-                       </tooltip>
-                   </Button>
-               </children>
-            </HBox>
-            </children>
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-            </padding>
-            <BorderPane.margin>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-            </BorderPane.margin>
-        </VBox>
-    </center>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <center>
+      <VBox alignment="CENTER" maxWidth="600.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <Label fx:id="brandModelColorReportViewTitle" styleClass="info-title-label" text="%brand_model_color_report_view_title" textAlignment="CENTER" />
+            <Label fx:id="brandModelColorReportViewDescription" text="%brand_model_color_report_view_description" textAlignment="CENTER" wrapText="true" VBox.vgrow="SOMETIMES" />
+            <Region prefHeight="20.0" />
+              <VBox fx:id="vboxCenter" alignment="CENTER" maxWidth="600.0" spacing="15.0" styleClass="vbox-center">
+                  <children>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Label fx:id="brandLabel" styleClass="label-for-field" text="%brand_label" />
+                            <TextField fx:id="tfBrand" promptText="%brand_prompt" styleClass="text-field">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </TextField>
+                     </children>
+                  </VBox>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Label fx:id="modelLabel" text="%model_label" />
+                            <TextField fx:id="tfModel" promptText="%model_prompt" styleClass="text-field">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </TextField>
+                     </children>
+                  </VBox>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Label fx:id="colorLabel" text="%color_label" />
+                            <TextField fx:id="tfColor" promptText="%color_prompt" styleClass="text-field">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </TextField>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="20.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                            <Button fx:id="btnGenerateReport" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%generate_report_button_text" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                                <font>
+                                    <Font name="Arial" size="13.0" />
+                                </font>
+                           <styleClass>
+                              <String fx:value="primary-button" />
+                              <String fx:value="button-common" />
+                           </styleClass>
+                            </Button>
+                     </children>
+                  </HBox>
+                  </children>
+                  <padding>
+                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+              </VBox>
+             <Button fx:id="btnBack" mnemonicParsing="false" text="%back_button_text">
+                 <graphic>
+                     <ImageView fitHeight="15.0" fitWidth="15.0">
+                         <image>
+                             <Image url="@../images/back_icon.png" />
+                         </image>
+                     </ImageView>
+                 </graphic>
+                 <styleClass>
+                     <String fx:value="button-transparent" />
+                     <String fx:value="button-common" />
+                 </styleClass>
+                 <VBox.margin>
+                     <Insets top="10.0" />
+                 </VBox.margin>
+             </Button>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

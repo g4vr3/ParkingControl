@@ -3,11 +3,7 @@ package dam.parkingcontrol.controller;
 import dam.parkingcontrol.service.LanguageManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
 
 import java.util.ResourceBundle;
 
@@ -16,22 +12,25 @@ import static dam.parkingcontrol.service.ReportManager.generateBrandModelColorRe
 public class BrandModelColorReportController {
 
     @FXML
-    private VBox vboxCenter;
-
-    @FXML
     private TextField tfModel;
 
     @FXML
     private TextField tfBrand;
 
     @FXML
-    private TextField tfColour;
+    private TextField tfColor;
 
     @FXML
     private ComboBox<String> languageComboBox;
 
     @FXML
-    private Button saveButton, closeButton;
+    private Button btnGenerateReport;
+    
+    @FXML 
+    private Button btnBack;
+
+    @FXML
+    private Label brandModelColorReportViewTitle, brandModelColorReportViewDescription, brandLabel, modelLabel, colorLabel;
 
     private ResourceBundle bundle;
 
@@ -42,8 +41,7 @@ public class BrandModelColorReportController {
     @FXML
     private void initialize() {
         setUI();
-        saveButton.setOnAction(_ -> saveVehicleData());
-        closeButton.setOnAction(_ -> Platform.exit());
+        btnGenerateReport.setOnAction(_ -> saveVehicleData());
     }
 
     /**
@@ -76,7 +74,7 @@ public class BrandModelColorReportController {
         });
 
         // Botón por defecto al pulsar Enter
-        saveButton.setDefaultButton(true);
+        btnGenerateReport.setDefaultButton(true);
 
         // Focus inicial en el campo marca del coche (evitando el focus en el ComboBox)
         Platform.runLater(() -> tfBrand.requestFocus());
@@ -92,17 +90,22 @@ public class BrandModelColorReportController {
         // Establece los textos de la UI según el bundle
         tfModel.setPromptText(bundle.getString("model_prompt"));
         tfBrand.setPromptText(bundle.getString("brand_prompt"));
-        tfColour.setPromptText(bundle.getString("colour_prompt"));
-        saveButton.setText(bundle.getString("save_button_text"));
-        closeButton.setText(bundle.getString("close_button_text"));
+        tfColor.setPromptText(bundle.getString("color_prompt"));
+        btnGenerateReport.setText(bundle.getString("generate_report_button_text"));
+        btnBack.setText(bundle.getString("back_button_text"));
+        brandModelColorReportViewTitle.setText(bundle.getString("brand_model_color_report_view_title"));
+        brandModelColorReportViewDescription.setText(bundle.getString("brand_model_color_report_view_description"));
+        brandLabel.setText(bundle.getString("brand_label"));
+        modelLabel.setText(bundle.getString("model_label"));
+        colorLabel.setText(bundle.getString("color_label"));
 
         //Establecer los tooltips de la UI según el bundle
         tfModel.setTooltip(new Tooltip(bundle.getString("model_tooltip")));
         tfBrand.setTooltip(new Tooltip(bundle.getString("brand_tooltip")));
-        tfColour.setTooltip(new Tooltip(bundle.getString("colour_tooltip")));
-        saveButton.setTooltip(new Tooltip(bundle.getString("save_button_tooltip")));
-        closeButton.setTooltip(new Tooltip(bundle.getString("close_button_tooltip")));
+        tfColor.setTooltip(new Tooltip(bundle.getString("color_tooltip")));
+        btnGenerateReport.setTooltip(new Tooltip(bundle.getString("generate_report_button_tooltip")));
         languageComboBox.setTooltip(new Tooltip(bundle.getString("language_combobox_tooltip")));
+        btnBack.setTooltip(new Tooltip(bundle.getString("back_button_tooltip")));
     }
 
     /**
@@ -110,11 +113,11 @@ public class BrandModelColorReportController {
      */
     @FXML
     private void saveVehicleData() {
-        String model = null, brand = null, colour = null;
+        String model = null, brand = null, color = null;
         if (!tfModel.getText().isEmpty()) { model = tfModel.getText(); }
         if (!tfBrand.getText().isEmpty()) { brand = tfBrand.getText(); }
-        if (!tfColour.getText().isEmpty()) { colour = tfColour.getText(); }
-        generateBrandModelColorReport(brand, model, colour);
+        if (!tfColor.getText().isEmpty()) { color = tfColor.getText(); }
+        generateBrandModelColorReport(brand, model, color);
     }
 
 
