@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 
 import java.util.ResourceBundle;
@@ -91,6 +92,14 @@ public class BrandModelColorReportController {
         tfColour.setPromptText(bundle.getString("colour_prompt"));
         saveButton.setText(bundle.getString("save_button_text"));
         closeButton.setText(bundle.getString("close_button_text"));
+
+        //Establecer los tooltips de la UI según el bundle
+        tfModel.setTooltip(new Tooltip(bundle.getString("model_tooltip")));
+        tfBrand.setTooltip(new Tooltip(bundle.getString("brand_tooltip")));
+        tfColour.setTooltip(new Tooltip(bundle.getString("colour_tooltip")));
+        saveButton.setTooltip(new Tooltip(bundle.getString("save_button_tooltip")));
+        closeButton.setTooltip(new Tooltip(bundle.getString("close_button_tooltip")));
+        languageComboBox.setTooltip(new Tooltip(bundle.getString("language_combobox_tooltip")));
     }
 
     /**
