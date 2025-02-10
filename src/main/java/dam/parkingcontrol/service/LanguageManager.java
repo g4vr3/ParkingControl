@@ -9,11 +9,12 @@ import java.util.ResourceBundle;
 /**
  * La clase LanguageManager proporciona métodos para cambiar los idiomas.
  *
- * @version 1.0
+ * @version 1.1
  */
 public class LanguageManager {
 
     private static ResourceBundle bundle;
+    private static String currentLanguage;
     private static final String BUNDLE_PATH = "resource-bundle.tagsBundle_";
 
     /**
@@ -56,9 +57,11 @@ public class LanguageManager {
         try {
             // Se carga el ResourceBundle correspondiente
             bundle = ResourceBundle.getBundle(BUNDLE_PATH + languageCode);
+            currentLanguage = getLanguageNameFromCode(languageCode); // Se actualiza el idioma actual
         } catch (Exception e) {
             // Carga el idioma español si no puede cargar el seleccionado
             bundle = ResourceBundle.getBundle(BUNDLE_PATH + "es");
+            currentLanguage = "Español";
         }
     }
 
@@ -99,5 +102,15 @@ public class LanguageManager {
             case "Francais" -> "fr";
             default -> "es"; // Valor por defecto si el código no coincide
         };
+    }
+
+    /**
+     * Obtiene el código del idioma actual.
+     *
+     * @return el código del idioma actual.
+     * @since 1.1
+     */
+    public static String getCurrentLanguage() {
+        return currentLanguage;
     }
 }
