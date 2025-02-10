@@ -59,11 +59,8 @@ public class ReportManager {
                 String filePath = file.getAbsolutePath();
                 String reportPath = "src/main/resources/reports/end_day_report/end_day_report.jasper";
 
-                Map<String, Object> parameters = new HashMap<>();
-                parameters.put("Date", Date.valueOf(LocalDate.now()));
-
                 try (Connection conn = DatabaseConnection.connect()) {
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), conn);
                     JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
                     Notifier.showAlert(Alert.AlertType.INFORMATION, "generated_report_success_title", "generated_report_success_header", "generated_report_success_content");
                 }

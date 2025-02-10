@@ -2,6 +2,7 @@
 <jasperReport name="end_day_report" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArrulloAdapter.jrdax"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50.0" bold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18.0" bold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14.0" bold="true" pdfFontName="Times-Roman"/>
@@ -28,48 +29,45 @@
 	<dataset name="tableDataset" uuid="f6888708-6d79-458f-837e-a47803fde528">
 		<query language="sql"><![CDATA[]]></query>
 	</dataset>
-	<parameter name="Date" class="java.sql.Date"/>
-	<query language="sql"><![CDATA[SELECT
-    v.license_plate,
-    v.model,
-    v.brand,
-    v.color,
-    e.entry_time,
-    e.exit_time
+	<query language="sql"><![CDATA[SELECT v.license_plate, 
+       v.model, 
+       v.brand, 
+       v.color, 
+       TIME(datetime(e.entry_time / 1000, 'unixepoch')) AS entry_time, 
+       TIME(datetime(e.exit_time / 1000, 'unixepoch')) AS exit_time
 FROM Vehicles v
 JOIN Entry_Exit_Records e ON v.vehicle_id = e.vehicle_id
-WHERE DATE(e.entry_time) = $P{Date}
-ORDER BY e.entry_time ASC
-]]></query>
+WHERE DATE(datetime(e.entry_time / 1000, 'unixepoch')) = DATE('now')
+ORDER BY e.entry_time ASC]]></query>
 	<field name="license_plate" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="license_plate"/>
 		<property name="com.jaspersoft.studio.field.label" value="license_plate"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vehicles"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Vehicles"/>
 	</field>
 	<field name="model" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="model"/>
 		<property name="com.jaspersoft.studio.field.label" value="model"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vehicles"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Vehicles"/>
 	</field>
 	<field name="brand" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="brand"/>
 		<property name="com.jaspersoft.studio.field.label" value="brand"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vehicles"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Vehicles"/>
 	</field>
 	<field name="color" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="color"/>
 		<property name="com.jaspersoft.studio.field.label" value="color"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vehicles"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Vehicles"/>
 	</field>
-	<field name="entry_time" class="java.sql.Timestamp">
+	<field name="entry_time" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="entry_time"/>
 		<property name="com.jaspersoft.studio.field.label" value="entry_time"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="entry_exit_records"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Entry_Exit_Records"/>
 	</field>
-	<field name="exit_time" class="java.sql.Timestamp">
+	<field name="exit_time" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="exit_time"/>
 		<property name="com.jaspersoft.studio.field.label" value="exit_time"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="entry_exit_records"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Entry_Exit_Records"/>
 	</field>
 	<variable name="license_plate1" calculation="Count" class="java.lang.Integer">
 		<expression><![CDATA[$F{license_plate}]]></expression>
@@ -87,11 +85,11 @@ ORDER BY e.entry_time ASC
 		<expression><![CDATA[$F{color}]]></expression>
 	</variable>
 	<title height="81" splitType="Stretch">
-		<element kind="staticText" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8" x="360" y="0" width="195" height="25" fontSize="18.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+		<element kind="staticText" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8" x="360" y="0" width="195" height="25" fontSize="19.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
 			<text><![CDATA[Reporte diario]]></text>
 			<box rightPadding="4"/>
 		</element>
-		<element kind="textField" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979" x="305" y="25" width="250" height="20" fontSize="15.0" pattern="EEEE',' dd 'de' MMMM 'de' yyyy" bold="true" hTextAlign="Right" vTextAlign="Middle">
+		<element kind="textField" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979" x="305" y="25" width="250" height="25" fontSize="15.0" pattern="EEEE',' dd 'de' MMMM 'de' yyyy" bold="false" italic="true" hTextAlign="Right" vTextAlign="Top">
 			<expression><![CDATA[new java.util.Date()]]></expression>
 		</element>
 		<element kind="image" uuid="94883631-a913-43e2-b182-ab8d77d0181e" x="0" y="0" width="80" height="80" hImageAlign="Center" vImageAlign="Middle">
@@ -117,7 +115,7 @@ ORDER BY e.entry_time ASC
 		</element>
 	</title>
 	<columnHeader height="40">
-		<element kind="staticText" uuid="8d6de258-f7e1-4142-965f-efa590cffd55" x="0" y="0" width="65" height="40" fontSize="12.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+		<element kind="staticText" uuid="8d6de258-f7e1-4142-965f-efa590cffd55" x="0" y="0" width="70" height="40" fontSize="12.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 			<text><![CDATA[Matricula]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6186f6f-aa4b-4532-b317-fd4b5b1222b4"/>
 		</element>
@@ -133,7 +131,7 @@ ORDER BY e.entry_time ASC
 			<text><![CDATA[Entrada]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3ba1c97-98ae-4955-8275-f04a06965997"/>
 		</element>
-		<element kind="staticText" uuid="4dc3c827-7b89-4164-b7f9-57bec3056521" x="65" y="0" width="125" height="40" fontSize="12.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+		<element kind="staticText" uuid="4dc3c827-7b89-4164-b7f9-57bec3056521" x="70" y="0" width="120" height="40" fontSize="12.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 			<text><![CDATA[Marca]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3119ee8e-6480-4b90-a472-a03018df158b"/>
 		</element>
@@ -149,7 +147,7 @@ ORDER BY e.entry_time ASC
 	<detail>
 		<band height="30">
 			<element kind="frame" uuid="fbae3bc7-440a-4fd8-8f42-2cf9f5dc09fe" mode="Opaque" x="0" y="0" width="555" height="30" style="ColorFila1">
-				<element kind="textField" uuid="b257f8df-38f6-454e-8d81-4b4d7d9c4936" mode="Transparent" x="0" y="0" width="65" height="30" hTextAlign="Left" vTextAlign="Middle">
+				<element kind="textField" uuid="b257f8df-38f6-454e-8d81-4b4d7d9c4936" mode="Transparent" x="0" y="0" width="70" height="30" hTextAlign="Left" vTextAlign="Middle">
 					<expression><![CDATA[$F{license_plate}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6186f6f-aa4b-4532-b317-fd4b5b1222b4"/>
 				</element>
@@ -157,7 +155,7 @@ ORDER BY e.entry_time ASC
 					<expression><![CDATA[$F{model}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a6b94f8f-6fdc-4f20-840c-7f872f05d577"/>
 				</element>
-				<element kind="textField" uuid="5c9d06ca-4165-4b4a-9fb8-46099cb7c244" mode="Transparent" x="65" y="0" width="125" height="30" hTextAlign="Left" vTextAlign="Middle">
+				<element kind="textField" uuid="5c9d06ca-4165-4b4a-9fb8-46099cb7c244" mode="Transparent" x="70" y="0" width="120" height="30" hTextAlign="Left" vTextAlign="Middle">
 					<expression><![CDATA[$F{brand}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3119ee8e-6480-4b90-a472-a03018df158b"/>
 				</element>
@@ -177,8 +175,11 @@ ORDER BY e.entry_time ASC
 		</band>
 	</detail>
 	<pageFooter height="30">
-		<element kind="textField" uuid="8e9a7c77-f90b-4f66-84f0-d786d97d7624" x="0" y="0" width="556" height="30" evaluationTime="Page" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
-			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></expression>
+		<element kind="textField" uuid="9e3dd81b-7ebc-4f37-9805-4d1b77898d20" x="0" y="0" width="290" height="30" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="0538cd82-dc88-4a56-9c48-c8c8af7ccc72" x="290" y="0" width="265" height="30" evaluationTime="Report" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
 </jasperReport>
