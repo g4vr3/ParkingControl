@@ -18,7 +18,11 @@
                         <Image url="@../images/language_icon.png" />
                     </image>
                 </ImageView>
-                <ComboBox fx:id="languageComboBox" />
+                <ComboBox fx:id="languageComboBox">
+                    <tooltip>
+                        <Tooltip text="%language_combobox_tooltip"/>
+                    </tooltip>
+                </ComboBox>
             </children>
         </HBox>
     </top>
@@ -29,13 +33,22 @@
                     <font>
                         <Font size="13.0" />
                     </font>
+                    <tooltip>
+                        <Tooltip text="%model_tooltip"/>
+                    </tooltip>
                 </TextField>
                 <TextField fx:id="tfBrand" promptText="%brand_prompt" styleClass="text-field">
+                    <tooltip>
+                        <Tooltip text="%brand_tooltip"/>
+                    </tooltip>
                     <font>
                         <Font size="13.0" />
                     </font>
                 </TextField>
                 <TextField fx:id="tfColour" promptText="%colour_prompt" styleClass="text-field">
+                    <tooltip>
+                        <Tooltip text="%colour_tooltip"/>
+                    </tooltip>
                     <font>
                         <Font size="13.0" />
                     </font>
@@ -49,8 +62,15 @@
                           <font>
                               <Font name="Arial" size="13.0" />
                           </font>
+                          <tooltip>
+                              <Tooltip text="%save_button_tooltip"/>
+                          </tooltip>
                       </Button>
-                  <Button fx:id="closeButton" mnemonicParsing="false" styleClass="close-button" text="%close_button_text" />
+                   <Button fx:id="closeButton" mnemonicParsing="false" styleClass="close-button" text="%close_button_text">
+                       <tooltip>
+                           <Tooltip text="%close_button_tooltip"/>
+                       </tooltip>
+                   </Button>
                </children>
             </HBox>
             </children>
