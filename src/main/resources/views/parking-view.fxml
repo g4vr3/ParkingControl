@@ -115,7 +115,7 @@
             </VBox>
             <VBox alignment="CENTER">
                <children>
-                  <Button fx:id="btnOpenReport" alignment="BOTTOM_CENTER" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="btnOpenReport" alignment="BOTTOM_CENTER" mnemonicParsing="false" text="%open_report_button_text" />
                </children>
                <padding>
                   <Insets top="20.0" />
