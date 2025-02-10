@@ -3,6 +3,7 @@ package dam.parkingcontrol.controller;
 import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
+import dam.parkingcontrol.service.ViewManager;
 import dam.parkingcontrol.utils.Notifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -69,6 +71,8 @@ public class ParkingController {
     @FXML
     private Button btnCloseParking;
     @FXML
+    private Button btnOpenReport;
+    @FXML
     private Label parkingStatus;
     @FXML
     private Label freeSpotsLabel;
@@ -100,6 +104,13 @@ public class ParkingController {
         };
         btnOpenParking.setOnAction(event -> openParking());
         btnCloseParking.setOnAction(event -> closeParking());
+        btnOpenReport.setOnAction(event -> {
+            try {
+                ViewManager.changeView(btnOpenReport, "/views/brand_model_color_report-view.fxml", bundle.getString("report_view_title"), 1200, 800, true, true );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
