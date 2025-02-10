@@ -7,7 +7,9 @@ import dam.parkingcontrol.utils.Notifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import java.util.Random;
@@ -18,7 +20,7 @@ import java.util.ResourceBundle;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.2.1
+ * @version 1.3
  */
 public class ParkingController {
 
@@ -70,6 +72,12 @@ public class ParkingController {
     private Label parkingStatus;
     @FXML
     private Label freeSpotsLabel;
+    @FXML
+    private Label lastRecordLabel;
+    @FXML
+    private TextField lastRecordField;
+    @FXML
+    private ComboBox<String> languageComboBox;
 
     ResourceBundle bundle;
 
@@ -83,6 +91,8 @@ public class ParkingController {
      * Inicializa el controlador, asociando todas las plazas de aparcamiento a un array.
      */
     public void initialize() {
+        setUI(); // Configurar la interfaz de usuario
+
         // Asociar las plazas a un array para gestionarlas fácilmente
         parkingSpots = new Button[]{
                 spot0, spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9,
@@ -94,6 +104,52 @@ public class ParkingController {
         btnCloseParking.setVisible(false);
 
         updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
+    }
+
+    /**
+     * Configura la interfaz de usuario, incluyendo idioma manejando los distintos idiomas y acciones de los elementos gráficos.
+     *
+     * @since 1.3
+     */
+    @FXML
+    private void setUI() {
+        // Obtiene el bundle gestionado por el LanguageManager
+        bundle = LanguageManager.getBundle();
+
+        // Añade a la lista de idiomas los idiomas soportados
+        languageComboBox.setItems(LanguageManager.getSupportedLanguages());
+
+        // Establece por defecto el idioma actual (seleccionado en el login o del sistema)
+        languageComboBox.setValue(LanguageManager.getCurrentLanguage());
+
+        // Listener para cambios en el idioma (selección de idioma en ComboBox)
+        languageComboBox.valueProperty().addListener((_, _, newValue) -> {
+            // Carga el bundle con el nuevo idioma
+            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
+            // Actualiza el idioma de la UI
+            updateUILanguage();
+        });
+
+        // Desplegar el ComboBox cuando reciba el foco
+        languageComboBox.focusedProperty().addListener((_, _, newValue) -> {
+            if (newValue) {
+                languageComboBox.show();
+            }
+        });
+
+        // Focus inicial en el campo de estado del parking (evitando el focus en el ComboBox)
+        Platform.runLater(() -> parkingStatus.requestFocus());
+    }
+
+    private void updateUILanguage() {
+        bundle = LanguageManager.getBundle();
+        btnOpenParking.setText(bundle.getString("open_parking_button_text"));
+        btnCloseParking.setText(bundle.getString("close_parking_button_text"));
+        parkingStatus.setText(bundle.getString("parking_closed_text"));
+        lastRecordLabel.setText(bundle.getString("last_entry_exit_record_text"));
+        freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
+
+        updateFreeSpotsLabel();
     }
 
     private void updateFreeSpotsLabel() {
