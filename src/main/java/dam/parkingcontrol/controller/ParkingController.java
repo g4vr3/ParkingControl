@@ -16,13 +16,16 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controlador para la gestión del estacionamiento.
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.3.1
+ * @version 1.4
  */
 public class ParkingController {
 
@@ -116,6 +119,10 @@ public class ParkingController {
         });
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
+
+        btnCloseParking.getScene().getWindow().setOnCloseRequest(event -> {
+            stopSimulation();
+        }); // Detener la simulación al cerrar la ventana
 
         updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
     }
