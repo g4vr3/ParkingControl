@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import java.util.ResourceBundle;
 
 import static dam.parkingcontrol.service.ReportManager.generateBrandModelColorReport;
+import static dam.parkingcontrol.utils.Notifier.showAlert;
 
 public class BrandModelColorReportController {
 
@@ -113,11 +114,24 @@ public class BrandModelColorReportController {
      */
     @FXML
     private void saveVehicleData() {
+
         String model = null, brand = null, color = null;
-        if (!tfModel.getText().isEmpty()) { model = tfModel.getText(); }
-        if (!tfBrand.getText().isEmpty()) { brand = tfBrand.getText(); }
-        if (!tfColor.getText().isEmpty()) { color = tfColor.getText(); }
+        StringBuilder mensajeBuilder = new StringBuilder();
+        if (!tfModel.getText().isEmpty()) {
+            model = tfModel.getText();
+            mensajeBuilder.append("Modelo: ").append(model);
+        }
+        if (!tfBrand.getText().isEmpty()) {
+            brand = tfBrand.getText();
+            mensajeBuilder.append("Brand: ").append(brand);
+        }
+        if (!tfColor.getText().isEmpty()) {
+            color = tfColor.getText();
+            mensajeBuilder.append("Color: ").append(color);
+        }
         generateBrandModelColorReport(brand, model, color);
+        //TODO poner la ruta en el mensaje de la alerta y cambiar Bundle
+        showAlert(Alert.AlertType.INFORMATION,"brand_model_color_alert_title", "brand_model_color_header_text", "help_link_text");
     }
 
 
