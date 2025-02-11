@@ -106,6 +106,9 @@ public class ParkingManager {
         }
         return -1; // No hay vehículos para salir
     }
+    public DTOVehicle getVehicleBySpot(int spot) {
+        return parking.get(spot);
+    }
 
     public synchronized void clearParking() {
         for (int i = 0; i < parking.size(); i++) {

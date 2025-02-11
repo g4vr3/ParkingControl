@@ -1,5 +1,6 @@
 package dam.parkingcontrol.controller;
 
+import dam.parkingcontrol.model.DTOVehicle;
 import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
@@ -79,9 +80,9 @@ public class ParkingController {
     @FXML
     private Label freeSpotsLabel;
     @FXML
-    private Label lastRecordLabel;
+    private Label lastRecordLabelInfo;
     @FXML
-    private TextField lastRecordField;
+    private Label lastRecordLabel;
     @FXML
     private Label parkingToolsLabel;
     @FXML
@@ -155,7 +156,7 @@ public class ParkingController {
         btnOpenParking.setText(bundle.getString("open_parking_button_text"));
         btnCloseParking.setText(bundle.getString("close_parking_button_text"));
         parkingStatus.setText(bundle.getString("parking_closed_text"));
-        lastRecordLabel.setText(bundle.getString("last_entry_exit_record_text"));
+        lastRecordLabelInfo.setText(bundle.getString("last_entry_exit_record_text"));
         freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
         btnOpenBrandModelColorReportGeneration.setText(bundle.getString("generate_filters_report"));
         parkingToolsLabel.setText(bundle.getString("parking_tools_text"));
@@ -182,8 +183,11 @@ public class ParkingController {
     public synchronized void registerEntry(int spotId) {
         if (spotId >= 0 && spotId < parkingSpots.length) {
             System.out.println("Registrando entrada en la plaza: " + spotId); // Debug
+            DTOVehicle vehicle = parkingManager.getVehicleBySpot(spotId);
+            Platform.runLater(() -> {
+                lastRecordLabel.setText(vehicle.getLicensePlate());
+            });
             updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
-
             parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_PRIMARY) + ";");
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
@@ -199,8 +203,11 @@ public class ParkingController {
     public synchronized void registerExit(int spotId) {
         if (spotId >= 0 && spotId < parkingSpots.length) {
             System.out.println("Registrando salida en la plaza: " + spotId); // Debug
-            updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
+            DTOVehicle vehicle = parkingManager.getVehicleBySpot(spotId);
 
+            lastRecordLabel.setText(vehicle.getLicensePlate());
+
+            updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
             parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";");
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
@@ -219,6 +226,8 @@ public class ParkingController {
         Notifier.showTooltip(btnOpenParking, "parking_opened_tooltip");
         btnOpenParking.setVisible(false);
         btnCloseParking.setVisible(true);
+        lastRecordLabelInfo.setVisible(true);
+        lastRecordLabel.setVisible(true);
         parkingStatus.setText(bundle.getString("parking_opened_text"));
     }
 
