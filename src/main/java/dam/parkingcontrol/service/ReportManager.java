@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static dam.parkingcontrol.utils.Notifier.showAlert;
+
 /**
  * La clase ReportManager proporciona métodos para crear reportes sobre la aplicación.
  *
@@ -82,11 +84,26 @@ public class ReportManager {
         try {
             bundle = LanguageManager.getBundle();
             FileChooser fileChooser = new FileChooser();
+            StringBuilder mensajeBuilder = new StringBuilder();
             fileChooser.setTitle(bundle.getString("save_report_title_text"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
 
-            // Establecer el nombre de archivo por defecto
-            String defaultFileName = "brand_model_color_report_" + LocalDate.now() + ".pdf";
+            String defaultFileName = "";
+            // Establecer el nombre de archivo según parámetros introducidos
+            if (!(brand == null)) {
+                defaultFileName += brand.replace(" ", "_") + "_";
+                mensajeBuilder.append(bundle.getString("model_prompt")).append(" ").append(model);
+            }
+            if (!(model == null)) {
+                defaultFileName += model.replace(" ", "_") + "_";
+                mensajeBuilder.append("\n").append(bundle.getString("brand_prompt")).append(" ").append(brand);
+            }
+            if (!(color == null)) {
+                defaultFileName += color.replace(" ","_") + "_";
+                mensajeBuilder.append("\n").append(bundle.getString("color_prompt")).append(" ").append(color);
+            }
+            defaultFileName+= LocalDate.now() + ".pdf";
+
             fileChooser.setInitialFileName(defaultFileName);
 
             // Mostrar el diálogo de guardar archivo
@@ -104,6 +121,8 @@ public class ReportManager {
                 try (Connection conn = DatabaseConnection.connect()) {
                     JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
                     JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
+                    showAlert(Alert.AlertType.INFORMATION,bundle.getString("brand_model_color_alert_title"), bundle.getString("brand_model_color_header_text"), mensajeBuilder.toString());
+
                 }
             }
         } catch (JRException | SQLException e) {

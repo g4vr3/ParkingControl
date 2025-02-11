@@ -100,23 +100,17 @@ public class BrandModelColorReportController {
      */
     @FXML
     private void saveVehicleData() {
-        bundle = LanguageManager.getBundle();
         String model = null, brand = null, color = null;
-        StringBuilder mensajeBuilder = new StringBuilder();
         if (!tfModel.getText().isEmpty()) {
             model = tfModel.getText();
-            mensajeBuilder.append(bundle.getString("model_prompt")).append(" ").append(model);
         }
         if (!tfBrand.getText().isEmpty()) {
             brand = tfBrand.getText();
-            mensajeBuilder.append("\n").append(bundle.getString("brand_prompt")).append(" ").append(brand);
         }
         if (!tfColor.getText().isEmpty()) {
             color = tfColor.getText();
-            mensajeBuilder.append("\n").append(bundle.getString("color_prompt")).append(" ").append(color);
         }
         generateBrandModelColorReport(brand, model, color);
-        showAlert(Alert.AlertType.INFORMATION,bundle.getString("brand_model_color_alert_title"), bundle.getString("brand_model_color_header_text"), mensajeBuilder.toString());
     }
     public void goBack() {
         Stage stage = (Stage) btnBack.getScene().getWindow();
