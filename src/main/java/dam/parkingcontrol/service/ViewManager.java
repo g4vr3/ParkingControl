@@ -33,7 +33,7 @@ public class ViewManager {
      * @param showTopBar si la ventana debe tener barra superior
      * @throws IOException si ocurre un error al cargar el archivo FXML
      */
-    public static void changeView(Node node, String fxml, String title, double width, double height, boolean maximized, boolean resizable, boolean showTopBar) throws IOException {
+    public static void changeView(Node node, String fxml, String title, double width, double height, boolean maximized, boolean resizable, boolean showTopBar, boolean overlay) throws IOException {
         ResourceBundle bundle = LanguageManager.getBundle();
         FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(fxml));
         loader.setResources(bundle);
@@ -74,8 +74,10 @@ public class ViewManager {
         // Muestra la nueva ventana
         newStage.show();
 
-        // Cierra la ventana actual
-        Stage currentStage = (Stage) node.getScene().getWindow();
-        currentStage.close();
+        if (!overlay) {
+            // Cierra la ventana actual
+            Stage currentStage = (Stage) node.getScene().getWindow();
+            currentStage.close();
+        }
     }
 }

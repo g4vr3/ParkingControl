@@ -114,7 +114,7 @@ public class ParkingController {
         btnCloseParking.setOnAction(event -> closeParking());
         btnOpenBrandModelColorReportGeneration.setOnAction(event -> {
             try {
-                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", "report_view_title", 800, 600, true, true, true );
+                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", "report_view_title", 800, 600, true, true, true, true );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

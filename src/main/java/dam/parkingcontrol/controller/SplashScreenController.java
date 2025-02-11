@@ -38,7 +38,7 @@ public class SplashScreenController {
             // Muestra la vista principal
             Platform.runLater(() -> {
                 try {
-                    ViewManager.changeView(gifView, "/views/parking-view.fxml", "parking_view_title", 1200, 800, true, true, true);
+                    ViewManager.changeView(gifView, "/views/parking-view.fxml", "parking_view_title", 1200, 800, true, true, true, false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
