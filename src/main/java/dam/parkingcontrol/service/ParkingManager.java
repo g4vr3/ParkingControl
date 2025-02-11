@@ -16,7 +16,7 @@ import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
 /**
  * La clase ParkingManager proporciona métodos para gestionar el parking.
  *
- * @version 1.2
+ * @version 1.2.1
  */
 public class ParkingManager {
     private int totalSpots = 20; // Número total de plazas
@@ -52,45 +52,32 @@ public class ParkingManager {
      */
     public synchronized int parkVehicle() {
         if (freeSpots > 0) {
-            int randomVehicleIndex;
-            int parkingSpot;
-            DTOVehicle vehicle;
-            do {
-                randomVehicleIndex = random.nextInt(vehicles.size());
-                vehicle = vehicles.get(randomVehicleIndex);
-            } while (vehicle.isParked());
+            DTOVehicle vehicle = findRandomAvailableVehicle();
+            int parkingSpot = findFreeSpot();
 
-            do {
-                parkingSpot = random.nextInt(parking.size());
-            } while (!searchParkingSpot(parkingSpot));
-
-            parking.put(parkingSpot, vehicle);
-            vehicle.setParked(true);
-            freeSpots--;
-            try {
-                DAOEntryExitRecord.registerEntry(new DTOEntryExitRecord(vehicle.getId_vehicle(), Timestamp.valueOf(LocalDateTime.now()), null));
-                DAOVehicle.updateVehicleStatus(vehicle);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (vehicle != null && parkingSpot != -1) {
+                parking.put(parkingSpot, vehicle);
+                vehicle.setParked(true);
+                freeSpots--;
+                try {
+                    DAOEntryExitRecord.registerEntry(new DTOEntryExitRecord(vehicle.getId_vehicle(), Timestamp.valueOf(LocalDateTime.now()), null));
+                    DAOVehicle.updateVehicleStatus(vehicle);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return parkingSpot;
             }
-            return parkingSpot;
         }
         return -1; // No hay plazas libres
     }
-
 
     /**
      * Saca un coche aleatorio de su plaza de parking.
      *
      */
-    public synchronized int unParkVehicle() {
+    public synchronized void unParkVehicle(int spot) {
         if (freeSpots < totalSpots) {
-            int randomSpot;
-            do {
-                randomSpot = random.nextInt(parking.size());
-            } while (searchParkingSpot(randomSpot));
-
-            DTOVehicle vehicleToUnPark = parking.get(randomSpot);
+            DTOVehicle vehicleToUnPark = parking.get(spot);
             if (vehicleToUnPark != null && vehicleToUnPark.isParked()) {
                 vehicleToUnPark.setParked(false);
                 freeSpots++;
@@ -100,12 +87,11 @@ public class ParkingManager {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                parking.put(randomSpot, null);
+                parking.put(spot, null);
             }
-            return randomSpot;
         }
-        return -1; // No hay vehículos para salir
     }
+
     public DTOVehicle getVehicleBySpot(int spot) {
         return parking.get(spot);
     }
@@ -139,5 +125,36 @@ public class ParkingManager {
      */
     public boolean searchParkingSpot(int spot) {
         return parking.get(spot) == null; // Plaza disponible
+    }
+
+    private DTOVehicle findRandomAvailableVehicle() {
+        int randomVehicleIndex;
+        DTOVehicle vehicle;
+        do {
+            randomVehicleIndex = random.nextInt(vehicles.size());
+            vehicle = vehicles.get(randomVehicleIndex);
+        } while (vehicle.isParked());
+        return vehicle;
+    }
+
+    private int findFreeSpot() {
+        int parkingSpot;
+        do {
+            parkingSpot = random.nextInt(parking.size());
+        } while (!searchParkingSpot(parkingSpot));
+        return parkingSpot;
+    }
+
+    /**
+     * Encuentra una plaza de aparcamiento ocupada.
+     *
+     * @return el índice de la plaza ocupada o -1 si no hay ninguna.
+     */
+    public int findOccupiedSpot() {
+        int randomSpot;
+        do {
+            randomSpot = random.nextInt(parking.size());
+        } while (searchParkingSpot(randomSpot));
+        return randomSpot;
     }
 }
