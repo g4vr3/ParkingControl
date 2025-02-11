@@ -82,7 +82,7 @@
                         <Insets />
                      </VBox.margin>
                      <children>
-                            <Button fx:id="btnGenerateReport" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%generate_report_button_text" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                            <Button fx:id="btnGenerateReport" alignment="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%generate_report_button_text" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                                 <font>
                                     <Font name="Arial" size="13.0" />
                                 </font>
@@ -90,6 +90,13 @@
                               <String fx:value="primary-button" />
                               <String fx:value="button-common" />
                            </styleClass>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0">
+                                 <image>
+                                    <Image url="@../images/generate_report_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                             </Button>
                      </children>
                   </HBox>

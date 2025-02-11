@@ -105,16 +105,30 @@
                   <VBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0" HBox.hgrow="NEVER">
                   <StackPane>
                      <children>
-                             <Button fx:id="btnOpenParking" prefWidth="200.0" text="%open_parking_button_text">
+                             <Button fx:id="btnOpenParking" contentDisplay="RIGHT" defaultButton="true" prefWidth="200.0" text="%open_parking_button_text">
                            <styleClass>
                               <String fx:value="primary-button" />
                               <String fx:value="button-common" />
-                           </styleClass></Button>
-                             <Button fx:id="btnCloseParking" prefWidth="200.0" text="%close_parking_button_text">
+                           </styleClass>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0">
+                                 <image>
+                                    <Image url="@../images/open_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                             <Button fx:id="btnCloseParking" contentDisplay="RIGHT" prefWidth="200.0" text="%close_parking_button_text">
                            <styleClass>
                               <String fx:value="primary-button" />
                               <String fx:value="button-common" />
-                           </styleClass></Button>
+                           </styleClass>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0">
+                                 <image>
+                                    <Image url="@../images/closed_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                      </children>
                   </StackPane>
                       <Label fx:id="parkingStatus" styleClass="info-title-label" text="%parking_closed_text" />
@@ -122,13 +136,27 @@
                       <Label fx:id="freeSpotsLabel" text="%free_spots_label_text" />
                       <Label fx:id="lastRecordLabel" text="%last_entry_exit_record_text" />
                       <TextField fx:id="lastRecordField" editable="false" styleClass="lastExit" />
-                  <Label fx:id="parkingToolsLabel" styleClass="info-title-label" text="%parking_tools_text" />
+                  <Label fx:id="parkingToolsLabel" contentDisplay="RIGHT" styleClass="info-title-label" text="%parking_tools_text">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0">
+                           <image>
+                              <Image url="@../images/tools_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Label>
                   <Separator styleClass="separator-line" />
-                  <Button fx:id="btnOpenBrandModelColorReportGeneration" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefWidth="200.0" text="%generate_filters_report">
+                  <Button fx:id="btnOpenBrandModelColorReportGeneration" alignment="BOTTOM_CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefWidth="200.0" text="%generate_filters_report">
                      <styleClass>
                         <String fx:value="button-common" />
                         <String fx:value="secondary-button" />
                      </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0">
+                           <image>
+                              <Image url="@../images/filter_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                   </VBox>
                   <padding>
