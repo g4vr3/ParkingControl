@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Tooltip?>
 <BorderPane stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
    <center>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css">
@@ -110,6 +111,9 @@
                               <String fx:value="primary-button" />
                               <String fx:value="button-common" />
                            </styleClass>
+                                 <tooltip>
+                                     <Tooltip text="%open_parking_button_tooltip"/>
+                                 </tooltip>
                            <graphic>
                               <ImageView fitHeight="15.0" fitWidth="15.0">
                                  <image>
@@ -122,6 +126,9 @@
                               <String fx:value="primary-button" />
                               <String fx:value="button-common" />
                            </styleClass>
+                                 <tooltip>
+                                     <Tooltip text="%close_parking_button_tooltip"/>
+                                 </tooltip>
                            <graphic>
                               <ImageView fitHeight="15.0" fitWidth="15.0">
                                  <image>
@@ -150,6 +157,9 @@
                         <String fx:value="button-common" />
                         <String fx:value="secondary-button" />
                      </styleClass>
+                      <tooltip>
+                          <Tooltip text="%button_open_brand_model_color_report_generation_tooltip"/>
+                      </tooltip>
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0">
                            <image>
@@ -180,7 +190,11 @@
                   <Image url="@../images/language_icon.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="languageComboBox" />
+            <ComboBox fx:id="languageComboBox">
+                <tooltip>
+                    <Tooltip text="%language_combobox_tooltip"/>
+                </tooltip>
+            </ComboBox>
          </children>
       </HBox>
    </top>
