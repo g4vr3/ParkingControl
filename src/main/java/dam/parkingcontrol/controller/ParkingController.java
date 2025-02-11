@@ -10,6 +10,7 @@ import dam.parkingcontrol.utils.Notifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -85,6 +86,10 @@ public class ParkingController {
     private Label lastRecordLabel;
     @FXML
     private Label parkingToolsLabel;
+
+    @FXML
+    private ImageView entryIcon, exitIcon;
+
     @FXML
     private ComboBox<String> languageComboBox;
 
@@ -117,8 +122,21 @@ public class ParkingController {
                 throw new RuntimeException(e);
             }
         });
+
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
+
+        // Ocultar campos de información de última entrada/salida y no manejar el espacio que ocupan
+        btnOpenParking.setVisible(true);
+        btnCloseParking.setVisible(false);
+        lastRecordLabelInfo.setVisible(false);
+        lastRecordLabel.setVisible(false);
+        entryIcon.setVisible(false);
+        exitIcon.setVisible(false);
+        lastRecordLabelInfo.setManaged(false);
+        lastRecordLabel.setManaged(false);
+        entryIcon.setManaged(false);
+        exitIcon.setManaged(false);
 
         Platform.runLater(() -> {
             IconUtil.setAppIcon((Stage) btnOpenParking.getScene().getWindow());
@@ -184,6 +202,8 @@ public class ParkingController {
             DTOVehicle vehicle = parkingManager.getVehicleBySpot(spotId);
             Platform.runLater(() -> {
                 lastRecordLabel.setText(vehicle.getLicensePlate());
+                entryIcon.setVisible(true);
+                exitIcon.setVisible(false);
             });
             updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
             parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_PRIMARY) + ";");
@@ -205,6 +225,8 @@ public class ParkingController {
             Platform.runLater(() -> {
                 if (vehicle != null) {
                     lastRecordLabel.setText(vehicle.getLicensePlate());
+                    exitIcon.setVisible(true);
+                    entryIcon.setVisible(false);
                     updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
                     parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";");
                 } else {
@@ -228,8 +250,15 @@ public class ParkingController {
         Notifier.showTooltip(btnOpenParking, "parking_opened_tooltip");
         btnOpenParking.setVisible(false);
         btnCloseParking.setVisible(true);
+
+        // Mostrar campos de información de última entrada/salida y manejar el espacio que ocupan
         lastRecordLabelInfo.setVisible(true);
         lastRecordLabel.setVisible(true);
+        lastRecordLabelInfo.setManaged(true);
+        lastRecordLabel.setManaged(true);
+        entryIcon.setManaged(true);
+        exitIcon.setManaged(true);
+
         parkingStatus.setText(bundle.getString("parking_opened_text"));
     }
 
@@ -245,6 +274,7 @@ public class ParkingController {
         ReportManager.generateEndOfDayReport(); // Generar reporte de fin de día
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
+
         parkingStatus.setText(bundle.getString("parking_closed_text"));
 
         updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
@@ -292,8 +322,8 @@ public class ParkingController {
             }
         };
 
-        scheduler.scheduleAtFixedRate(entryTask, 0, 2 + new Random().nextInt(5), TimeUnit.SECONDS);
-        scheduler.scheduleAtFixedRate(exitTask, 20, 5 + new Random().nextInt(10), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(entryTask, 0, 2 + new Random().nextInt(4), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(exitTask, 20, 3 + new Random().nextInt(11), TimeUnit.SECONDS);
     }
 
     public void stopSimulation() {
