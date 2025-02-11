@@ -96,25 +96,23 @@ public class BrandModelColorReportController {
      */
     @FXML
     private void saveVehicleData() {
-
+        bundle = LanguageManager.getBundle();
         String model = null, brand = null, color = null;
         StringBuilder mensajeBuilder = new StringBuilder();
         if (!tfModel.getText().isEmpty()) {
             model = tfModel.getText();
-            mensajeBuilder.append("Modelo: ").append(model);
+            mensajeBuilder.append(bundle.getString("model_prompt")).append(" ").append(model);
         }
         if (!tfBrand.getText().isEmpty()) {
             brand = tfBrand.getText();
-            mensajeBuilder.append("Brand: ").append(brand);
+            mensajeBuilder.append("\n").append(bundle.getString("brand_prompt")).append(" ").append(brand);
         }
         if (!tfColor.getText().isEmpty()) {
             color = tfColor.getText();
-            mensajeBuilder.append("Color: ").append(color);
+            mensajeBuilder.append("\n").append(bundle.getString("color_prompt")).append(" ").append(color);
         }
         generateBrandModelColorReport(brand, model, color);
-        //TODO poner la ruta en el mensaje de la alerta y cambiar Bundle
-        showAlert(Alert.AlertType.INFORMATION,"brand_model_color_alert_title", "brand_model_color_header_text", "help_link_text");
+        showAlert(Alert.AlertType.INFORMATION,bundle.getString("brand_model_color_alert_title"), bundle.getString("brand_model_color_header_text"), mensajeBuilder.toString());
     }
-
 
 }

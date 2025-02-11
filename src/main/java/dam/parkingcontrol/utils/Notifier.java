@@ -27,11 +27,10 @@ public class Notifier {
      * @param contentText el texto del contenido
      */
     public static void showAlert(Alert.AlertType alertType, String title, String headerText, String contentText) {
-        ResourceBundle bundle = LanguageManager.getBundle();
         Alert alert = new Alert(alertType);
-        alert.setTitle(bundle.getString(title));
-        alert.setHeaderText(bundle.getString(headerText));
-        alert.setContentText(bundle.getString(contentText));
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
         alert.showAndWait();
     }
 

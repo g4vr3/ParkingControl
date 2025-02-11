@@ -125,6 +125,7 @@ public class LoginController {
     private void handleLogin() {
         String username = tfUsername.getText();
         String password = pfPass.getText();
+        bundle = LanguageManager.getBundle();
 
         if (validateCredentials(username, password)) {
             try {
@@ -136,14 +137,15 @@ public class LoginController {
         } else {
             failedAttempts++;
             if (failedAttempts >= 3) {
-                Notifier.showAlert(AlertType.ERROR, "error_text", "login_failed_text", "login_failed_too_many_attempts_message_text");
+                Notifier.showAlert(AlertType.ERROR, bundle.getString("error_text"), bundle.getString("login_failed_text"), bundle.getString("login_failed_too_many_attempts_message_text"));
                 Platform.exit();
 
                 // Generar un reporte de auditoría de inicio de sesión
                 // TODO: Sería interesante guardar en base de datos o fichero un contador de intentos fallidos para permitir bloqueos temporales o permanentes
                 ReportManager.generateLoginAuditReport();
+            } else {
+                Notifier.showAlert(AlertType.ERROR, bundle.getString("error_text"), bundle.getString("login_failed_text"), bundle.getString("login_failed_message_text"));
             }
-            Notifier.showAlert(AlertType.ERROR, "error_text", "login_failed_text", "login_failed_message_text");
         }
     }
 
