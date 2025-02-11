@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * Gestiona la autenticación del usuario, la selección de idioma,
  * la navegación a la vista principal y la ayuda.
  *
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 public class LoginController {
@@ -84,26 +84,8 @@ public class LoginController {
         // Obtiene el bundle gestionado por el LanguageManager
         bundle = LanguageManager.getBundle();
 
-        // Añade a la lista de idiomas los idiomas soportados
-        languageComboBox.setItems(LanguageManager.getSupportedLanguages());
-
-        // Establece por defecto el idioma del sistema si lo soporta
-        languageComboBox.setValue(LanguageManager.getLanguageNameFromCode(LanguageManager.getSystemLanguage()));
-
-        // Listener para cambios en el idioma (selección de idioma en ComboBox)
-        languageComboBox.valueProperty().addListener((_, _, newValue) -> {
-            // Carga el bundle con el nuevo idioma
-            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
-            // Actualiza el idioma de la UI
-            updateUILanguage();
-        });
-
-        // Desplegar el ComboBox cuando reciba el foco
-        languageComboBox.focusedProperty().addListener((_, _, newValue) -> {
-            if (newValue) {
-                languageComboBox.show();
-            }
-        });
+        // Configura el ComboBox selector de idioma
+        LanguageManager.setLanguageCombobox(languageComboBox, this::updateUILanguage);
 
         // Focus inicial en username field
         Platform.runLater(() -> tfUsername.requestFocus());
