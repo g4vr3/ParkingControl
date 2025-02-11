@@ -53,26 +53,8 @@ public class BrandModelColorReportController {
         // Obtiene el bundle gestionado por el LanguageManager
         bundle = LanguageManager.getBundle();
 
-        // Añade a la lista de idiomas los idiomas soportados
-        languageComboBox.setItems(LanguageManager.getSupportedLanguages());
-
-        // Establece por defecto el idioma actual (seleccionado en el login o del sistema)
-        languageComboBox.setValue(LanguageManager.getCurrentLanguage());
-
-        // Listener para cambios en el idioma (selección de idioma en ComboBox)
-        languageComboBox.valueProperty().addListener((_, _, newValue) -> {
-            // Carga el bundle con el nuevo idioma
-            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
-            // Actualiza el idioma de la UI
-            updateUILanguage();
-        });
-
-        // Desplegar el ComboBox cuando reciba el foco
-        languageComboBox.focusedProperty().addListener((_, _, newValue) -> {
-            if (newValue) {
-                languageComboBox.show();
-            }
-        });
+        // Configura el ComboBox selector de idioma
+        LanguageManager.setLanguageCombobox(languageComboBox, this::updateUILanguage);
 
         // Botón por defecto al pulsar Enter
         btnGenerateReport.setDefaultButton(true);

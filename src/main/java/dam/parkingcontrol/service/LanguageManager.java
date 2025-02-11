@@ -2,6 +2,7 @@ package dam.parkingcontrol.service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -9,7 +10,7 @@ import java.util.ResourceBundle;
 /**
  * La clase LanguageManager proporciona métodos para cambiar los idiomas.
  *
- * @version 1.1
+ * @version 1.2
  */
 public class LanguageManager {
 
@@ -112,5 +113,40 @@ public class LanguageManager {
      */
     public static String getCurrentLanguage() {
         return currentLanguage;
+    }
+
+    /**
+     * Configura el ComboBox de selección de idioma y actualiza la UI cuando se cambia el idioma.
+     *
+     * @param languageComboBox el ComboBox que permite seleccionar el idioma
+     * @param updateUILanguage una tarea que se ejecuta para actualizar la UI cuando se cambia el idioma
+     */
+    public static void setLanguageCombobox(ComboBox<String> languageComboBox, Runnable updateUILanguage) {
+        // Añade a la lista de idiomas los idiomas soportados
+        languageComboBox.setItems(LanguageManager.getSupportedLanguages());
+
+        // Verificar si ya se ha seleccionado un idioma previamente
+        if (LanguageManager.getCurrentLanguage() != null) {
+            // Establece por defecto el idioma actual (que previamente fue seleccionado)
+            languageComboBox.setValue(LanguageManager.getCurrentLanguage());
+        } else {
+            // Establece por defecto el idioma del sistema
+            languageComboBox.setValue(LanguageManager.getLanguageNameFromCode(LanguageManager.getSystemLanguage()));
+        }
+
+        // Listener para cambios en el idioma (selección de idioma en ComboBox)
+        languageComboBox.valueProperty().addListener((_, _, newValue) -> {
+            // Carga el bundle con el nuevo idioma
+            LanguageManager.loadLanguage(LanguageManager.getLanguageCodeFromName(newValue));
+            // Ejecuta la actualización de la UI en la vista correspondiente
+            updateUILanguage.run();
+        });
+
+        // Desplegar el ComboBox cuando reciba el foco
+        languageComboBox.focusedProperty().addListener((_, _, newValue) -> {
+            if (newValue) {
+                languageComboBox.show();
+            }
+        });
     }
 }
