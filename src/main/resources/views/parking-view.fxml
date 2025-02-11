@@ -145,7 +145,7 @@
                             <Label fx:id="lastRecordLabelInfo" text="%last_entry_exit_record_text" />
                         <HBox spacing="10.0">
                            <children>
-                              <Label fx:id="lastRecordLabel" prefWidth="150.0" styleClass="lastExit" />
+                              <Label fx:id="lastRecordLabel" prefWidth="170.0" styleClass="lastExit" />
                               <StackPane>
                                  <children>
                                     <ImageView fx:id="entryIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

@@ -222,7 +222,7 @@
     -fx-border-radius: 2px; /* Bordes redondeados */
     -fx-border-width: 1px; /* Borde delgado */
     -fx-border-color: #333333; /* Borde oscuro */
-    -fx-max-width: 150px; /* Ajusta el ancho de la matrícula (puedes cambiarlo según el tamaño que desees) */
+    -fx-max-width: 170px; /* Ajusta el ancho de la matrícula (puedes cambiarlo según el tamaño que desees) */
     -fx-max-height: 35px; /* Altura de la matrícula */
     -fx-font-weight: 600; /* Texto en negrita */
     -fx-font-size: 1.6em; /* Ajuste del tamaño de la fuente para que sea legible */
