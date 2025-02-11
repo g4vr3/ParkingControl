@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Tooltip?>
 <BorderPane maxWidth="600.0" styleClass="border-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.BrandModelColorReportController">
     <top>
         <HBox alignment="CENTER" maxWidth="600.0" BorderPane.alignment="CENTER">
@@ -27,6 +28,9 @@
                     </image>
                 </ImageView>
                 <ComboBox fx:id="languageComboBox">
+                    <tooltip>
+                        <Tooltip text="%language_combobox_tooltip"/>
+                    </tooltip>
                <HBox.margin>
                   <Insets />
                </HBox.margin></ComboBox>
@@ -51,6 +55,9 @@
                      <children>
                         <Label fx:id="brandLabel" styleClass="label-for-field" text="%brand_label" />
                             <TextField fx:id="tfBrand" promptText="%brand_prompt" styleClass="text-field">
+                                <tooltip>
+                                    <Tooltip text="%brand_tooltip"/>
+                                </tooltip>
                                 <font>
                                     <Font size="13.0" />
                                 </font>
@@ -61,6 +68,9 @@
                      <children>
                         <Label fx:id="modelLabel" text="%model_label" />
                             <TextField fx:id="tfModel" promptText="%model_prompt" styleClass="text-field">
+                                <tooltip>
+                                    <Tooltip text="%model_tooltip"/>
+                                </tooltip>
                                 <font>
                                     <Font size="13.0" />
                                 </font>
@@ -71,6 +81,9 @@
                      <children>
                         <Label fx:id="colorLabel" text="%color_label" />
                             <TextField fx:id="tfColor" promptText="%color_prompt" styleClass="text-field">
+                                <tooltip>
+                                    <Tooltip text="%color_tooltip"/>
+                                </tooltip>
                                 <font>
                                     <Font size="13.0" />
                                 </font>
@@ -86,6 +99,9 @@
                                 <font>
                                     <Font name="Arial" size="13.0" />
                                 </font>
+                                <tooltip>
+                                    <Tooltip text="%generate_report_button_tooltip"/>
+                                </tooltip>
                            <styleClass>
                               <String fx:value="primary-button" />
                               <String fx:value="button-common" />
@@ -106,6 +122,9 @@
                   </padding>
               </VBox>
              <Button fx:id="btnBack" mnemonicParsing="false" text="%back_button_text">
+                 <tooltip>
+                     <Tooltip text="%back_button_tooltip"/>
+                 </tooltip>
                  <graphic>
                      <ImageView fitHeight="15.0" fitWidth="15.0">
                          <image>
