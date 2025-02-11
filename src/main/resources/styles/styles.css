@@ -211,9 +211,27 @@
     -fx-padding: 10px 0 0 0;
 }
 
-.text-field.lastExit {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 3);
+.label.lastExit {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 3); /* Sombra de texto para simular profundidad */
+    -fx-background-image: url("../images/license_plate.png"); /* Imagen de fondo (si es necesario) */
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left; /* Centra la imagen en el contenedor */
+    -fx-background-size: contain;  /* Ajusta la imagen dentro del espacio */
+    -fx-background-color: #ffffff; /* Fondo blanco para la matrícula */
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px; /* Bordes redondeados */
+    -fx-border-width: 1px; /* Borde delgado */
+    -fx-border-color: #333333; /* Borde oscuro */
+    -fx-max-width: 150px; /* Ajusta el ancho de la matrícula (puedes cambiarlo según el tamaño que desees) */
+    -fx-max-height: 35px; /* Altura de la matrícula */
+    -fx-font-weight: bold; /* Texto en negrita */
+    -fx-font-size: 1.6em; /* Ajuste del tamaño de la fuente para que sea legible */
+    -fx-font-family: "Arial", sans-serif; /* Fuente común para simular texto de matrícula */
+    -fx-alignment: center; /* Centra el texto dentro de la etiqueta */
+    -fx-text-fill: #333333; /* Color oscuro para el texto, como en las matrículas */
+    -fx-padding: 5px 10px; /* Espaciado dentro de la etiqueta */
 }
+
 
 .parkingPane {
     -fx-background-color: #d5d5d5;

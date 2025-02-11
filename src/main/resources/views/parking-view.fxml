@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -142,7 +141,7 @@
                   <Separator styleClass="separator-line" />
                       <Label fx:id="freeSpotsLabel" text="%free_spots_label_text" />
                       <Label fx:id="lastRecordLabel" text="%last_entry_exit_record_text" />
-                      <TextField fx:id="lastRecordField" editable="false" styleClass="lastExit" />
+                  <Label fx:id="lastRegisterLabel" styleClass="lastExit" />
                   <Label fx:id="parkingToolsLabel" contentDisplay="RIGHT" styleClass="info-title-label" text="%parking_tools_text">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0">
