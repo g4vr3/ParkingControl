@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.4.1
+ * @version 1.4.2
  */
 public class ParkingController {
 
@@ -120,8 +120,6 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
-
-
         Platform.runLater(() -> {
             IconUtil.setAppIcon((Stage) btnOpenParking.getScene().getWindow());
             btnCloseParking.getScene().getWindow().setOnCloseRequest(event -> {
@@ -199,16 +197,20 @@ public class ParkingController {
      *
      * @param spotId Número de la plaza a liberar.
      */
-    // Simular la salida de un vehículo y liberar la plaza
     public synchronized void registerExit(int spotId) {
         if (spotId >= 0 && spotId < parkingSpots.length) {
             System.out.println("Registrando salida en la plaza: " + spotId); // Debug
             DTOVehicle vehicle = parkingManager.getVehicleBySpot(spotId);
 
-            lastRecordLabel.setText(vehicle.getLicensePlate());
-
-            updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
-            parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";");
+            Platform.runLater(() -> {
+                if (vehicle != null) {
+                    lastRecordLabel.setText(vehicle.getLicensePlate());
+                    updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
+                    parkingSpots[spotId].setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";");
+                } else {
+                    System.out.println("La plaza ya está vacía: " + spotId); // Debug
+                }
+            });
         } else {
             System.out.println("Índice de plaza inválido: " + spotId); // Debug
         }
@@ -264,11 +266,11 @@ public class ParkingController {
      */
     // Simular un coche saliendo del parking
     public void simulateRandomExit() {
-        int spot = parkingManager.unParkVehicle();
+        int spot = parkingManager.findOccupiedSpot();
         if (spot != -1) {
             registerExit(spot);
+            parkingManager.unParkVehicle(spot);
         }
-
     }
 
     /**
@@ -290,8 +292,8 @@ public class ParkingController {
             }
         };
 
-        scheduler.scheduleAtFixedRate(entryTask, 0, 10 + new Random().nextInt(4), TimeUnit.SECONDS);
-        scheduler.scheduleAtFixedRate(exitTask, 20, 10 + new Random().nextInt(11), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(entryTask, 0, 2 + new Random().nextInt(5), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(exitTask, 20, 5 + new Random().nextInt(10), TimeUnit.SECONDS);
     }
 
     public void stopSimulation() {
