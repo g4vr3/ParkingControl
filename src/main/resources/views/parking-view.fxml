@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,10 +19,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Tooltip?>
 <BorderPane stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dam.parkingcontrol.controller.ParkingController">
    <center>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" stylesheets="@../styles/styles.css" BorderPane.alignment="CENTER">
           <children>
               <ImageView fitHeight="67.2" fitWidth="376.0">
                   <image>
@@ -112,7 +112,7 @@
                               <String fx:value="button-common" />
                            </styleClass>
                                  <tooltip>
-                                     <Tooltip text="%open_parking_button_tooltip"/>
+                                     <Tooltip text="%open_parking_button_tooltip" />
                                  </tooltip>
                            <graphic>
                               <ImageView fitHeight="15.0" fitWidth="15.0">
@@ -127,7 +127,7 @@
                               <String fx:value="button-common" />
                            </styleClass>
                                  <tooltip>
-                                     <Tooltip text="%close_parking_button_tooltip"/>
+                                     <Tooltip text="%close_parking_button_tooltip" />
                                  </tooltip>
                            <graphic>
                               <ImageView fitHeight="15.0" fitWidth="15.0">
@@ -158,7 +158,7 @@
                         <String fx:value="secondary-button" />
                      </styleClass>
                       <tooltip>
-                          <Tooltip text="%button_open_brand_model_color_report_generation_tooltip"/>
+                          <Tooltip text="%button_open_brand_model_color_report_generation_tooltip" />
                       </tooltip>
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0">
@@ -177,9 +177,6 @@
                   </VBox.margin>
               </HBox>
           </children>
-          <padding>
-              <Insets left="60.0" right="60.0" />
-          </padding>
       </VBox>
    </center>
    <top>
@@ -192,7 +189,7 @@
             </ImageView>
             <ComboBox fx:id="languageComboBox">
                 <tooltip>
-                    <Tooltip text="%language_combobox_tooltip"/>
+                    <Tooltip text="%language_combobox_tooltip" />
                 </tooltip>
             </ComboBox>
          </children>
