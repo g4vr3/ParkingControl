@@ -4,6 +4,7 @@ import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ParkingManager;
 import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.service.ViewManager;
+import dam.parkingcontrol.utils.IconUtil;
 import dam.parkingcontrol.utils.Notifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Random;
@@ -120,9 +122,15 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
-        Platform.runLater(() -> btnOpenParking.getScene().getWindow().setOnCloseRequest(event -> {
-            stopSimulation();
-        })); // Detener la simulación al cerrar la ventana);
+        IconUtil.setAppIcon((Stage) btnOpenParking.getScene().getWindow());
+
+        Platform.runLater(() -> {
+            btnCloseParking.getScene().getWindow().setOnCloseRequest(event -> {
+                if (openedParking) {
+                    closeParking();
+                }
+            });
+        }); // Detener la simulación al cerrar la ventana);
 
         updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
     }

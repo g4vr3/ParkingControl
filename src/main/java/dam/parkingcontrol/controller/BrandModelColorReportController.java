@@ -1,9 +1,11 @@
 package dam.parkingcontrol.controller;
 
 import dam.parkingcontrol.service.LanguageManager;
+import dam.parkingcontrol.utils.IconUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 

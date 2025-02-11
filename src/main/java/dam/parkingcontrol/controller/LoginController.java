@@ -3,6 +3,7 @@ package dam.parkingcontrol.controller;
 import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.service.ViewManager;
+import dam.parkingcontrol.utils.IconUtil;
 import dam.parkingcontrol.utils.Notifier;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -74,6 +75,7 @@ public class LoginController {
                 e.printStackTrace();
             }
         });
+        IconUtil.setAppIcon((Stage) loginButton.getScene().getWindow());
     }
 
     /**
