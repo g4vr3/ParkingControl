@@ -7,6 +7,6 @@ import java.util.Objects;
 
 public class IconUtil {
     public static void setAppIcon(Stage stage) {
-        stage.getIcons().add(new Image(Objects.requireNonNull(IconUtil.class.getResourceAsStream("images/icon.png"))));
+        stage.getIcons().add(new Image(Objects.requireNonNull(IconUtil.class.getResourceAsStream("/images/icon.png"))));
     }
 }
