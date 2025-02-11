@@ -43,6 +43,8 @@ public class BrandModelColorReportController {
     private void initialize() {
         setUI();
         btnGenerateReport.setOnAction(_ -> saveVehicleData());
+        btnBack.setOnAction(_ -> goBack());
+        IconUtil.setAppIcon((Stage) btnGenerateReport.getScene().getWindow());
     }
 
     /**
@@ -115,6 +117,11 @@ public class BrandModelColorReportController {
         //TODO poner la ruta en el mensaje de la alerta y cambiar Bundle
         showAlert(Alert.AlertType.INFORMATION,"brand_model_color_alert_title", "brand_model_color_header_text", "help_link_text");
     }
+    public void goBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
+    }
+
 
 
 }
