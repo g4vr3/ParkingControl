@@ -92,11 +92,11 @@ public class ReportManager {
             // Establecer el nombre de archivo según parámetros introducidos
             if (!(brand == null)) {
                 defaultFileName += brand.replace(" ", "_") + "_";
-                mensajeBuilder.append(bundle.getString("model_prompt")).append(" ").append(model);
+                mensajeBuilder.append(bundle.getString("brand_prompt")).append(" ").append(brand);
             }
             if (!(model == null)) {
                 defaultFileName += model.replace(" ", "_") + "_";
-                mensajeBuilder.append("\n").append(bundle.getString("brand_prompt")).append(" ").append(brand);
+                mensajeBuilder.append("\n").append(bundle.getString("model_prompt")).append(" ").append(model);
             }
             if (!(color == null)) {
                 defaultFileName += color.replace(" ","_") + "_";
