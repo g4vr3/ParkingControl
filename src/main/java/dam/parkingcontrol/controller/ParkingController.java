@@ -8,10 +8,7 @@ import dam.parkingcontrol.utils.IconUtil;
 import dam.parkingcontrol.utils.Notifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -161,6 +158,9 @@ public class ParkingController {
         freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
         btnOpenBrandModelColorReportGeneration.setText(bundle.getString("generate_filters_report"));
         parkingToolsLabel.setText(bundle.getString("parking_tools_text"));
+        btnOpenParking.setTooltip(new Tooltip(bundle.getString("open_parking_button_tooltip")));
+        languageComboBox.setTooltip(new Tooltip(bundle.getString("language_combobox_tooltip")));
+        btnOpenBrandModelColorReportGeneration.setTooltip(new Tooltip(bundle.getString("button_open_brand_model_color_report_generation_tooltip")));
         updateFreeSpotsLabel();
     }
 

@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
  */
 public class ReportManager {
 
+    private static ResourceBundle bundle;
     private static final String GENERATED_REPORTS_DIR = "src/main/resources/generated-reports/";
 
     static {
@@ -41,8 +42,7 @@ public class ReportManager {
      */
     public static void generateEndOfDayReport() {
         try {
-            ResourceBundle bundle = LanguageManager.getBundle();
-
+            bundle = LanguageManager.getBundle();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle(bundle.getString("save_report_title_text"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
@@ -61,11 +61,12 @@ public class ReportManager {
                 try (Connection conn = DatabaseConnection.connect()) {
                     JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), conn);
                     JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
-                    Notifier.showAlert(Alert.AlertType.INFORMATION, "generated_report_success_title", "generated_report_success_header", "generated_report_success_content");
+                    Notifier.showAlert(Alert.AlertType.INFORMATION, bundle.getString("generated_report_success_title"), bundle.getString("generated_report_success_header"), bundle.getString("generated_report_success_content"));
                 }
             }
         } catch (JRException | SQLException e) {
-            Notifier.showAlert(Alert.AlertType.ERROR, "error_title", "generating_report_error_header", "generating_report_error_content");
+            bundle = LanguageManager.getBundle();
+            Notifier.showAlert(Alert.AlertType.ERROR, bundle.getString("error_title"), bundle.getString("generating_report_error_header"), bundle.getString("generating_report_error_content"));
             e.printStackTrace();
         }
     }
@@ -79,8 +80,7 @@ public class ReportManager {
      */
     public static void generateBrandModelColorReport(String brand, String model, String color) {
         try {
-            ResourceBundle bundle = LanguageManager.getBundle();
-
+            bundle = LanguageManager.getBundle();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle(bundle.getString("save_report_title_text"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
@@ -107,7 +107,8 @@ public class ReportManager {
                 }
             }
         } catch (JRException | SQLException e) {
-            Notifier.showAlert(Alert.AlertType.ERROR, "error_title", "generating_report_error_header", "generating_report_error_content");
+            bundle = LanguageManager.getBundle();
+            Notifier.showAlert(Alert.AlertType.ERROR, bundle.getString("error_title"), bundle.getString("generating_report_error_header"), bundle.getString("generating_report_error_content"));
             e.printStackTrace();
         }
     }
