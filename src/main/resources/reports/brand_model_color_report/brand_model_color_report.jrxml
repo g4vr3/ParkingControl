@@ -90,9 +90,9 @@ ORDER BY e.entry_time ASC]]></query>
 	<variable name="color1" calculation="Count" class="java.lang.Integer">
 		<expression><![CDATA[$F{color}]]></expression>
 	</variable>
-	<title height="81" splitType="Stretch">
-		<element kind="staticText" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8" x="360" y="0" width="195" height="25" fontSize="19.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
-			<text><![CDATA[Reporte personalizado]]></text>
+	<title height="171" splitType="Stretch">
+		<element kind="staticText" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8" x="303" y="0" width="251" height="25" fontSize="19.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<text><![CDATA[Informe con filtros]]></text>
 			<box rightPadding="4"/>
 		</element>
 		<element kind="textField" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979" x="305" y="25" width="250" height="20" fontSize="15.0" pattern="EEEE',' dd 'de' MMMM 'de' yyyy" bold="true" hTextAlign="Right" vTextAlign="Middle">
@@ -115,9 +115,18 @@ ORDER BY e.entry_time ASC]]></query>
 		<element kind="staticText" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e" x="95" y="40" width="205" height="15">
 			<text><![CDATA[Getafe, 28901]]></text>
 		</element>
-		<element kind="line" uuid="ce594b9b-dd94-4460-a88b-61a2b2b910e0" x="0" y="80" width="556" height="1">
+		<element kind="line" uuid="ce594b9b-dd94-4460-a88b-61a2b2b910e0" x="-1" y="170" width="556" height="1">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="f387c101-f3b3-466c-a5af-52e8da6a6bd8" x="0" y="80" width="554" height="20" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["Este informe ha sido generado utilizando los siguientes filtros:\n"]]></expression>
+		</element>
+		<element kind="textField" uuid="3e3dd6c2-91f2-43fc-95f2-42d2b047f42c" x="0" y="100" width="553" height="70" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Bottom">
+			<expression><![CDATA[($P{Brand} != null ? "Marca del vehículo: " + $P{Brand} + "\n" : "") +
+($P{Model} != null ? "Modelo del vehículo: " + $P{Model} + "\n" : "") +
+($P{Color} != null ? "Color del vehículo: " + $P{Color} + "\n" : "")
+]]></expression>
 		</element>
 	</title>
 	<columnHeader height="40">
@@ -181,8 +190,11 @@ ORDER BY e.entry_time ASC]]></query>
 		</band>
 	</detail>
 	<pageFooter height="30">
-		<element kind="textField" uuid="8e9a7c77-f90b-4f66-84f0-d786d97d7624" x="0" y="0" width="556" height="30" evaluationTime="Page" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
-			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></expression>
+		<element kind="textField" uuid="1d4cdb27-db24-4ad2-8f14-b243147a7130" x="0" y="0" width="280" height="30" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="2d0ef6f5-ce70-430e-93da-f8c980eb8d06" x="280" y="0" width="274" height="30" evaluationTime="Report" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
 </jasperReport>
