@@ -46,7 +46,7 @@ public class BrandModelColorReportController {
         setUI();
         btnGenerateReport.setOnAction(_ -> saveVehicleData());
         btnBack.setOnAction(_ -> goBack());
-        IconUtil.setAppIcon((Stage) btnGenerateReport.getScene().getWindow());
+        Platform.runLater(() -> IconUtil.setAppIcon((Stage) btnGenerateReport.getScene().getWindow()));
     }
 
     /**

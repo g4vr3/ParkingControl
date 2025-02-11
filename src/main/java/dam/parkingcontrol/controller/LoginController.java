@@ -75,7 +75,8 @@ public class LoginController {
                 e.printStackTrace();
             }
         });
-        IconUtil.setAppIcon((Stage) loginButton.getScene().getWindow());
+        Platform.runLater(() -> IconUtil.setAppIcon((Stage) loginButton.getScene().getWindow()));
+
     }
 
     /**

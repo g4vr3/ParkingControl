@@ -119,9 +119,10 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
-        IconUtil.setAppIcon((Stage) btnOpenParking.getScene().getWindow());
+
 
         Platform.runLater(() -> {
+            IconUtil.setAppIcon((Stage) btnOpenParking.getScene().getWindow());
             btnCloseParking.getScene().getWindow().setOnCloseRequest(event -> {
                 if (openedParking) {
                     closeParking();
