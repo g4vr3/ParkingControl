@@ -133,7 +133,7 @@ public class LoginController {
         pfPass.setTooltip(new Tooltip(bundle.getString("password_tooltip")));
         loginButton.setTooltip(new Tooltip(bundle.getString("login_button_tooltip")));
         helpLink.setTooltip(new Tooltip(bundle.getString("help_link_tooltip")));
-        languageComboBox.setTooltip(new Tooltip(bundle.getString("language_tooltip")));
+        languageComboBox.setTooltip(new Tooltip(bundle.getString("language_combobox_tooltip")));
     }
 
     /**

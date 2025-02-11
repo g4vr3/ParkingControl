@@ -120,9 +120,9 @@ public class ParkingController {
         btnOpenParking.setVisible(true);
         btnCloseParking.setVisible(false);
 
-        btnCloseParking.getScene().getWindow().setOnCloseRequest(event -> {
+        Platform.runLater(() -> btnOpenParking.getScene().getWindow().setOnCloseRequest(event -> {
             stopSimulation();
-        }); // Detener la simulación al cerrar la ventana
+        })); // Detener la simulación al cerrar la ventana);
 
         updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
     }
