@@ -63,7 +63,7 @@ public class App extends Application {
     public static void main(String[] args) {
         // Inicializar la base de datos
         DatabaseInitializer.createTables();
-        DatabaseInitializer.insertSampleVehicles(20);
+        DatabaseInitializer.insertSampleVehicles(40);
         // Lanzar la aplicación
         launch(args);
     }
