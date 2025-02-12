@@ -41,6 +41,8 @@ public class DatabaseConnection {
         System.out.println("Ruta de la base de datos: " + dbPath);
     }
 
+    public static final String pathJasper = dbPath.replace("parking.db","");
+
     /**
      * Obtiene la URL de la base de datos.
      *
