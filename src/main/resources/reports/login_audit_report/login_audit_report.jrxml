@@ -35,6 +35,7 @@
 	<parameter name="MAC" class="java.lang.String"/>
 	<parameter name="Location" class="java.lang.String"/>
 	<parameter name="Timestamp" class="java.sql.Timestamp"/>
+	<parameter name="logoPath" class="java.awt.Image"/>
 	<query language="sql"><![CDATA[]]></query>
 	<title height="130" splitType="Stretch">
 		<element kind="staticText" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8" x="300" y="0" width="255" height="25" fontSize="19.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
@@ -42,7 +43,7 @@
 			<box rightPadding="4"/>
 		</element>
 		<element kind="image" uuid="94883631-a913-43e2-b182-ab8d77d0181e" x="0" y="0" width="80" height="80" hImageAlign="Center" vImageAlign="Middle">
-			<expression><![CDATA["parkingLogo.png"]]></expression>
+			<expression><![CDATA[$P{logoPath}]]></expression>
 		</element>
 		<element kind="staticText" uuid="e622555d-198b-4ccd-a4a1-c59c53304058" x="95" y="0" width="210" height="25" fontSize="19.0" bold="true" vTextAlign="Middle">
 			<text><![CDATA[ArrulloPark]]></text>
