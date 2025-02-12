@@ -31,6 +31,7 @@ public class ViewManager {
      * @param maximized  si la ventana debe estar maximizada
      * @param resizable  si la ventana debe ser redimensionable
      * @param showTopBar si la ventana debe tener barra superior
+     * @param overlay    the overlay
      * @throws IOException si ocurre un error al cargar el archivo FXML
      */
     public static void changeView(Node node, String fxml, String title, double width, double height, boolean maximized, boolean resizable, boolean showTopBar, boolean overlay) throws IOException {

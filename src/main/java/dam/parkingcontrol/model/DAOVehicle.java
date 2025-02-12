@@ -98,8 +98,11 @@ public class DAOVehicle {
             return rowsAffected > 0; // Si se eliminó al menos una fila
         }
     }
+
     /**
      * Retorna todos los vehículos registrados en la base de datos.
+     *
+     * @return the all vehicles
      */
     public static ArrayList<DTOVehicle> getAllVehicles() {
         ArrayList<DTOVehicle> vehicles = new ArrayList<>();

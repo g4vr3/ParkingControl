@@ -1,6 +1,5 @@
 package dam.parkingcontrol;
 
-import dam.parkingcontrol.database.DatabaseConnection;
 import dam.parkingcontrol.database.DatabaseInitializer;
 import dam.parkingcontrol.service.LanguageManager;
 import javafx.application.Application;
@@ -56,6 +55,11 @@ public class App extends Application {
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         // Inicializar la base de datos
         DatabaseInitializer.createTables();

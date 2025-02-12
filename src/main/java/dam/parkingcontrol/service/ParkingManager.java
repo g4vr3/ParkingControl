@@ -7,7 +7,6 @@ import dam.parkingcontrol.model.DTOVehicle;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -21,10 +20,22 @@ import static dam.parkingcontrol.model.DAOVehicle.getAllVehicles;
 public class ParkingManager {
     private int totalSpots = 20; // Número total de plazas
     private int freeSpots = totalSpots; // Inicialmente todas las plazas están libres
+    /**
+     * The Parking.
+     */
     Map<Integer, DTOVehicle> parking;
+    /**
+     * The Random.
+     */
     Random random;
+    /**
+     * The Vehicles.
+     */
     ArrayList<DTOVehicle> vehicles;
 
+    /**
+     * Instantiates a new Parking manager.
+     */
     public ParkingManager() {
         parking = new HashMap<>();
         random = new Random();
@@ -42,6 +53,12 @@ public class ParkingManager {
             parking.put(i, null);
         }
     }
+
+    /**
+     * Gets free spots count.
+     *
+     * @return the free spots count
+     */
     public synchronized int getFreeSpotsCount() {
         return freeSpots;
     }
@@ -49,6 +66,7 @@ public class ParkingManager {
     /**
      * Encuentra una plaza de aparcamiento disponible y estaciona un vehículo aleatoriamente.
      *
+     * @return the int
      */
     public synchronized int parkVehicle() {
         if (freeSpots > 0) {
@@ -74,6 +92,7 @@ public class ParkingManager {
     /**
      * Saca un coche aleatorio de su plaza de parking.
      *
+     * @param spot the spot
      */
     public synchronized void unParkVehicle(int spot) {
         if (freeSpots < totalSpots) {
@@ -92,10 +111,19 @@ public class ParkingManager {
         }
     }
 
+    /**
+     * Gets vehicle by spot.
+     *
+     * @param spot the spot
+     * @return the vehicle by spot
+     */
     public DTOVehicle getVehicleBySpot(int spot) {
         return parking.get(spot);
     }
 
+    /**
+     * Clear parking.
+     */
     public synchronized void clearParking() {
         for (int i = 0; i < parking.size(); i++) {
             DTOVehicle vehicle = parking.get(i);

@@ -66,6 +66,7 @@ public class DatabaseInitializer {
 
     /**
      * Inserta vehículos de muestra en la base de datos.
+     *
      * @param count el número de vehículos a insertar
      */
     public static void insertSampleVehicles(int count) {

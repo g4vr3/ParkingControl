@@ -30,7 +30,6 @@ import java.util.ResourceBundle;
  *
  * @version 1.0.2
  */
-
 public class LoginController {
 
     @FXML

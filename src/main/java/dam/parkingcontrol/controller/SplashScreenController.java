@@ -13,6 +13,11 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+/**
+ * La clase SplashScreenController gestiona la pantalla de carga de la aplicación.
+ *
+ * @version 1.0
+ */
 public class SplashScreenController {
 
     @FXML
@@ -21,6 +26,9 @@ public class SplashScreenController {
     @FXML
     private ProgressBar progressBar;
 
+    /**
+     * Inicializa la pantalla de de carga.
+     */
     @FXML
     public void initialize() {
         // Configura la duración de la pantalla de presentación

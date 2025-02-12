@@ -95,14 +95,15 @@ public class ParkingController {
     @FXML
     private ComboBox<String> languageComboBox;
 
-    ResourceBundle bundle;
+    private ResourceBundle bundle;
 
     private final Color COLOR_DEFAULT = Color.web("#60605B");
     private final Color COLOR_PRIMARY = Color.web("#EE5593");
     private ScheduledExecutorService scheduler;
     private boolean openedParking;
     private Button[] parkingSpots;
-    ParkingManager parkingManager = new ParkingManager();
+
+    private ParkingManager parkingManager = new ParkingManager();
 
     /**
      * Inicializa el controlador, asociando todas las plazas de aparcamiento a un array.
@@ -119,7 +120,7 @@ public class ParkingController {
         btnCloseParking.setOnAction(event -> closeParking());
         btnOpenBrandModelColorReportGeneration.setOnAction(event -> {
             try {
-                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", "report_view_title", 800, 600, true, true, true, true );
+                ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", "report_view_title", 800, 600, true, true, true, true);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -183,10 +184,10 @@ public class ParkingController {
     }
 
     /**
-     *Registra el evento de teclado en la escena.
+     * Registra el evento de teclado en la escena.
      */
     private void registerKeyEvents() {
-        btnOpenParking.getScene().setOnKeyPressed(event -> handleKeyPress(event));
+        btnOpenParking.getScene().setOnKeyPressed(this::handleKeyPress);
     }
 
     private void updateUILanguage() {
@@ -217,7 +218,7 @@ public class ParkingController {
      *
      * @param spotId Número de la plaza.
      */
-    // Simular la entrada de un vehículo y ocupar una plaza
+// Simular la entrada de un vehículo y ocupar una plaza
     public synchronized void registerEntry(int spotId) {
         if (spotId >= 0 && spotId < parkingSpots.length) {
             System.out.println("Registrando entrada en la plaza: " + spotId); // Debug
@@ -263,7 +264,7 @@ public class ParkingController {
     /**
      * Abre el estacionamiento inicializando todas las plazas como disponibles.
      */
-    // Abrir el parking (inicia vacío)
+// Abrir el parking (inicia vacío)
     public void openParking() {
         for (Button spot : parkingSpots) {
             spot.setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Todas las plazas vacías
@@ -287,7 +288,7 @@ public class ParkingController {
     /**
      * Cierra el estacionamiento, vaciando todas las plazas. Genera un informe de fin de día.
      */
-    // Cerrar el parking (vacía todas las plazas) y generar reporte diario
+// Cerrar el parking (vacía todas las plazas) y generar reporte diario
     public void closeParking() {
         for (Button spot : parkingSpots) {
             spot.setStyle("-fx-background-color: " + toRgbString(COLOR_DEFAULT) + ";"); // Vaciar todas las plazas
@@ -305,7 +306,7 @@ public class ParkingController {
     /**
      * Simula la entrada de un vehículo a la primera plaza libre.
      */
-    // Simular un coche entrando al parking
+// Simular un coche entrando al parking
     public void simulateRandomEntry() {
         int spot = parkingManager.parkVehicle();
         if (spot != -1) {
@@ -316,7 +317,7 @@ public class ParkingController {
     /**
      * Simula la salida de un vehículo.
      */
-    // Simular un coche saliendo del parking
+// Simular un coche saliendo del parking
     public void simulateRandomExit() {
         int spot = parkingManager.findOccupiedSpot();
         if (spot != -1) {
@@ -348,6 +349,9 @@ public class ParkingController {
         scheduler.scheduleAtFixedRate(exitTask, 20, 7 + new Random().nextInt(10), TimeUnit.SECONDS);
     }
 
+    /**
+     * Finaliza la simulación automática de entradas y salidas de vehículos.
+     */
     public void stopSimulation() {
         openedParking = false;
         if (scheduler != null && !scheduler.isShutdown()) {

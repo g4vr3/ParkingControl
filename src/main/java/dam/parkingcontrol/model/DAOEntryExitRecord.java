@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class DAOEntryExitRecord {
     // Constante para almacenar la URL de la base de datos
     private static final String DB_URL = DatabaseConnection.getDbUrl();
+
     /**
      * Registra una entrada de vehículo en la base de datos.
      *
@@ -43,6 +44,7 @@ public class DAOEntryExitRecord {
             return false;
         }
     }
+
     /**
      * Registra una salida de vehículo en la base de datos.
      *
@@ -64,6 +66,7 @@ public class DAOEntryExitRecord {
             return rowsAffected > 0;
         }
     }
+
     /**
      * Actualiza todos los registros de salida en la tabla Entry_Exit_Records que aún no tienen una fecha de salida.
      *

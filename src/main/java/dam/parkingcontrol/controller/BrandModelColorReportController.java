@@ -10,8 +10,14 @@ import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
 import static dam.parkingcontrol.service.ReportManager.generateBrandModelColorReport;
-import static dam.parkingcontrol.utils.Notifier.showAlert;
 
+/**
+ * Controlador para la generación de informes con filtros.
+ * Permite al usuario introducir los datos de marca, modelo y color para crear filtros en el informe.
+ * Genera un informe con los datos de los vehículos que coincidan con los filtros.
+ *
+ * @version 1.0.2
+ */
 public class BrandModelColorReportController {
 
     @FXML
@@ -112,6 +118,10 @@ public class BrandModelColorReportController {
         }
         generateBrandModelColorReport(brand, model, color);
     }
+
+    /**
+     * Go back.
+     */
     public void goBack() {
         Stage stage = (Stage) btnBack.getScene().getWindow();
         stage.close();

@@ -18,12 +18,12 @@ public class DTOVehicle {
     /**
      * Constructor con atributos de la clase DTOVehicle.
      *
-     * @param vehicle_id el ID del vehículo
-     * @param license_plate la matrícula del vehículo
-     * @param model el modelo del vehículo
-     * @param brand la marca del vehículo
-     * @param colour el color del vehículo
-     * @param is_parked indica si el vehículo está aparcado
+     * @param vehicle_id        el ID del vehículo
+     * @param license_plate     la matrícula del vehículo
+     * @param model             el modelo del vehículo
+     * @param brand             la marca del vehículo
+     * @param colour            el color del vehículo
+     * @param is_parked         indica si el vehículo está aparcado
      * @param registration_date la fecha de registro del vehículo
      */
     public DTOVehicle(int vehicle_id, String license_plate, String model, String brand, String colour, boolean is_parked, Timestamp registration_date) {
