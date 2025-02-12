@@ -32,16 +32,11 @@ import static dam.parkingcontrol.utils.Notifier.showAlert;
 /**
  * La clase ReportManager proporciona métodos para crear reportes sobre la aplicación.
  *
- * @version 1.1
+ * @version 1.1.1
  */
 public class ReportManager {
 
     private static ResourceBundle bundle;
-    private static final String GENERATED_REPORTS_DIR = "src/main/resources/generated-reports/";
-
-    static {
-        mkdir(GENERATED_REPORTS_DIR);
-    }
 
     /**
      * Genera un reporte de fin de día y lo guarda en formato PDF en la ruta elegida por el usuario.
@@ -161,8 +156,6 @@ public class ReportManager {
      */
     public static void generateLoginAuditReport() {
         try {
-            String reportDir = pathJasper;
-            mkdir(reportDir);
 
             InputStream reportStream = ReportManager.class.getResourceAsStream("/reports/login_audit_report/login_audit_report.jasper");
             if (reportStream == null) {
@@ -170,7 +163,7 @@ public class ReportManager {
             }
 
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-            String outputPath = reportDir + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
+            String outputPath = pathJasper + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
 
             // Obtener la imagen del logo
             Image logoImage = getLogoImage();
@@ -192,22 +185,6 @@ public class ReportManager {
             e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Crea un directorio si no existe.
-     *
-     * @param dirPath la ruta del directorio a crear
-     */
-    private static void mkdir(String dirPath) {
-        try {
-            Path path = Paths.get(dirPath);
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-            }
-        } catch (IOException e) {
-            System.err.println("Error al crear el directorio: " + e.getMessage());
         }
     }
 
