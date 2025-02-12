@@ -11,6 +11,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -145,6 +147,7 @@ public class ParkingController {
                     closeParking();
                 }
             });
+            registerKeyEvents();
         }); // Detener la simulación al cerrar la ventana);
 
         updateFreeSpotsLabel(); // Actualizar el Label de plazas libres
@@ -165,6 +168,25 @@ public class ParkingController {
 
         // Focus inicial en el campo de estado del parking (evitando el focus en el ComboBox)
         Platform.runLater(() -> parkingStatus.requestFocus());
+    }
+
+    /**
+     * Maneja los eventos de teclas presionadas.
+     * Se asignan Ctrl+A para abrir el estacionamiento y Ctrl+C para cerrarlo.
+     */
+    private void handleKeyPress(KeyEvent event) {
+        if (event.isControlDown() && event.getCode() == KeyCode.O) {
+            openParking();  // Abre el estacionamiento cuando se presiona Ctrl+A
+        } else if (event.isControlDown() && event.getCode() == KeyCode.C) {
+            closeParking();  // Cierra el estacionamiento cuando se presiona Ctrl+C
+        }
+    }
+
+    /**
+     *Registra el evento de teclado en la escena.
+     */
+    private void registerKeyEvents() {
+        btnOpenParking.getScene().setOnKeyPressed(event -> handleKeyPress(event));
     }
 
     private void updateUILanguage() {
