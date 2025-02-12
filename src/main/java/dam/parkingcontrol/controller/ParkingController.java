@@ -322,8 +322,8 @@ public class ParkingController {
             }
         };
 
-        scheduler.scheduleAtFixedRate(entryTask, 0, 2 + new Random().nextInt(4), TimeUnit.SECONDS);
-        scheduler.scheduleAtFixedRate(exitTask, 20, 3 + new Random().nextInt(11), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(entryTask, 0, 3 + new Random().nextInt(6), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(exitTask, 20, 7 + new Random().nextInt(10), TimeUnit.SECONDS);
     }
 
     public void stopSimulation() {
