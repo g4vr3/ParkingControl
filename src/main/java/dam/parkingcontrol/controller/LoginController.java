@@ -1,5 +1,6 @@
 package dam.parkingcontrol.controller;
 
+import dam.parkingcontrol.service.HelpWebService;
 import dam.parkingcontrol.service.LanguageManager;
 import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.service.ViewManager;
@@ -28,7 +29,7 @@ import java.util.ResourceBundle;
  * Gestiona la autenticación del usuario, la selección de idioma,
  * la navegación a la vista principal y la ayuda.
  *
- * @version 1.0.2
+ * @version 1.1
  */
 public class LoginController {
 
@@ -68,14 +69,9 @@ public class LoginController {
 
         // Acción del hyperlink
         helpLink.setOnAction(_ -> {
-            try {
-                openWebPage(Objects.requireNonNull(getClass().getResource("/help-web/index.html")).toURI());
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            HelpWebService.openWebPage("https://g4vr3.github.io/arrullo-park/");
         });
         Platform.runLater(() -> IconUtil.setAppIcon((Stage) loginButton.getScene().getWindow()));
-
     }
 
     /**
@@ -161,19 +157,6 @@ public class LoginController {
     // Validar credenciales de usuario
     private boolean validateCredentials(String username, String password) {
         return (("admin".equals(username) || "admin@arrullopark.com".equals(username)) && "admin123".equals(password));
-    }
-
-    /**
-     * Abre la página web en el navegador predeterminado del sistema.
-     *
-     * @param uri URI de la página web a abrir.
-     */
-    private void openWebPage(URI uri) {
-        try {
-            Desktop.getDesktop().browse(uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
