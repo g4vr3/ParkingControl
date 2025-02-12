@@ -173,11 +173,11 @@ public class ParkingController {
 
     /**
      * Maneja los eventos de teclas presionadas.
-     * Se asignan Ctrl+A para abrir el estacionamiento y Ctrl+C para cerrarlo.
+m     * Se asignan Ctrl+O para abrir el estacionamiento y Ctrl+C para cerrarlo.
      */
     private void handleKeyPress(KeyEvent event) {
         if (event.isControlDown() && event.getCode() == KeyCode.O) {
-            openParking();  // Abre el estacionamiento cuando se presiona Ctrl+A
+            openParking();  // Abre el estacionamiento cuando se presiona Ctrl+O
         } else if (event.isControlDown() && event.getCode() == KeyCode.C) {
             closeParking();  // Cierra el estacionamiento cuando se presiona Ctrl+C
         }
