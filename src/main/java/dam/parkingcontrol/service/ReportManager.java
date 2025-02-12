@@ -8,8 +8,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,10 +62,21 @@ public class ReportManager {
 
             if (file != null) {
                 String filePath = file.getAbsolutePath();
-                String reportPath = "src/main/resources/reports/end_day_report/end_day_report.jasper";
+                InputStream reportStream = ReportManager.class.getResourceAsStream("/reports/end_day_report/end_day_report.jasper");
+
+                if (reportStream == null) {
+                    throw new IOException("No se encontró el archivo de reporte en el classpath");
+                }
+
+                // Cargar la imagen usando getResourceAsStream
+                Image logoImage = getLogoImage();
+
+                Map<String, Object> parameters = new HashMap<>();
+                // Pasar la imagen al parámetro del reporte
+                parameters.put("logoPath", logoImage);
 
                 try (Connection conn = DatabaseConnection.connect()) {
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<>(), conn);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, conn);
                     JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
                     Notifier.showAlert(Alert.AlertType.INFORMATION, bundle.getString("generated_report_success_title"), bundle.getString("generated_report_success_header"), bundle.getString("generated_report_success_content"));
                 }
@@ -71,6 +85,8 @@ public class ReportManager {
             bundle = LanguageManager.getBundle();
             Notifier.showAlert(Alert.AlertType.ERROR, bundle.getString("error_title"), bundle.getString("generating_report_error_header"), bundle.getString("generating_report_error_content"));
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -100,10 +116,10 @@ public class ReportManager {
                 mensajeBuilder.append("\n").append(bundle.getString("model_prompt")).append(" ").append(model);
             }
             if (!(color == null)) {
-                defaultFileName += color.replace(" ","_") + "_";
+                defaultFileName += color.replace(" ", "_") + "_";
                 mensajeBuilder.append("\n").append(bundle.getString("color_prompt")).append(" ").append(color);
             }
-            defaultFileName+= LocalDate.now() + ".pdf";
+            defaultFileName += LocalDate.now() + ".pdf";
 
             fileChooser.setInitialFileName(defaultFileName);
 
@@ -112,17 +128,22 @@ public class ReportManager {
 
             if (file != null) {
                 String filePath = file.getAbsolutePath();
-                String reportPath = "src/main/resources/reports/brand_model_color_report/brand_model_color_report.jasper";
+                InputStream reportStream = ReportManager.class.getResourceAsStream("/reports/brand_model_color_report/brand_model_color_report.jasper");
+
+                // Cargar la imagen usando getResourceAsStream
+                Image logoImage = getLogoImage();
 
                 Map<String, Object> parameters = new HashMap<>();
+                // Pasar la imagen al parámetro del reporte
+                parameters.put("logoPath", logoImage);
                 parameters.put("Brand", brand);
                 parameters.put("Model", model);
                 parameters.put("Color", color);
 
                 try (Connection conn = DatabaseConnection.connect()) {
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, conn);
                     JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
-                    showAlert(Alert.AlertType.INFORMATION,bundle.getString("brand_model_color_alert_title"), bundle.getString("brand_model_color_header_text"), mensajeBuilder.toString());
+                    showAlert(Alert.AlertType.INFORMATION, bundle.getString("brand_model_color_alert_title"), bundle.getString("brand_model_color_header_text"), mensajeBuilder.toString());
 
                 }
             }
@@ -130,6 +151,8 @@ public class ReportManager {
             bundle = LanguageManager.getBundle();
             Notifier.showAlert(Alert.AlertType.ERROR, bundle.getString("error_title"), bundle.getString("generating_report_error_header"), bundle.getString("generating_report_error_content"));
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -141,23 +164,34 @@ public class ReportManager {
             String reportDir = pathJasper;
             mkdir(reportDir);
 
-            String reportPath = "src/main/resources/reports/login_audit_report/login_audit_report.jasper";
+            InputStream reportStream = ReportManager.class.getResourceAsStream("/reports/login_audit_report/login_audit_report.jasper");
+            if (reportStream == null) {
+                throw new IOException("No se encontró el archivo de reporte en el classpath");
+            }
+
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
             String outputPath = reportDir + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
 
+            // Obtener la imagen del logo
+            Image logoImage = getLogoImage();
+
             Map<String, Object> parameters = new HashMap<>();
+            parameters.put("logoPath", logoImage);
             parameters.put("IP", UserInfo.getUserIP());
             parameters.put("OS", UserInfo.getOperatingSystem());
             parameters.put("HostName", UserInfo.getHostName());
             parameters.put("MAC", UserInfo.getMacAddress());
             parameters.put("Location", UserInfo.getUserLocation());
             parameters.put("Timestamp", Timestamp.valueOf(LocalDateTime.now()));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, new JREmptyDataSource());
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, new JREmptyDataSource());
             JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
             System.out.println("Reporte de auditoría generado: " + outputPath);
         } catch (JRException e) {
             System.err.println("Error al generar el reporte de auditoría de login: " + e.getMessage());
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -175,5 +209,16 @@ public class ReportManager {
         } catch (IOException e) {
             System.err.println("Error al crear el directorio: " + e.getMessage());
         }
+    }
+
+    private static Image getLogoImage() throws IOException {
+        // Cargar la imagen usando getResourceAsStream
+        InputStream inputStream = ReportManager.class.getResourceAsStream("/images/parkingLogo.png");
+        if (inputStream == null) {
+            throw new IOException("No se encontró el archivo de imagen en el classpath");
+        }
+
+        // Usar ImageIO para leer la imagen directamente como un java.awt.Image
+        return ImageIO.read(inputStream);
     }
 }
