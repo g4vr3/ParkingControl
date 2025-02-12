@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static dam.parkingcontrol.database.DatabaseConnection.pathJasper;
 import static dam.parkingcontrol.utils.Notifier.showAlert;
 
 /**
@@ -137,12 +138,12 @@ public class ReportManager {
      */
     public static void generateLoginAuditReport() {
         try {
-            String reportDir = "src/main/resources/reports/login_audit_report/";
+            String reportDir = pathJasper;
             mkdir(reportDir);
 
-            String reportPath = reportDir + "login_audit_report.jasper";
+            String reportPath = "src/main/resources/reports/login_audit_report/login_audit_report.jasper";
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-            String outputPath = GENERATED_REPORTS_DIR + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
+            String outputPath = reportDir + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("IP", UserInfo.getUserIP());
@@ -151,7 +152,6 @@ public class ReportManager {
             parameters.put("MAC", UserInfo.getMacAddress());
             parameters.put("Location", UserInfo.getUserLocation());
             parameters.put("Timestamp", Timestamp.valueOf(LocalDateTime.now()));
-
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, new JREmptyDataSource());
             JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
             System.out.println("Reporte de auditoría generado: " + outputPath);
