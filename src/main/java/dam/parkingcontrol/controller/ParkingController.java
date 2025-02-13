@@ -203,10 +203,14 @@ m     * Se asignan Ctrl+O para abrir el estacionamiento y Ctrl+C para cerrarlo.
         freeSpotsLabel.setText(bundle.getString("free_spots_label_text") + ": " + parkingManager.getFreeSpotsCount());
         btnOpenBrandModelColorReportGeneration.setText(bundle.getString("generate_filters_report"));
         parkingToolsLabel.setText(bundle.getString("parking_tools_text"));
+        helpLink.setText(bundle.getString("help_link_text"));
+
         btnOpenParking.setTooltip(new Tooltip(bundle.getString("open_parking_button_tooltip")));
         btnCloseParking.setTooltip(new Tooltip(bundle.getString("close_parking_button_tooltip")));
         languageComboBox.setTooltip(new Tooltip(bundle.getString("language_combobox_tooltip")));
         btnOpenBrandModelColorReportGeneration.setTooltip(new Tooltip(bundle.getString("button_open_brand_model_color_report_generation_tooltip")));
+        helpLink.setTooltip(new Tooltip(bundle.getString("help_link_tooltip")));
+
         updateFreeSpotsLabel();
     }
 
