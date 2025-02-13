@@ -42,17 +42,21 @@ public class DatabaseConnection {
     }
 
     /**
-     * The constant pathJasper.
-     */
-    public static final String pathJasper = dbPath.replace("parking.db","");
-
-    /**
      * Obtiene la URL de la base de datos.
      *
      * @return la URL de la base de datos
      */
     public static String getDbUrl() {
         return "jdbc:sqlite:" + dbPath;
+    }
+
+    /**
+     * Obtiene la ruta de la base de datos.
+     *
+     * @return la ruta de la base de datos
+     */
+    public static String getDbPath() {
+        return dbPath;
     }
 
     /**

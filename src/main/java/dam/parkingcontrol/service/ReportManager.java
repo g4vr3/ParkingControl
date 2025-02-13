@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static dam.parkingcontrol.database.DatabaseConnection.pathJasper;
 import static dam.parkingcontrol.utils.Notifier.showAlert;
 
 /**
@@ -37,6 +36,7 @@ import static dam.parkingcontrol.utils.Notifier.showAlert;
 public class ReportManager {
 
     private static ResourceBundle bundle;
+    private static final String dataPath = DatabaseConnection.getDbPath().replace("parking.db", "");
 
     /**
      * Genera un reporte de fin de día y lo guarda en formato PDF en la ruta elegida por el usuario.
@@ -163,7 +163,7 @@ public class ReportManager {
             }
 
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-            String outputPath = pathJasper + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
+            String outputPath = dataPath + timestamp + "_IP-" + UserInfo.getUserIP() + "_login_audit_report.pdf";
 
             // Obtener la imagen del logo
             Image logoImage = getLogoImage();
