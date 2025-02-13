@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dam</groupId>
-    <artifactId>ParkingControl</artifactId>
+    <artifactId>ArrulloPark</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>ParkingControl</name>
 
