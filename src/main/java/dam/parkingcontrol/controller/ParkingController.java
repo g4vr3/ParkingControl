@@ -7,6 +7,7 @@ import dam.parkingcontrol.service.ReportManager;
 import dam.parkingcontrol.service.ViewManager;
 import dam.parkingcontrol.utils.IconUtil;
 import dam.parkingcontrol.utils.Notifier;
+import dam.parkingcontrol.utils.PDFUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -28,10 +29,12 @@ import java.util.concurrent.TimeUnit;
  * Se encarga de manejar la ocupación y liberación de plazas de aparcamiento,
  * así como de simular la entrada y salida de vehículos de forma automática.
  *
- * @version 1.4.2
+ * @version 1.4.3
  */
 public class ParkingController {
 
+    @FXML
+    private Hyperlink helpLink;
     @FXML
     private Button spot0;
     @FXML
@@ -118,6 +121,7 @@ public class ParkingController {
         };
         btnOpenParking.setOnAction(event -> openParking());
         btnCloseParking.setOnAction(event -> closeParking());
+        helpLink.setOnAction(event -> PDFUtils.openUserManualPdf());
         btnOpenBrandModelColorReportGeneration.setOnAction(event -> {
             try {
                 ViewManager.changeView(btnOpenBrandModelColorReportGeneration, "/views/brand_model_color_report-view.fxml", "report_view_title", 800, 600, true, true, true, true);
