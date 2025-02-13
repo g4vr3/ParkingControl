@@ -2,6 +2,7 @@ package dam.parkingcontrol;
 
 import dam.parkingcontrol.database.DatabaseInitializer;
 import dam.parkingcontrol.service.LanguageManager;
+import dam.parkingcontrol.utils.PDFUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * La clase App es el punto de entrada de la aplicación y administra la interfaz gráfica.
  *
- * @version 1.0.2
+ * @version 1.0.3
  */
 public class App extends Application {
     @Override
@@ -61,6 +62,8 @@ public class App extends Application {
      * @param args los argumentos de la línea de comandos
      */
     public static void main(String[] args) {
+        PDFUtils.copyUserManualIfNeeded();
+
         // Inicializar la base de datos
         DatabaseInitializer.createTables();
         DatabaseInitializer.insertSampleVehicles(40);
