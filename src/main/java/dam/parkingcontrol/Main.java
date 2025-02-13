@@ -1,13 +1,13 @@
 package dam.parkingcontrol;
 
 /**
- * The type Main.
+ * La clase Main es la entrada principal de la aplicación.
  */
 public class Main {
     /**
-     * The entry point of application.
+     * La entrada principal de la aplicación.
      *
-     * @param args the input arguments
+     * @param args los argumentos de la línea de comandos
      */
     public static void main(String[] args) {
         App.main(args);

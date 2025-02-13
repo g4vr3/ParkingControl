@@ -56,9 +56,9 @@ public class App extends Application {
     }
 
     /**
-     * The entry point of application.
+     * Punto de entrada de la aplicación.
      *
-     * @param args the input arguments
+     * @param args los argumentos de la línea de comandos
      */
     public static void main(String[] args) {
         // Inicializar la base de datos

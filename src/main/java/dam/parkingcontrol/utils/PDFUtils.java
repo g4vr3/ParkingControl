@@ -7,11 +7,18 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * Clase de utilidades para abrir ficheros en formato PDF.
+ * @version 1.0
+ */
 public class PDFUtils {
 
     private static final String PDF_RECURSO = "/user_manual/user_manual.pdf"; // Ruta dentro del JAR
     private static final String PDF_DESTINO = DatabaseConnection.getDbPath().replace("parking.db", "user_manual.pdf"); // Nombre del archivo copiado
 
+    /**
+     * Abre el manual de usuario en formato PDF.
+     */
     public static void openUserManualPdf() {
         File pdfFile = new File(PDF_DESTINO);
 
